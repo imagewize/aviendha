@@ -40,6 +40,17 @@ store templates.
 = 0.1.0 =
 * Initial scaffold: theme.json design system, WooCommerce templates, style variation, rose logo mark.
 
+== Third-Party Libraries ==
+
+= Lucide Icons =
+* License: ISC License
+* Source: https://lucide.dev/icons/rose
+* License URI: https://github.com/lucide-icons/lucide?tab=License-1-ov-file
+* Used in: `assets/logos/aviendha-rose-primary.svg` and `assets/logos/aviendha-rose-outline.svg`
+* Purpose: The "rose" icon is used, unmodified except for recoloring, as the theme's logo mark.
+
+The ISC License is GPL-compatible.
+
 == Copyright ==
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
