@@ -1,0 +1,40 @@
+# Repository Guidelines
+
+Aviendha is a lean FSE/block WordPress theme for WooCommerce stores (WP 6.6+, PHP 8.0+, no build
+tools — direct HTML block markup and PHP). `theme.json` is the single source of truth for colors,
+typography, spacing, and layout. Unlike Imagewize's Elayne theme, Aviendha ships **no patterns** —
+content is composed directly from blocks (core blocks or the Aludra block library).
+
+## Project Structure & Module Organization
+
+- Root is a WordPress block theme; `style.css` holds theme metadata only, `theme.json` holds global
+  styles.
+- Full templates live in `templates/`, template parts in `parts/` (header/footer only).
+- Style variations live in `styles/` (e.g. `twilight.json`).
+- Shared assets live under `assets/` (`logos/` for the rose mark, `css/` for the conditional
+  WooCommerce stylesheet).
+- Reusable PHP lives in `functions.php` — keep it there, not scattered across templates.
+- Translations live in `languages/` (text domain: `aviendha`).
+
+## Build, Test, and Development Commands
+
+- No JS build pipeline. Activate by placing the folder in `wp-content/themes/aviendha/` and
+  enabling it in WP Admin, or `wp theme activate aviendha`.
+- `composer install` then `composer run lint` / `composer run wpcs:scan` / `composer run wpcs:fix`.
+- Regenerate translations when strings change: `wp i18n make-pot . languages/aviendha.pot`.
+
+## Coding Style
+
+- Follow WordPress PHP Coding Standards (enforced via `phpcs.xml`).
+- Block markup in `templates/*.html` and `parts/*.html` is real, hand-authored block markup — not
+  pattern references. Keep attributes minimal; don't copy inline styles that theme.json presets
+  already provide.
+- Color and spacing preset slugs in `theme.json` (`base`, `contrast`, `contrast-2`, `main`,
+  `primary`, `accent`, `tertiary`, `border-light`; `small`, `medium`, `large`, etc.) are referenced
+  by Aludra's own block patterns — don't rename them without checking `aludra/patterns/*.php`.
+
+## Commit & Pull Request Guidelines
+
+- Never mention AI tools or add AI attribution trailers in commit messages or PR bodies.
+- Prefer atomic commits — one commit per file or logically-related group of files.
+- Keep commit messages short and focused on the change, not the process behind it.

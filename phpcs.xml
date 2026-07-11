@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset name="Aviendha Theme">
+    <description>Coding standards for the Aviendha theme</description>
+
+    <!-- Use WordPress standards -->
+    <rule ref="WordPress" />
+
+    <!-- Check PHP files only -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Show progress and use colors -->
+    <arg value="ps"/>
+    <arg name="colors"/>
+
+    <!-- Exclusions -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- Minimum PHP version -->
+    <config name="minimum_supported_wp_version" value="6.6"/>
+    <config name="testVersion" value="8.0-"/>
+
+    <!-- Text domain check -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="aviendha"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

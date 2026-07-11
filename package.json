@@ -1,0 +1,14 @@
+{
+	"name": "aviendha",
+	"version": "0.1.0",
+	"description": "A lean full-site-editing WooCommerce theme, composed from the Aludra block library.",
+	"keywords": [
+		"wordpress",
+		"theme",
+		"block-theme",
+		"woocommerce",
+		"e-commerce"
+	],
+	"author": "Jasper Frumau",
+	"license": "GPL-3.0-or-later"
+}
