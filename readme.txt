@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,9 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 0.2.0 =
+* Remove hardcoded Aludra block from header.html so the theme works with core blocks alone, as documented.
 
 = 0.1.0 =
 * Initial scaffold: theme.json design system, WooCommerce templates, style variation, rose logo mark.
