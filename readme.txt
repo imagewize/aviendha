@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,6 +37,10 @@ store templates.
 
 == Changelog ==
 
+= 0.3.0 =
+* Drive page/single content width and padding from theme.json's global spacing rule instead of alignwide, for consistent edge-to-edge padding.
+* Replace the Lucide rose icon with the Ionicons rose icon (via Blade Icons) as the theme's logo mark.
+
 = 0.2.0 =
 * Remove hardcoded Aludra block from header.html so the theme works with core blocks alone, as documented.
 
@@ -45,14 +49,14 @@ store templates.
 
 == Third-Party Libraries ==
 
-= Lucide Icons =
-* License: ISC License
-* Source: https://lucide.dev/icons/rose
-* License URI: https://github.com/lucide-icons/lucide?tab=License-1-ov-file
+= Ionicons (via Blade Icons) =
+* License: MIT License
+* Source: https://blade-ui-kit.com/blade-icons/ionicon-rose
+* License URI: https://github.com/driesvints/blade-icons/blob/main/LICENSE.md
 * Used in: `assets/logos/aviendha-rose-primary.svg` and `assets/logos/aviendha-rose-outline.svg`
 * Purpose: The "rose" icon is used, unmodified except for recoloring, as the theme's logo mark.
 
-The ISC License is GPL-compatible.
+The MIT License is GPL-compatible.
 
 == Copyright ==
 
