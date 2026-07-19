@@ -64,4 +64,4 @@ No JS build step is required — the theme ships no bundled JavaScript.
 
 GPL v3 or later. See `LICENSE.md`.
 
-- Logo: the [Lucide](https://lucide.dev/icons/rose) "rose" icon, used unmodified except for recoloring, under the [ISC License](https://github.com/lucide-icons/lucide?tab=License-1-ov-file) (GPL-compatible). See `readme.txt` for full attribution.
+- Logo: the [Ionicons](https://ionic.io/ionicons) "rose" icon (via [Blade Icons](https://blade-ui-kit.com/blade-icons/ionicon-rose)), used unmodified except for recoloring, under the MIT License (GPL-compatible). See `readme.txt` for full attribution.
