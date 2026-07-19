@@ -74,6 +74,14 @@
 		}
 	},
 	"styles": {
+		"spacing": {
+			"padding": {
+				"top": "0",
+				"right": "var(--wp--custom--spacing--content-padding)",
+				"bottom": "0",
+				"left": "var(--wp--custom--spacing--content-padding)"
+			}
+		},
 		"color": {
 			"background": "var(--wp--preset--color--base)",
 			"text": "var(--wp--preset--color--contrast)"
