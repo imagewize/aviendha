@@ -2,6 +2,17 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [0.3.0] - 2026-07-19
+
+### Changed
+- `templates/page.html` and `templates/single.html` no longer wrap `main` in `alignwide`. Content
+  width and horizontal padding are now driven by the global `styles.spacing.padding` rule in
+  `theme.json` (using the `content-padding` custom spacing value) applied via `post-content`'s
+  `align: full`, so page and single templates get consistent edge-to-edge padding instead of a
+  fixed wide alignment.
+- Logo mark (`assets/logos/aviendha-rose-primary.svg`, `assets/logos/aviendha-rose-outline.svg`)
+  now uses the Ionicons "rose" icon (via Blade Icons), replacing the previous Lucide rose icon.
+
 ## [0.2.0] - 2026-07-13
 
 ### Fixed
