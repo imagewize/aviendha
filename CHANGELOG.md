@@ -2,6 +2,18 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [0.4.0] - 2026-07-19
+
+### Added
+- `templates/page-with-title.html` — a custom template (selectable per-page under Page → Template)
+  identical to `page.html` but with `post-title` printed above the featured image, for standard
+  content pages that want the conventional title treatment.
+
+### Changed
+- `templates/page.html` (default) no longer prints `post-title`. Most Aviendha pages are composed
+  directly from blocks (or Aludra blocks) whose own heading already serves as the page's title, so
+  auto-printing `post-title` above that duplicated it.
+
 ## [0.3.0] - 2026-07-19
 
 ### Changed
