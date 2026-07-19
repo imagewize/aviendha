@@ -10,6 +10,9 @@ content is composed directly from blocks (core blocks or the Aludra block librar
 - Root is a WordPress block theme; `style.css` holds theme metadata only, `theme.json` holds global
   styles.
 - Full templates live in `templates/`, template parts in `parts/` (header/footer only).
+- `page.html` (default) omits `post-title` since most pages get their title from a block's own
+  heading; use `page-with-title.html` (selectable per-page under Page → Template) for pages that
+  want the conventional title treatment.
 - Style variations live in `styles/` (e.g. `twilight.json`).
 - Shared assets live under `assets/` (`logos/` for the rose mark, `css/` for the conditional
   WooCommerce stylesheet).
