@@ -26,6 +26,7 @@ Aviendha pairs with the [Aludra](https://github.com/imagewize/aludra) block libr
 
 - **Design system** — `theme.json` defines the color palette, typography, spacing, and border radii; color/spacing slugs match what Aludra's own block styles and patterns expect (`base`, `contrast`, `contrast-2`, `main`, `primary`, `accent`, `tertiary`, `border-light`).
 - **WooCommerce templates** — `templates/single-product.html` and `templates/archive-product.html` are theme-provided; cart, checkout, and category-archive templates fall back to WooCommerce's own block-theme defaults.
+- **Two page templates** — `page.html` (default) omits `post-title` since most pages get their title from a block's own heading; `page-with-title.html` (selectable per-page under Page → Template) adds the conventional title treatment.
 - **Style variations** — see `styles/` (e.g. `twilight.json`) for alternate color palettes on top of the same design system.
 - **No patterns** — block-first composition. Insert `aludra/*` blocks (or core blocks) directly into pages and templates.
 
@@ -36,7 +37,7 @@ aviendha/
 ├── style.css          # Theme header (metadata only)
 ├── theme.json          # Design system: color, typography, spacing, layout
 ├── functions.php       # Theme setup, 'menu' template part area, WooCommerce hooks
-├── templates/          # FSE templates (index, single, page, archive, search, 404, WooCommerce)
+├── templates/          # FSE templates (index, single, page, page-with-title, archive, search, 404, WooCommerce)
 ├── parts/               # header.html, footer.html
 ├── styles/              # Style variations
 ├── assets/
@@ -64,4 +65,4 @@ No JS build step is required — the theme ships no bundled JavaScript.
 
 GPL v3 or later. See `LICENSE.md`.
 
-- Logo: the [Lucide](https://lucide.dev/icons/rose) "rose" icon, used unmodified except for recoloring, under the [ISC License](https://github.com/lucide-icons/lucide?tab=License-1-ov-file) (GPL-compatible). See `readme.txt` for full attribution.
+- Logo: the [Ionicons](https://ionic.io/ionicons) "rose" icon (via [Blade Icons](https://blade-ui-kit.com/blade-icons/ionicon-rose)), used unmodified except for recoloring, under the MIT License (GPL-compatible). See `readme.txt` for full attribution.

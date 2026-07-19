@@ -50,6 +50,12 @@ Real block markup — not pattern references. Includes core templates (`index`, 
 - `single-product.html` — product gallery, title, price, add-to-cart, details, related products
 - `archive-product.html` — product grid via `woocommerce/product-collection`
 
+**`page.html` (default) omits `post-title`.** Most Aviendha pages are composed directly from blocks
+(or Aludra blocks) whose own heading already serves as the page's title — e.g. `aludra/hero-split`'s
+`<h1>`. Auto-printing `post-title` above that would duplicate it. Use **`page-with-title.html`** (a
+custom template, selectable per-page under Page → Template in the editor) for standard content pages
+that do want the conventional title treatment — it's identical to `page.html` plus `post-title`.
+
 **Deliberately not shipped:** `cart.html`, `checkout.html`, `taxonomy-product_cat.html`. WooCommerce
 ships its own block-theme default templates for these and uses them automatically when a theme
 doesn't override them. Only add theme-specific versions here once there's an actual customization
