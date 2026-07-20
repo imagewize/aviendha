@@ -17,7 +17,26 @@
 				{ "name": "Main Accent", "slug": "main-accent", "color": "#A8A29E" },
 				{ "name": "Primary Accent", "slug": "primary-accent", "color": "#3B1F28" },
 				{ "name": "Primary Dark", "slug": "primary-dark", "color": "#F43F5E" },
-				{ "name": "White", "slug": "white", "color": "#FFFFFF" }
+				{ "name": "White", "slug": "white", "color": "#FFFFFF" },
+				{ "name": "Terracotta", "slug": "terracotta", "color": "#FB923C" },
+				{ "name": "Sand Deep", "slug": "sand-deep", "color": "#3D3532" }
+			],
+			"gradients": [
+				{
+					"name": "Rose Bloom",
+					"slug": "rose-bloom",
+					"gradient": "linear-gradient(135deg, #FB7185 0%, #2B1A20 100%)"
+				},
+				{
+					"name": "Sunset",
+					"slug": "sunset",
+					"gradient": "linear-gradient(135deg, #FB923C 0%, #FB7185 100%)"
+				},
+				{
+					"name": "Sand",
+					"slug": "sand",
+					"gradient": "linear-gradient(180deg, #211C1A 0%, #2B2422 100%)"
+				}
 			]
 		}
 	},

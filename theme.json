@@ -30,13 +30,25 @@
 				{ "name": "Main Accent", "slug": "main-accent", "color": "#78716C" },
 				{ "name": "Primary Accent", "slug": "primary-accent", "color": "#FDE8EC" },
 				{ "name": "Primary Dark", "slug": "primary-dark", "color": "#7F0F2E" },
-				{ "name": "White", "slug": "white", "color": "#FFFFFF" }
+				{ "name": "White", "slug": "white", "color": "#FFFFFF" },
+				{ "name": "Terracotta", "slug": "terracotta", "color": "#C2410C" },
+				{ "name": "Sand Deep", "slug": "sand-deep", "color": "#D6C7AE" }
 			],
 			"gradients": [
 				{
 					"name": "Rose Bloom",
 					"slug": "rose-bloom",
 					"gradient": "linear-gradient(135deg, #9F1239 0%, #2B1A20 100%)"
+				},
+				{
+					"name": "Sunset",
+					"slug": "sunset",
+					"gradient": "linear-gradient(135deg, #C2410C 0%, #9F1239 100%)"
+				},
+				{
+					"name": "Sand",
+					"slug": "sand",
+					"gradient": "linear-gradient(180deg, #FAF7F2 0%, #F0E9DD 100%)"
 				}
 			]
 		},
@@ -103,7 +115,7 @@
 				},
 				":hover": {
 					"color": {
-						"text": "var(--wp--preset--color--main)"
+						"text": "var(--wp--preset--color--accent)"
 					}
 				}
 			},
