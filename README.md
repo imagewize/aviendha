@@ -24,7 +24,7 @@ Aviendha pairs with the [Aludra](https://github.com/imagewize/aludra) block libr
 
 ## Features
 
-- **Design system** — `theme.json` defines the color palette, typography, spacing, and border radii; color/spacing slugs match what Aludra's own block styles and patterns expect (`base`, `contrast`, `contrast-2`, `main`, `primary`, `accent`, `tertiary`, `border-light`).
+- **Design system** — `theme.json` defines the color palette, typography, spacing, and border radii; color/spacing slugs match what Aludra's own block styles and patterns expect (`base`, `contrast`, `secondary`, `main`, `primary`, `accent`, `tertiary`, `border-light`).
 - **WooCommerce templates** — `templates/single-product.html` and `templates/archive-product.html` are theme-provided; cart, checkout, and category-archive templates fall back to WooCommerce's own block-theme defaults.
 - **Two page templates** — `page.html` (default) omits `post-title` since most pages get their title from a block's own heading; `page-with-title.html` (selectable per-page under Page → Template) adds the conventional title treatment.
 - **Style variations** — see `styles/` (e.g. `twilight.json`) for alternate color palettes on top of the same design system.

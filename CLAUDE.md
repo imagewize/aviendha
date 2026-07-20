@@ -36,10 +36,10 @@ If Aviendha ever needs vertical-specific starting content (e.g. a "cycling" flav
 
 Single source of truth for color, typography, spacing, and border radius. Color and spacing slugs are
 chosen to match what Aludra's block styles and patterns already reference (mega-menu patterns use
-`var:preset|color|contrast`, `contrast-2`, `border-light`, and `var:preset|spacing|small` etc.) —
+`var:preset|color|contrast`, `secondary`, `border-light`, and `var:preset|spacing|small` etc.) —
 **do not rename or remove these slugs** without checking Aludra's `patterns/*.php` for references:
 
-- Colors: `base`, `tertiary`, `border-light`, `contrast`, `contrast-2`, `main`, `primary`, `accent`
+- Colors: `base`, `tertiary`, `border-light`, `contrast`, `secondary`, `main`, `primary`, `accent`
 - Spacing: `2-x-small`, `x-small`, `small`, `medium`, `large`, `x-large`
 
 ### Templates (`templates/`)
