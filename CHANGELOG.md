@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.2.0] - 2026-07-20
+
+### Changed
+- **Palette slug naming cleanup** (matches Aludra 2.18.0's contract) — `primary-dark`
+  renamed to `primary-alt` (`#7F0F2E` / Twilight `#F43F5E`, values unchanged) to match
+  the `<family>-alt` tier naming used by Ollie. `contrast-2` removed from the palette —
+  it was a byte-for-byte duplicate of `secondary`; the footer copyright now uses
+  `secondary` directly.
+
 ## [1.1.0] - 2026-07-20
 
 ### Added

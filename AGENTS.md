@@ -32,7 +32,7 @@ content is composed directly from blocks (core blocks or the Aludra block librar
 - Block markup in `templates/*.html` and `parts/*.html` is real, hand-authored block markup — not
   pattern references. Keep attributes minimal; don't copy inline styles that theme.json presets
   already provide.
-- Color and spacing preset slugs in `theme.json` (`base`, `contrast`, `contrast-2`, `main`,
+- Color and spacing preset slugs in `theme.json` (`base`, `contrast`, `secondary`, `main`,
   `primary`, `accent`, `tertiary`, `border-light`; `small`, `medium`, `large`, etc.) are referenced
   by Aludra's own block patterns — don't rename them without checking `aludra/patterns/*.php`.
 
