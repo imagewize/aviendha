@@ -25,7 +25,12 @@
 				{ "name": "Contrast 2", "slug": "contrast-2", "color": "#57534E" },
 				{ "name": "Main", "slug": "main", "color": "#2B1A20" },
 				{ "name": "Primary", "slug": "primary", "color": "#9F1239" },
-				{ "name": "Accent", "slug": "accent", "color": "#4D7C0F" }
+				{ "name": "Accent", "slug": "accent", "color": "#4D7C0F" },
+				{ "name": "Secondary", "slug": "secondary", "color": "#57534E" },
+				{ "name": "Main Accent", "slug": "main-accent", "color": "#78716C" },
+				{ "name": "Primary Accent", "slug": "primary-accent", "color": "#FDE8EC" },
+				{ "name": "Primary Dark", "slug": "primary-dark", "color": "#7F0F2E" },
+				{ "name": "White", "slug": "white", "color": "#FFFFFF" }
 			],
 			"gradients": [
 				{
@@ -126,8 +131,13 @@
 			}
 		}
 	},
+	"customTemplates": [
+		{ "name": "page-with-title", "title": "Page With Title", "postTypes": [ "page" ] },
+		{ "name": "page-dark-header", "title": "Page (Dark Header)", "postTypes": [ "page" ] }
+	],
 	"templateParts": [
 		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "header-dark", "title": "Header (Dark)", "area": "header" },
 		{ "name": "footer", "title": "Footer", "area": "footer" }
 	]
 }
