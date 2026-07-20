@@ -2,6 +2,20 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.1.0] - 2026-07-20
+
+### Added
+- Two accent palette entries: `terracotta` (`#C2410C`) as a second warm accent (used by Aludra
+  2.17.0+ for eyebrow/kicker text, with fallback to `primary` on other themes) and `sand-deep`
+  (`#D6C7AE`) for deeper sand surfaces. Twilight equivalents: `#FB923C` / `#3D3532`.
+- Two gradients alongside Rose Bloom: `Sunset` (`#C2410C → #9F1239`) and `Sand`
+  (`#FAF7F2 → #F0E9DD`, for subtle section fades). Twilight defines dark equivalents of all
+  three gradients (previously it inherited the light Rose Bloom).
+
+### Changed
+- Link hover colour switched from `main` (dark maroon) to `accent` (olive) — activates the
+  green that was defined but unused, per the Aiel palette direction.
+
 ## [1.0.0] - 2026-07-20
 
 First stable release.
