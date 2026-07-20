@@ -2,6 +2,24 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.0.0] - 2026-07-20
+
+First stable release.
+
+### Added
+- Five palette slugs that Aludra block styles and patterns reference but the theme never defined
+  (`secondary`, `main-accent`, `primary-accent`, `primary-dark`, `white`), mapped to warm values
+  (`#57534E`, `#78716C`, `#FDE8EC`, `#7F0F2E`, `#FFFFFF`). Without them, Aludra blocks fell back to
+  cool grays and blues from an older palette (gray-blue lead text, blue hover states, transparent
+  card backgrounds). `styles/twilight.json` defines dark-appropriate equivalents for the same slugs.
+- `parts/header-dark.html` — "Header (Dark)" template part: same layout as the default header but on
+  the `main` surface with `base` text and a faint translucent hairline, so pages that open with a
+  dark hero (e.g. Aludra's hero-split "Night" style) no longer show a cream band and a hard
+  border-light line above the dark section.
+- `templates/page-dark-header.html` — "Page (Dark Header)" custom template using the dark header
+  part, selectable per-page for dark-hero landing pages.
+- `customTemplates` registration in `theme.json` for `page-with-title` and `page-dark-header`.
+
 ## [0.4.0] - 2026-07-19
 
 ### Added
