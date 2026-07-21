@@ -107,11 +107,15 @@
 				}
 			],
 			"fontSizes": [
+				{ "name": "XX-Small", "slug": "xx-small", "size": "clamp(0.65rem, 0.62rem + 0.15vw, 0.7rem)" },
+				{ "name": "X-Small", "slug": "x-small", "size": "clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem)" },
 				{ "name": "Small", "slug": "small", "size": "clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem)" },
+				{ "name": "Base", "slug": "base", "size": "clamp(0.9rem, 0.85rem + 0.25vw, 1rem)" },
 				{ "name": "Medium", "slug": "medium", "size": "clamp(1rem, 0.95rem + 0.3vw, 1.125rem)" },
 				{ "name": "Large", "slug": "large", "size": "clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem)" },
 				{ "name": "X-Large", "slug": "x-large", "size": "clamp(1.75rem, 1.4rem + 1.75vw, 2.5rem)" },
-				{ "name": "XX-Large", "slug": "xx-large", "size": "clamp(2.25rem, 1.6rem + 3vw, 3.5rem)" }
+				{ "name": "XX-Large", "slug": "xx-large", "size": "clamp(2.25rem, 1.6rem + 3vw, 3.5rem)" },
+				{ "name": "Display", "slug": "display", "size": "clamp(3rem, 2rem + 5vw, 5rem)" }
 			]
 		}
 	},
@@ -130,7 +134,7 @@
 		},
 		"typography": {
 			"fontFamily": "var(--wp--preset--font-family--primary)",
-			"fontSize": "var(--wp--preset--font-size--medium)",
+			"fontSize": "var(--wp--preset--font-size--base)",
 			"lineHeight": "1.6"
 		},
 		"elements": {

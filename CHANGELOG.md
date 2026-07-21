@@ -2,6 +2,24 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.4.0] - 2026-07-21
+
+### Added
+- `xx-small`, `x-small`, `base`, and `display` font-size presets in `theme.json`,
+  rounding the scale out to 9 named tiers (`xx-small` → `display`) alongside the
+  existing `small`/`medium`/`large`/`x-large`/`xx-large`. Naming matches the
+  `xx-small`/`x-small`/`small`/`base`/`medium`/`large`/`x-large`/`xx-large`(/`display`)
+  convention already used by Ollie and Elayne, with Aviendha's own size values. Lets
+  Aludra blocks reference a named size (`var(--wp--preset--font-size--*)`) instead of
+  hardcoding clamp()/rem/px values per block. Part of the Aviendha/Aludra redesign
+  typography pass.
+
+### Changed
+- `styles.typography.fontSize` (body text default) now references the new `base` tier
+  instead of `medium`, matching the role `base` plays in Ollie's and Elayne's scales —
+  `medium` is freed up to be a genuinely larger tier rather than doing double duty as
+  the body default.
+
 ## [1.3.0] - 2026-07-21
 
 ### Added
