@@ -2,6 +2,17 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.3.0] - 2026-07-21
+
+### Added
+- `display` (Bricolage Grotesque) and `mono` (JetBrains Mono) font family slugs in
+  `theme.json`, self-hosted as single variable-font `woff2` files under
+  `assets/fonts/` (one file per family covers the full weight range used, avoiding
+  a Google Fonts render-blocking origin). `styles.elements.heading.typography.fontFamily`
+  now points at `display`; `mono` is available for blocks (Aludra) to reference
+  directly for eyebrows/labels/metrics. Part of the Aviendha/Aludra redesign — see
+  Aludra's `docs/FONT-CONTRACT.md` for the full font slug contract.
+
 ## [1.2.0] - 2026-07-20
 
 ### Changed
