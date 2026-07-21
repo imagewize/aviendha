@@ -65,6 +65,22 @@ store templates.
 
 The MIT License is GPL-compatible.
 
+= Bricolage Grotesque =
+* License: SIL Open Font License, Version 1.1
+* Source: https://fonts.google.com/specimen/Bricolage+Grotesque
+* License URI: https://scripts.sil.org/OFL
+* Used in: `assets/fonts/bricolage-grotesque-variable.woff2`
+* Purpose: Display font family (headings), self-hosted as a single variable-font file.
+
+= JetBrains Mono =
+* License: SIL Open Font License, Version 1.1
+* Source: https://fonts.google.com/specimen/JetBrains+Mono
+* License URI: https://scripts.sil.org/OFL
+* Used in: `assets/fonts/jetbrains-mono-variable.woff2`
+* Purpose: Mono font family (eyebrows/labels/metrics), self-hosted as a single variable-font file.
+
+The SIL Open Font License is GPL-compatible.
+
 == Copyright ==
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
