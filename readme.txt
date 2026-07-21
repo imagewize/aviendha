@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,13 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.5.1 =
+* Fixed: the 1.5.0 header styling was never live — `style.css`'s theme header comment was missing its closing `*/`, so every rule that release added sat inside the comment and was discarded by the parser
+* Fixed: the dark header now sits in the centered content shell — its layout attribute was nested inside the `style` object, so WordPress never applied the constrained layout and the wordmark/navigation stretched to the viewport edges
+* Fixed: sticky positioning now works — WordPress wraps a header-area template part in its own element that is exactly as tall as the header, leaving a sticky child no scroll range, so the wrapper is now sticky as well
+* Add: "Start a project" CTA button in the dark header, styled as a `mono` font pill, balancing the wordmark/navigation/button row against the redesign mockup
+* Change: drop the redundant `tagName` attribute from every header template-part invocation; the part already emits its own `<header>`
 
 = 1.5.0 =
 * Header parity: `header-dark` masthead is now sticky, its wordmark uses the `display` font family (Bricolage Grotesque, 800 weight, tightened letter-spacing), and the site logo is hidden in favor of the text wordmark. Homepage now uses the dark header instead of the light one.

@@ -2,6 +2,39 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.1] - 2026-07-21
+
+### Fixed
+- **The 1.5.0 header CSS was never live.** `style.css`'s theme header comment was
+  missing its closing `*/`, so every rule the 1.5.0 release added — sticky
+  positioning, the `display`-font wordmark, the hidden logo — sat inside that
+  comment and was discarded by the parser. The comment is now terminated
+  properly.
+- **The dark header didn't sit in the content shell.** `parts/header-dark.html`
+  nested `backgroundColor`, `textColor` and `layout` *inside* the `style` object
+  rather than beside it, so WordPress never read the constrained layout
+  attribute. The part rendered `is-layout-flow` and its `alignwide` inner group
+  got no max-width, stretching the wordmark and navigation to the viewport edges
+  instead of the centered shell the redesign mockup uses. (The colors still
+  applied only because the `has-*` classes are baked into the saved markup.)
+- **Sticky positioning never engaged.** WordPress wraps a header-area template
+  part in its own `<header class="wp-block-template-part">` whether or not
+  `tagName` is set on the `wp:template-part` invocation, and that wrapper is
+  exactly as tall as the header — leaving a `position: sticky` child no scroll
+  range to move within. The wrapper now carries the sticky rule as well, via
+  `.wp-block-template-part:has(> .aviendha-header--dark)`.
+
+### Added
+- A "Start a project" CTA button in `parts/header-dark.html`, styled with the
+  `mono` font family as a pill (`.aviendha-header__cta`). Without it the
+  `space-between` row had only two real items, pushing the navigation hard
+  against the right edge instead of reading as centered like the mockup.
+
+### Changed
+- Dropped `tagName: "header"` from every `wp:template-part` invocation of
+  `header`/`header-dark` across the templates; the part already emits its own
+  `<header>`, so the attribute produced a redundant second landmark.
+
 ## [1.5.0] - 2026-07-21
 
 ### Changed
