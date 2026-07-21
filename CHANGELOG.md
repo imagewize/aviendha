@@ -2,6 +2,19 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.0] - 2026-07-21
+
+### Changed
+- **Header parity (Step 12 of the Aviendha/Aludra redesign).** `parts/header-dark.html`'s
+  masthead is now sticky (`position: sticky; top: 0`, `z-index: 50`), and its wordmark
+  (`site-title`) renders in the `display` font family at `800` weight with tightened
+  letter-spacing (`-0.03em`), matching the redesign mockup's `.masthead`/`.wordmark`
+  treatment. `templates/home.html` now uses `header-dark` instead of the light `header`
+  part, since the mockup's masthead is always dark with no light variant — other
+  templates are unchanged for now. `style.css` also hides the site logo on the dark
+  header (text wordmark stands in for it) and mirrors the sticky/wordmark rules for the
+  same selectors.
+
 ## [1.4.0] - 2026-07-21
 
 ### Added

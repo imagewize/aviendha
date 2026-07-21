@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,9 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.5.0 =
+* Header parity: `header-dark` masthead is now sticky, its wordmark uses the `display` font family (Bricolage Grotesque, 800 weight, tightened letter-spacing), and the site logo is hidden in favor of the text wordmark. Homepage now uses the dark header instead of the light one.
 
 = 1.4.0 =
 * Add `xx-small`, `x-small`, `base`, and `display` font-size presets to `theme.json`, rounding the scale out to 9 named tiers (xx-small through display) matching the naming convention used by Ollie and Elayne, so blocks (Aludra) can reference a named size instead of hardcoding clamp()/rem/px values.
