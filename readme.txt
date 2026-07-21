@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,9 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.4.0 =
+* Add `xx-small`, `x-small`, and `display` font-size presets to `theme.json`, rounding the scale out to 8 named tiers (xx-small through display) so blocks (Aludra) can reference a named size instead of hardcoding clamp()/rem/px values.
 
 = 1.3.0 =
 * Add `display` (Bricolage Grotesque) and `mono` (JetBrains Mono) font families to `theme.json`, self-hosted as variable-font woff2 files; headings now use `display`

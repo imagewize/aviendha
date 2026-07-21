@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.4.0] - 2026-07-21
+
+### Added
+- `xx-small`, `x-small`, and `display` font-size presets in `theme.json`, rounding the
+  scale out to 8 named tiers (`xx-small` → `display`) alongside the existing
+  `small`/`medium`/`large`/`x-large`/`xx-large`. Lets Aludra blocks reference a named
+  size (`var(--wp--preset--font-size--*)`) instead of hardcoding clamp()/rem/px values
+  per block. Part of the Aviendha/Aludra redesign typography pass.
+
 ## [1.3.0] - 2026-07-21
 
 ### Added
