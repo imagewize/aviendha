@@ -15,4 +15,28 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
 Aviendha is distributed under the terms of the GNU GPL.
+
+/* Header - sticky positioning and wordmark styling */
+.aviendha-header--dark {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+}
+
+.aviendha-header--dark .wp-block-site-title a {
+	font-family: var(--wp--preset--font-family--display);
+	font-weight: 800;
+	font-size: 1.15rem;
+	letter-spacing: -0.03em;
+	text-decoration: none;
+}
+
+.aviendha-header--dark .wp-block-site-title a:hover {
+	text-decoration: none;
+}
+
+/* For the Aviendha marketing site: hide logo when using text wordmark */
+body .aviendha-header--dark .wp-block-site-logo {
+	display: none;
+}
 */
