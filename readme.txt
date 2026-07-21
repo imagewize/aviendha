@@ -38,7 +38,8 @@ store templates.
 == Changelog ==
 
 = 1.4.0 =
-* Add `xx-small`, `x-small`, and `display` font-size presets to `theme.json`, rounding the scale out to 8 named tiers (xx-small through display) so blocks (Aludra) can reference a named size instead of hardcoding clamp()/rem/px values.
+* Add `xx-small`, `x-small`, `base`, and `display` font-size presets to `theme.json`, rounding the scale out to 9 named tiers (xx-small through display) matching the naming convention used by Ollie and Elayne, so blocks (Aludra) can reference a named size instead of hardcoding clamp()/rem/px values.
+* Change body text default font-size from `medium` to `base`, matching Ollie's/Elayne's convention where `base` is the body-text tier.
 
 = 1.3.0 =
 * Add `display` (Bricolage Grotesque) and `mono` (JetBrains Mono) font families to `theme.json`, self-hosted as variable-font woff2 files; headings now use `display`
