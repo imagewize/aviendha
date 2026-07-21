@@ -15,9 +15,22 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
 Aviendha is distributed under the terms of the GNU GPL.
+*/
 
 /* Header - sticky positioning and wordmark styling */
 .aviendha-header--dark {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+}
+
+/*
+ * When the header part renders inside a wrapper element (template-part
+ * `tagName`, or the block editor's part boundary), the wrapper is only as
+ * tall as the header itself, so a sticky child has no scroll range to move
+ * within and never sticks. Make the wrapper the sticky element in that case.
+ */
+.wp-block-template-part:has(> .aviendha-header--dark) {
 	position: sticky;
 	top: 0;
 	z-index: 50;
