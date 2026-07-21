@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.5.0
+Version: 1.5.1
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -15,9 +15,22 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
 Aviendha is distributed under the terms of the GNU GPL.
+*/
 
 /* Header - sticky positioning and wordmark styling */
 .aviendha-header--dark {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+}
+
+/*
+ * When the header part renders inside a wrapper element (template-part
+ * `tagName`, or the block editor's part boundary), the wrapper is only as
+ * tall as the header itself, so a sticky child has no scroll range to move
+ * within and never sticks. Make the wrapper the sticky element in that case.
+ */
+.wp-block-template-part:has(> .aviendha-header--dark) {
 	position: sticky;
 	top: 0;
 	z-index: 50;
@@ -39,4 +52,20 @@ Aviendha is distributed under the terms of the GNU GPL.
 body .aviendha-header--dark .wp-block-site-logo {
 	display: none;
 }
-*/
+
+.aviendha-header__cta .wp-block-button__link {
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	padding: 0.5rem 0.9rem;
+	border-radius: 999px;
+	border-color: rgb(250 247 242 / 0.3);
+	transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.aviendha-header__cta .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--main);
+	border-color: var(--wp--preset--color--base);
+}
