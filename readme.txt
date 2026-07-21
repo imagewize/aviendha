@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.3.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,6 +37,9 @@ store templates.
 
 == Changelog ==
 
+= 1.3.0 =
+* Add `display` (Bricolage Grotesque) and `mono` (JetBrains Mono) font families to `theme.json`, self-hosted as variable-font woff2 files; headings now use `display`
+
 = 0.4.0 =
 * Add `page-with-title.html` custom template (selectable under Page → Template) for standard content pages that want the conventional post-title treatment.
 * `page.html` (default) no longer prints post-title, since most pages get their title from a block's own heading.
@@ -61,6 +64,22 @@ store templates.
 * Purpose: The "rose" icon is used, unmodified except for recoloring, as the theme's logo mark.
 
 The MIT License is GPL-compatible.
+
+= Bricolage Grotesque =
+* License: SIL Open Font License, Version 1.1
+* Source: https://fonts.google.com/specimen/Bricolage+Grotesque
+* License URI: https://scripts.sil.org/OFL
+* Used in: `assets/fonts/bricolage-grotesque-variable.woff2`
+* Purpose: Display font family (headings), self-hosted as a single variable-font file.
+
+= JetBrains Mono =
+* License: SIL Open Font License, Version 1.1
+* Source: https://fonts.google.com/specimen/JetBrains+Mono
+* License URI: https://scripts.sil.org/OFL
+* Used in: `assets/fonts/jetbrains-mono-variable.woff2`
+* Purpose: Mono font family (eyebrows/labels/metrics), self-hosted as a single variable-font file.
+
+The SIL Open Font License is GPL-compatible.
 
 == Copyright ==
 
