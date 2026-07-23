@@ -91,6 +91,33 @@ composer run wpcs:scan  # PHPCS against phpcs.xml (WordPress standard)
 composer run wpcs:fix   # PHPCBF auto-fix
 ```
 
+### Testing on the demo site
+
+Aviendha is exercised on the `/aviendha/` subsite of the local Trellis/Bedrock multisite at
+`~/code/imagewize.com/demo` (`http://demo.imagewize.test/aviendha/`), alongside the
+[Aludra](https://github.com/imagewize/aludra) block library the content is composed from.
+
+Both are pinned Composer dependencies there, **not** symlinks to these working copies. Do not cut
+a release to test a local change — run `bin/sync-demo.sh`, which rsyncs a dist-faithful tree
+(`--delete --delete-excluded`, mirroring `.distignore`) into
+`~/code/imagewize.com/demo/web/app/themes/aviendha`, so what you test is what ships. Aludra has
+its own copy of the script at `~/code/aludra/bin/sync-demo.sh`. A `composer update` on the demo
+site puts the released code back.
+
+Run one-off WP-CLI commands against it with:
+
+```bash
+cd ~/code/imagewize.com/trellis
+trellis vm shell --workdir /srv/www/demo.imagewize.com/current -- wp <command> --url=demo.imagewize.test/aviendha/
+```
+
+### Release packaging
+
+Publishing a GitHub release triggers `.github/workflows/create-release.yml`, which zips the theme
+with `zip -x@.distignore` and attaches it to the release. Anything that should not reach an
+installed site belongs in `.distignore` — and, so source archives match, in `.gitattributes` as
+`export-ignore`. Keep the two in step.
+
 ## Version Management
 
 When updating the theme version, update **three files** in sync:

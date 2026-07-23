@@ -25,6 +25,15 @@ content is composed directly from blocks (core blocks or the Aludra block librar
   enabling it in WP Admin, or `wp theme activate aviendha`.
 - `composer install` then `composer run lint` / `composer run wpcs:scan` / `composer run wpcs:fix`.
 - Regenerate translations when strings change: `wp i18n make-pot . languages/aviendha.pot`.
+- **Testing unreleased changes: sync, don't release.** The theme is a pinned Composer dependency
+  on the local demo site (`~/code/imagewize.com/demo`, subsite
+  `http://demo.imagewize.test/aviendha/`), not a symlink. `bin/sync-demo.sh` rsyncs this working
+  copy into `web/app/themes/aviendha` there with `--delete --delete-excluded` mirroring
+  `.distignore`, so what you test is what ships; `composer update` on that site restores the
+  released version. The Aludra plugin has its own copy of the script.
+- **Releases** are packaged by `.github/workflows/create-release.yml` (`zip -x@.distignore`) on
+  publish. Keep `.distignore` and `.gitattributes` (`export-ignore`) in step so the release zip
+  and source archives contain the same files.
 
 ## Coding Style
 
