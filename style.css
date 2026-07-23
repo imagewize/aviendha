@@ -36,6 +36,19 @@ Aviendha is distributed under the terms of the GNU GPL.
 	z-index: 50;
 }
 
+/*
+ * Core's `:where(.wp-site-blocks) > *` global style adds a 24px
+ * margin-block-start to every top-level block, including the
+ * wp-block-template-part wrapper WordPress injects around header/footer —
+ * not to the .aviendha-header--dark/.foot block inside it, so setting
+ * margin on those directly has no effect on the wrapper. Reset it for all
+ * template parts generally (same fix as Imagewize's Elayne theme uses),
+ * since no template part should carry the inter-block content gap.
+ */
+.wp-site-blocks > .wp-block-template-part {
+	margin-block-start: 0;
+}
+
 .aviendha-header--dark .wp-block-site-title a {
 	font-family: var(--wp--preset--font-family--display);
 	font-weight: 800;
