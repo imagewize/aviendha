@@ -14,7 +14,10 @@ All notable changes to Aviendha are documented in this file.
   changelog.
 - **CI checks**, matching Elayne's: `wpcs.yml` runs PHPCS against the WordPress standard on every
   pull request, and `theme-check.yml` runs the WordPress theme review action (including the
-  stricter accessibility suite) on pull requests and pushes to `main`.
+  stricter accessibility suite) on pull requests and pushes to `main`. Theme Check reviews a
+  `.distignore`-filtered copy of the tree rather than the repo root, so CI sees exactly what the
+  release zip contains — the review action copies whatever it is pointed at, and File_Check
+  rejects a theme that carries a shell script such as `bin/sync-demo.sh`.
 - **`bin/sync-demo.sh`** — pushes this working copy into the demo Bedrock site
   (`~/code/imagewize.com/demo/web/app/themes/aviendha`) so unreleased theme changes can be
   tested there without cutting a release. Rsyncs a dist-faithful tree (`--delete

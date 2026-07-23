@@ -118,7 +118,11 @@ Two checks run on GitHub, both mirroring Elayne's:
 - `wpcs.yml` — PHPCS against the WordPress standard, on every pull request. `composer run
   wpcs:scan` runs the same standard locally.
 - `theme-check.yml` — the WordPress theme review action with the stricter accessibility suite
-  enabled, on pull requests and pushes to `main`.
+  enabled, on pull requests and pushes to `main`. It reviews a `.distignore`-filtered copy of the
+  tree (`dist/aviendha`), not the repo root: the action copies whatever `root-folder` points at,
+  and Theme Check's `File_Check` rejects a theme carrying a shell script — which `bin/sync-demo.sh`
+  is. This is the one place Aviendha's CI diverges from Elayne's, which tracks no `.sh` file and so
+  can review its root directly. It also means a dev-only file added later cannot fail the check.
 
 ### Release packaging
 
