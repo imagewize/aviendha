@@ -162,6 +162,12 @@
 				},
 				"border": {
 					"radius": "var(--wp--preset--border-radius--pill)"
+				},
+				":hover": {
+					"color": {
+						"text": "var(--wp--preset--color--base)",
+						"background": "var(--wp--preset--color--primary-alt)"
+					}
 				}
 			}
 		},
