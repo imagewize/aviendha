@@ -180,6 +180,16 @@
 	"templateParts": [
 		{ "name": "header", "title": "Header", "area": "header" },
 		{ "name": "header-dark", "title": "Header (Dark)", "area": "header" },
-		{ "name": "footer", "title": "Footer", "area": "footer" }
+		{ "name": "footer", "title": "Footer", "area": "footer" },
+		{
+			"name": "simple-product-add-to-cart-with-options",
+			"title": "Simple Product Add to Cart",
+			"area": "add-to-cart-with-options"
+		},
+		{
+			"name": "variable-product-add-to-cart-with-options",
+			"title": "Variable Product Add to Cart",
+			"area": "add-to-cart-with-options"
+		}
 	]
 }

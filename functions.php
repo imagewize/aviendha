@@ -90,6 +90,21 @@ function aviendha_woocommerce_template_slugs() {
 }
 
 /**
+ * WooCommerce block template parts shipped by this theme.
+ *
+ * These override WooCommerce's own per-product-type add-to-cart layouts, which
+ * the `woocommerce/add-to-cart-with-options` block renders.
+ *
+ * @return string[] Template part slugs.
+ */
+function aviendha_woocommerce_template_part_slugs() {
+	return array(
+		'simple-product-add-to-cart-with-options',
+		'variable-product-add-to-cart-with-options',
+	);
+}
+
+/**
  * Register the WooCommerce integration hooks that apply to this site.
  *
  * The theme ships store templates but does not require WooCommerce, so which
@@ -103,6 +118,7 @@ function aviendha_woocommerce_hooks() {
 		return;
 	}
 
+	add_filter( 'default_wp_template_part_areas', __NAMESPACE__ . '\aviendha_add_to_cart_template_part_area' );
 	add_filter( 'get_block_templates', __NAMESPACE__ . '\aviendha_filter_woocommerce_templates', 10, 3 );
 	add_filter( 'get_block_file_template', __NAMESPACE__ . '\aviendha_filter_woocommerce_file_template', 10, 3 );
 }
@@ -127,16 +143,16 @@ function aviendha_filter_woocommerce_templates( $query_result, $query, $template
 			$template->content = aviendha_strip_woocommerce_blocks( $template->content );
 		}
 
-		return $query_result;
+		$store_slugs = aviendha_woocommerce_template_part_slugs();
+	} else {
+		$store_slugs = aviendha_woocommerce_template_slugs();
 	}
-
-	$store_templates = aviendha_woocommerce_template_slugs();
 
 	return array_values(
 		array_filter(
 			$query_result,
-			static function ( $template ) use ( $store_templates ) {
-				return ! in_array( $template->slug, $store_templates, true );
+			static function ( $template ) use ( $store_slugs ) {
+				return ! in_array( $template->slug, $store_slugs, true );
 			}
 		)
 	);
@@ -182,6 +198,28 @@ function aviendha_strip_woocommerce_blocks( $content ) {
 		'',
 		$content
 	);
+}
+
+/**
+ * Register the 'add-to-cart-with-options' template part area.
+ *
+ * WooCommerce registers this area itself; the theme only stands in when the
+ * plugin is inactive, so that its add-to-cart parts do not resolve to an
+ * unknown area while they are being filtered out.
+ *
+ * @param array $areas Existing template part areas.
+ * @return array Modified template part areas.
+ */
+function aviendha_add_to_cart_template_part_area( $areas ) {
+	$areas[] = array(
+		'area'        => 'add-to-cart-with-options',
+		'area_tag'    => 'div',
+		'label'       => __( 'Add to Cart + Options', 'aviendha' ),
+		'description' => __( 'Add to cart layouts for each product type.', 'aviendha' ),
+		'icon'        => 'cart',
+	);
+
+	return $areas;
 }
 
 /**
