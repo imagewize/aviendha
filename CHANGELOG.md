@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.4] - 2026-07-23
+
+### Changed
+- **Footer navigation displays as a list on mobile.** Added CSS to force the footer
+  navigation to show as a vertical list on screens under 600px, instead of the default
+  hamburger menu overlay. Hides the menu toggle and close buttons, resets the
+  responsive container to normal flow, and stacks links vertically. The shell
+  container also switches to column layout on mobile.
+
 ## [1.5.3] - 2026-07-23
 
 ### Fixed

@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.5.3
+Version: 1.5.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -182,4 +182,49 @@ body .aviendha-header--dark .wp-block-site-logo {
 
 .foot a:hover {
 	color: var(--wp--preset--color--primary);
+}
+
+/* 3.1 Mobile footer navigation list
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Force footer navigation to display as a list on mobile instead of
+ * the default hamburger menu. Hide the menu toggle button and responsive
+ * container overlay, and stack the links vertically.
+ */
+@media (max-width: 600px) {
+	.foot .wp-block-navigation__responsive-container {
+		display: block !important;
+	}
+
+	.foot .wp-block-navigation__responsive-container.is-menu-open {
+		position: relative;
+		top: auto;
+		left: auto;
+		height: auto;
+		width: auto;
+		overflow: visible;
+		background: transparent;
+		z-index: auto;
+	}
+
+	.foot .wp-block-navigation__responsive-container-placeholder {
+		display: none !important;
+	}
+
+	.foot .wp-block-navigation__responsive-container-close {
+		display: none !important;
+	}
+
+	.foot .wp-block-navigation-links {
+		flex-direction: column;
+		gap: 0.5rem;
+		width: 100%;
+	}
+
+	.foot .shell {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
 }
