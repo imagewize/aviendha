@@ -2,6 +2,28 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.6.0] - 2026-07-23
+
+### Added
+- **Release packaging.** `.github/workflows/create-release.yml` attaches a theme zip to every
+  published GitHub release, built with `zip -x@.distignore` — the same mechanism the Aludra
+  plugin uses. A new `.distignore` keeps dev-only files (Composer/npm metadata, `vendor/`,
+  `phpcs.xml`, contributor docs, tooling) out of that zip, and `.gitattributes` mirrors it with
+  `export-ignore` so source archives match. Verified: the zip is 35 files — templates, parts,
+  styles, assets, `theme.json`, `functions.php`, `style.css`, `readme.txt`, languages, licence,
+  changelog.
+- **`bin/sync-demo.sh`** — pushes this working copy into the demo Bedrock site
+  (`~/code/imagewize.com/demo/web/app/themes/aviendha`) so unreleased theme changes can be
+  tested there without cutting a release. Rsyncs a dist-faithful tree (`--delete
+  --delete-excluded`, mirroring `.distignore`), so what you test is what ships; a `composer
+  update` on the demo site restores the released version. The Aludra plugin has its own copy of
+  the script.
+
+### Fixed
+- `package.json` declared version `1.5.2` while the theme was on `1.5.4`. It now tracks the
+  theme version, though `style.css`, `readme.txt`, and `CHANGELOG.md` remain the three files
+  that matter.
+
 ## [1.5.4] - 2026-07-23
 
 ### Changed
