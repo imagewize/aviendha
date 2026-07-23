@@ -98,11 +98,22 @@ Aviendha is exercised on the `/aviendha/` subsite of the local Trellis/Bedrock m
 [Aludra](https://github.com/imagewize/aludra) block library the content is composed from.
 
 Both are pinned Composer dependencies there, **not** symlinks to these working copies. Do not cut
-a release to test a local change — run `bin/sync-demo.sh`, which rsyncs a dist-faithful tree
-(`--delete --delete-excluded`, mirroring `.distignore`) into
-`~/code/imagewize.com/demo/web/app/themes/aviendha`, so what you test is what ships. Aludra has
-its own copy of the script at `~/code/aludra/bin/sync-demo.sh`. A `composer update` on the demo
-site puts the released code back.
+a release to test a local change — sync instead, with `rsync-package-to-site.sh` from
+[wp-ops](https://github.com/imagewize/wp-ops) (`scripts/rsync-package-to-site.sh`):
+
+```bash
+SITE_ROOT=~/code/imagewize.com/demo/web/app \
+  ~/code/wp-ops/scripts/rsync-package-to-site.sh theme aviendha ~/code/aviendha
+```
+
+It rsyncs a dist-faithful tree (`--delete --delete-excluded`, honouring `.distignore`), so what
+you test is what ships; pass `plugin aludra` for the block library. A `composer update` on the
+demo site puts the released code back.
+
+The script deliberately lives in wp-ops rather than here: its paths are personal configuration,
+not theme code, and Theme Check's `File_Check` rejects a theme that ships a `.sh` file at all.
+Elayne and Nynaeve keep their copies untracked for the same reason; `bin/sync-demo.sh` is
+gitignored here if you want a local shortcut.
 
 Run one-off WP-CLI commands against it with:
 
@@ -118,11 +129,10 @@ Two checks run on GitHub, both mirroring Elayne's:
 - `wpcs.yml` — PHPCS against the WordPress standard, on every pull request. `composer run
   wpcs:scan` runs the same standard locally.
 - `theme-check.yml` — the WordPress theme review action with the stricter accessibility suite
-  enabled, on pull requests and pushes to `main`. It reviews a `.distignore`-filtered copy of the
-  tree (`dist/aviendha`), not the repo root: the action copies whatever `root-folder` points at,
-  and Theme Check's `File_Check` rejects a theme carrying a shell script — which `bin/sync-demo.sh`
-  is. This is the one place Aviendha's CI diverges from Elayne's, which tracks no `.sh` file and so
-  can review its root directly. It also means a dev-only file added later cannot fail the check.
+  enabled, on pull requests and pushes to `main`. It reviews the repo root, exactly as Elayne's
+  does. The action copies whatever `root-folder` points at, so anything tracked here is reviewed:
+  Theme Check's `File_Check` rejects a theme carrying a `.sh` file, which is why the sync script
+  lives in wp-ops and is gitignored here. Keep it that way rather than reaching for a build step.
 
 ### Release packaging
 

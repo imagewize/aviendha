@@ -19,19 +19,13 @@ jobs:
         with:
           node-version: '20'
 
-      # The action rsyncs whatever `root-folder` points at straight into its
-      # test theme, so checking the repo root would review dev-only files that
-      # never ship — Theme Check's File_Check rejects `bin/sync-demo.sh`
-      # outright ("Shell script file found. This file must not be in the
-      # production version of the theme"). Build the distributed tree first and
-      # review that, so CI sees exactly what the release zip contains. Same
-      # approach as the Aludra plugin's Plugin Check workflow.
-      - name: Create distribution directory
-        run: |
-          mkdir -p dist/aviendha
-          rsync -rc --exclude-from=".distignore" ./ dist/aviendha/ --delete --delete-excluded
-          ls -la dist/aviendha/
-
+      # The action copies the repo root straight into its test theme, so
+      # anything tracked here gets reviewed — Theme Check's File_Check rejects a
+      # theme carrying a `.sh` file outright ("Shell script file found. This
+      # file must not be in the production version of the theme"). Keep dev-only
+      # scripts out of the repo (the demo sync script lives in wp-ops) rather
+      # than adding a build step to hide them from the check.
+      #
       # accessible-ready runs the stricter a11y suite. Aviendha does not claim
       # the accessibility-ready tag in readme.txt, but Elayne runs it the same
       # way — keep both themes held to it rather than only the baseline checks.
@@ -39,6 +33,5 @@ jobs:
         id: theme-test
         uses: WordPress/theme-review-action@trunk
         with:
-          root-folder: ./dist/aviendha
           accessible-ready: true
           ui-debug: true

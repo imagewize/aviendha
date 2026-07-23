@@ -14,16 +14,20 @@ All notable changes to Aviendha are documented in this file.
   changelog.
 - **CI checks**, matching Elayne's: `wpcs.yml` runs PHPCS against the WordPress standard on every
   pull request, and `theme-check.yml` runs the WordPress theme review action (including the
-  stricter accessibility suite) on pull requests and pushes to `main`. Theme Check reviews a
-  `.distignore`-filtered copy of the tree rather than the repo root, so CI sees exactly what the
-  release zip contains — the review action copies whatever it is pointed at, and File_Check
-  rejects a theme that carries a shell script such as `bin/sync-demo.sh`.
-- **`bin/sync-demo.sh`** — pushes this working copy into the demo Bedrock site
-  (`~/code/imagewize.com/demo/web/app/themes/aviendha`) so unreleased theme changes can be
-  tested there without cutting a release. Rsyncs a dist-faithful tree (`--delete
-  --delete-excluded`, mirroring `.distignore`), so what you test is what ships; a `composer
-  update` on the demo site restores the released version. The Aludra plugin has its own copy of
-  the script.
+  stricter accessibility suite) on pull requests and pushes to `main`. The review action copies
+  the repo root, so anything tracked here is reviewed — which is exactly how the missing
+  screenshot and a stray shell script were both caught.
+
+### Changed
+- **Demo-site syncing moved to [wp-ops](https://github.com/imagewize/wp-ops)**
+  (`scripts/rsync-package-to-site.sh`) instead of a `bin/sync-demo.sh` committed here. It does the
+  same thing — rsyncs a dist-faithful tree (`--delete --delete-excluded`, honouring `.distignore`)
+  into the demo Bedrock site, so what you test is what ships — but it takes the package kind and
+  slug as arguments and reads the destination from `SITE_ROOT`, so one script serves the theme,
+  the Aludra plugin, Elayne and Nynaeve. The paths in the old copy were personal configuration
+  rather than theme code, and Theme Check's `File_Check` rejects a theme that ships a `.sh` file
+  at all, so keeping it here would have meant working around CI to hide it. It is gitignored now
+  if you want a local shortcut.
 
 ### Fixed
 - **`screenshot.png` was missing.** WordPress requires every theme to ship one, and the new

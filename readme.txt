@@ -40,7 +40,8 @@ store templates.
 = 1.6.0 =
 * Added: GitHub release workflow that attaches a theme zip to every published release, with a `.distignore` and matching `.gitattributes` keeping dev-only files out of the package
 * Added: CI checks matching Elayne's — PHPCS against the WordPress standard on every pull request, and the WordPress theme review action on pull requests and pushes to main
-* Added: `bin/sync-demo.sh`, a development helper that pushes the working copy into a local Bedrock site so unreleased changes can be tested without cutting a release (not shipped in the theme zip)
+* Fixed: `screenshot.png` was missing — WordPress requires every theme to ship one, and the new theme review check was the first thing to say so
+* Changed: demo-site syncing now uses a shared script kept outside the theme, so no development shell script ships in the repository
 * Fixed: `package.json` version drifted behind the theme version and now tracks it
 
 = 1.5.4 =
