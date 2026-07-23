@@ -2,6 +2,17 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.2] - 2026-07-23
+
+### Added
+- **Footer parity (Step 14 of the Aviendha/Aludra redesign).** `parts/footer.html` now matches
+  the redesign mockup: uses `.foot` class with constrained layout (not `alignfull`), tertiary
+  background, 2.5rem padding, and a `.shell` inner group with flex layout, gap, and
+  space-between alignment. Branding text updated to "Aviendha — WordPress & WooCommerce",
+  copyright includes year. Navigation uses `foot-nav` class and flex layout. `style.css` adds
+  corresponding `.foot`, `.foot .shell`, `.foot .wp-block-navigation-*`, and `.foot a` rules
+  for proper styling and hover states.
+
 ## [1.5.1] - 2026-07-21
 
 ### Fixed

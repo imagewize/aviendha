@@ -69,3 +69,44 @@ body .aviendha-header--dark .wp-block-site-logo {
 	color: var(--wp--preset--color--main);
 	border-color: var(--wp--preset--color--base);
 }
+
+/* Footer - match redesign mockup */
+.foot {
+	background-color: var(--wp--preset--color--tertiary);
+}
+
+.foot .shell {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.85rem;
+	color: var(--wp--preset--color--secondary);
+}
+
+.foot .wp-block-navigation {
+	margin: 0;
+	padding: 0;
+}
+
+.foot .wp-block-navigation-links {
+	display: flex;
+	gap: 1.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.foot .wp-block-navigation-link {
+	margin: 0;
+	padding: 0;
+}
+
+.foot a {
+	text-decoration: none;
+}
+
+.foot a:hover {
+	color: var(--wp--preset--color--primary);
+}
