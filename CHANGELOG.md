@@ -2,6 +2,14 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.4] - 2026-07-23
+
+### Changed
+- **Footer navigation displays as a list on mobile.** The footer navigation block now
+  sets `overlayMenu: "never"`, so core renders a plain list at every width and emits no
+  hamburger toggle or responsive overlay markup at all. CSS only handles stacking: the
+  shell and the nav links switch to a column layout under 600px.
+
 ## [1.5.3] - 2026-07-23
 
 ### Fixed

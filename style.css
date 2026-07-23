@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.5.3
+Version: 1.5.4
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -163,15 +163,13 @@ body .aviendha-header--dark .wp-block-site-logo {
 	padding: 0;
 }
 
-.foot .wp-block-navigation-links {
-	display: flex;
-	gap: 1.5rem;
+.foot .wp-block-navigation__container {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
-.foot .wp-block-navigation-link {
+.foot .wp-block-navigation-item {
 	margin: 0;
 	padding: 0;
 }
@@ -182,4 +180,39 @@ body .aviendha-header--dark .wp-block-site-logo {
 
 .foot a:hover {
 	color: var(--wp--preset--color--primary);
+}
+
+/* 3.1 Mobile footer layout
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The footer navigation never collapses into a hamburger — the block itself
+ * sets `overlayMenu: "never"` (see parts/footer.html), so core renders a plain
+ * list at every width and emits no overlay markup. All that's left to do here
+ * is stack the footer on narrow screens.
+ */
+@media (max-width: 600px) {
+	.foot .shell {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	/*
+	 * With no assigned menu the nav falls back to a page list, which core nests
+	 * as `__container > .wp-block-page-list > li` — so both levels need to
+	 * stack, not just the outer container.
+	 *
+	 * align-items is required too: core defaults `--navigation-layout-align` to
+	 * `center` for a row, and once the direction flips to column that variable
+	 * governs the horizontal axis, centering each link inside the nav's
+	 * shrink-to-fit width instead of aligning them left.
+	 */
+	.foot .wp-block-navigation__container,
+	.foot .wp-block-navigation .wp-block-page-list {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 0.5rem;
+		width: 100%;
+	}
 }
