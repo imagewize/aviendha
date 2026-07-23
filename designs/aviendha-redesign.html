@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aviendha — WordPress &amp; WooCommerce, built to be fast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   TOKENS — all colours map 1:1 to Aviendha theme.json palette slugs
+   ========================================================================== */
+:root{
+  /* colour (theme.json slugs) */
+  --base:#FAF7F2;
+  --tertiary:#F0E9DD;
+  --border-light:#E5DED2;
+  --contrast:#211C1A;
+  --main:#2B1A20;
+  --primary:#9F1239;
+  --primary-alt:#7F0F2E;
+  --primary-accent:#FDE8EC;
+  --accent:#4D7C0F;          /* defined in theme.json, previously unused */
+  --secondary:#57534E;
+  --main-accent:#78716C;
+  --terracotta:#C2410C;      /* previously unused */
+  --sand-deep:#D6C7AE;       /* previously unused */
+  --white:#FFFFFF;
+
+  /* type */
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  /* scale */
+  --pad:clamp(1.25rem,5vw,3.5rem);
+  --gutter:clamp(2rem,6vw,5.5rem);
+  --wide:1240px;
+  --rule:1px solid var(--border-light);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--base);color:var(--contrast);
+  font-family:var(--body);font-size:clamp(1rem,.96rem+.2vw,1.0625rem);
+  line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;
+  letter-spacing:-.02em;font-optical-sizing:auto}
+p{margin:0}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.shell{max-width:var(--wide);margin-inline:auto;padding-inline:var(--pad)}
+
+/* eyebrow / label — the one repeated structural device */
+.label{
+  font-family:var(--mono);font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--main-accent);
+  display:flex;align-items:baseline;gap:.6rem;
+}
+.label::before{content:"";width:1.5rem;height:1px;background:currentColor;translate:0 -.28em}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.masthead{
+  position:sticky;top:0;z-index:50;background:var(--main);color:var(--base);
+  border-bottom:1px solid rgb(250 247 242 / .1);
+}
+.masthead .shell{display:flex;align-items:center;gap:2rem;
+  min-height:66px;justify-content:space-between}
+.wordmark{font-family:var(--display);font-weight:800;font-size:1.15rem;
+  letter-spacing:-.03em;text-decoration:none}
+.wordmark span{color:var(--sand-deep)}
+.nav{display:flex;align-items:center;gap:1.75rem;
+  font-size:.9rem;list-style:none;margin:0;padding:0}
+.nav a{text-decoration:none;opacity:.78;transition:opacity .18s}
+.nav a:hover{opacity:1}
+.nav-cta{
+  font-family:var(--mono);font-size:.78rem;font-weight:600;letter-spacing:.04em;
+  text-decoration:none;padding:.5rem .9rem;border:1px solid rgb(250 247 242 / .3);
+  border-radius:999px;transition:background .18s,border-color .18s;
+}
+.nav-cta:hover{background:var(--base);color:var(--main);border-color:var(--base)}
+@media(max-width:820px){.nav{display:none}}
+
+/* ==========================================================================
+   HERO — signature element: a real load waterfall, not a browser wireframe
+   ========================================================================== */
+.hero{background:var(--main);color:var(--base);padding-block:clamp(3.5rem,8vw,6.5rem) 0;
+  position:relative;overflow:hidden}
+.hero::after{ /* soft rose bloom, kept very low contrast */
+  content:"";position:absolute;inset:auto -10% -40% 55%;height:70%;
+  background:radial-gradient(closest-side,rgb(159 18 57 / .38),transparent);
+  pointer-events:none;
+}
+.hero .shell{position:relative;z-index:1;
+  display:grid;gap:var(--gutter);grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  align-items:center}
+@media(max-width:900px){.hero .shell{grid-template-columns:1fr}}
+
+.hero .label{color:var(--sand-deep)}
+.hero h1{
+  font-size:clamp(2.6rem,1.4rem+4.6vw,4.6rem);font-weight:800;letter-spacing:-.035em;
+  margin:1.4rem 0 1.25rem;text-wrap:balance;
+}
+.hero h1 em{font-style:normal;color:var(--sand-deep);
+  display:block;font-weight:400;letter-spacing:-.03em}
+.hero .lede{max-width:34ch;color:rgb(250 247 242 / .8);font-size:1.08rem}
+
+.btn-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.btn{
+  font-family:var(--body);font-size:.95rem;font-weight:600;text-decoration:none;
+  padding:.85rem 1.5rem;border-radius:999px;border:1px solid transparent;
+  display:inline-flex;align-items:center;gap:.55rem;
+  transition:transform .18s,background .18s,border-color .18s;
+}
+.btn-solid{background:var(--primary);color:var(--white)}
+.btn-solid:hover{background:var(--primary-alt);transform:translateY(-2px)}
+.btn-ghost{border-color:rgb(250 247 242 / .32);color:var(--base)}
+.btn-ghost:hover{border-color:var(--base);transform:translateY(-2px)}
+.btn-dark{background:var(--main);color:var(--base)}
+.btn-dark:hover{background:var(--contrast);transform:translateY(-2px)}
+
+/* --- the waterfall panel --- */
+.waterfall{
+  background:var(--base);color:var(--contrast);border-radius:14px;
+  padding:1.35rem 1.4rem 1.15rem;box-shadow:0 24px 60px -20px rgb(0 0 0 / .55);
+  font-family:var(--mono);
+}
+.wf-head{display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:.85rem;border-bottom:var(--rule);font-size:.72rem;color:var(--secondary)}
+.wf-url{color:var(--contrast);font-weight:600}
+.wf-badge{color:var(--accent);font-weight:600}
+.wf-rows{margin:1rem 0 .5rem;display:grid;gap:.5rem}
+.wf-row{display:grid;grid-template-columns:5.6rem 1fr;align-items:center;gap:.7rem;
+  font-size:.68rem;color:var(--secondary)}
+.wf-track{height:9px;background:var(--tertiary);border-radius:3px;position:relative}
+.wf-bar{position:absolute;top:0;bottom:0;border-radius:3px;background:var(--sand-deep);
+  transform-origin:left;animation:grow .55s cubic-bezier(.2,.8,.3,1) both}
+.wf-bar.is-doc{background:var(--main)}
+.wf-bar.is-css{background:var(--terracotta)}
+.wf-bar.is-img{background:var(--accent)}
+@keyframes grow{from{transform:scaleX(0);opacity:.4}to{transform:scaleX(1);opacity:1}}
+
+.wf-axis{display:grid;grid-template-columns:5.6rem 1fr;gap:.7rem;
+  font-size:.62rem;color:var(--main-accent);padding-top:.55rem;border-top:var(--rule)}
+.wf-ticks{display:flex;justify-content:space-between}
+.wf-lcp{
+  position:absolute;top:-1.6rem;bottom:-1.6rem;width:1px;background:var(--primary);
+  animation:fade .4s .95s both;
+}
+.wf-lcp span{
+  position:absolute;top:-1.55rem;left:.4rem;white-space:nowrap;
+  font-size:.62rem;font-weight:600;color:var(--primary);
+}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* metric rail sitting on the seam between hero and page */
+.rail{background:var(--main);color:var(--base);padding-top:clamp(2.5rem,6vw,4rem)}
+.rail .shell{display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgb(250 247 242 / .14)}
+.rail-item{padding:1.5rem 1.25rem 1.75rem}
+.rail-item + .rail-item{border-left:1px solid rgb(250 247 242 / .14)}
+.rail-num{font-family:var(--display);font-size:clamp(1.8rem,1.2rem+2vw,2.7rem);
+  font-weight:800;letter-spacing:-.04em;line-height:1}
+.rail-num.good{color:var(--accent)}
+.rail-cap{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:rgb(250 247 242 / .6);margin-top:.5rem}
+@media(max-width:700px){
+  .rail .shell{grid-template-columns:1fr}
+  .rail-item + .rail-item{border-left:0;border-top:1px solid rgb(250 247 242 / .14)}
+}
+
+/* ==========================================================================
+   EDITORIAL SPINE — replaces the centred stack
+   ========================================================================== */
+.section{padding-block:clamp(3.5rem,8vw,6.5rem);border-bottom:var(--rule)}
+.section > .shell{display:grid;gap:var(--gutter);
+  grid-template-columns:minmax(0,15rem) minmax(0,1fr);align-items:start}
+.section-tint{background:var(--tertiary)}
+@media(max-width:860px){
+  .section > .shell{grid-template-columns:1fr;gap:2rem}
+}
+.spine{position:sticky;top:100px}
+@media(max-width:860px){.spine{position:static}}
+.spine h2{font-size:clamp(1.7rem,1.3rem+1.4vw,2.3rem);margin-top:.9rem}
+.spine p{color:var(--secondary);font-size:.95rem;margin-top:.75rem;max-width:26ch}
+
+.prose p + p{margin-top:1.15rem}
+.prose .big{font-size:clamp(1.15rem,1rem+.7vw,1.45rem);line-height:1.45;
+  font-family:var(--display);font-weight:400;letter-spacing:-.015em}
+
+/* offer list — hairline rules, not bullets */
+.offer{list-style:none;margin:2rem 0 0;padding:0;border-top:var(--rule)}
+.offer li{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:baseline;
+  padding:1rem 0;border-bottom:var(--rule)}
+.offer .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);font-weight:600}
+
+/* ==========================================================================
+   WORK — scroll-snap rail replacing the slick carousel
+   ========================================================================== */
+.work-rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(19rem,22rem);
+  gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:1.25rem;margin-inline:calc(var(--pad)*-1);padding-inline:var(--pad);
+  scrollbar-width:thin}
+.card{
+  scroll-snap-align:start;background:var(--white);border:var(--rule);border-radius:12px;
+  overflow:hidden;text-decoration:none;color:inherit;
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgb(33 28 26 / .45)}
+.chrome{display:flex;align-items:center;gap:.5rem;padding:.7rem .85rem;
+  background:var(--tertiary);border-bottom:var(--rule)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--sand-deep)}
+.chrome .url{font-family:var(--mono);font-size:.68rem;color:var(--secondary);
+  background:var(--white);border-radius:999px;padding:.25rem .7rem;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.shot{aspect-ratio:4/3;padding:1.5rem;display:flex;flex-direction:column;
+  justify-content:flex-end;gap:.6rem}
+.shot .bar{height:9px;border-radius:4px;background:rgb(33 28 26 / .14)}
+.shot .bar.w1{width:70%}.shot .bar.w2{width:45%}
+.shot .pill{align-self:flex-start;font-size:.78rem;font-weight:600;color:var(--white);
+  padding:.5rem 1rem;border-radius:999px;margin-top:.35rem}
+.card-foot{display:flex;justify-content:space-between;align-items:center;
+  padding:.95rem 1rem;border-top:var(--rule);font-size:.85rem}
+.card-foot .ms{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:600}
+
+/* per-site colourways */
+.s-spa .shot{background:#F4EAE4}   .s-spa .pill{background:#B4785A}
+.s-shop .shot{background:#EFEDE8}  .s-shop .pill{background:#1E3A5F}
+.s-studio .shot{background:#16181C}.s-studio .pill{background:#6D5DFC}
+.s-studio .bar{background:rgb(255 255 255 / .16)}
+.s-bike .shot{background:#ECF1EA}  .s-bike .pill{background:var(--terracotta)}
+.s-food .shot{background:#F6EEE1}  .s-food .pill{background:#8A4B12}
+
+/* ==========================================================================
+   SERVICES
+   ========================================================================== */
+.svc{display:grid;gap:0;border-top:var(--rule)}
+.svc-item{display:grid;grid-template-columns:auto 1fr auto;gap:1.25rem;
+  align-items:start;padding:1.6rem 0;border-bottom:var(--rule)}
+.svc-ico{width:34px;height:34px;color:var(--primary);flex:none}
+.svc-item h3{font-size:1.1rem;font-weight:600;letter-spacing:-.01em}
+.svc-item p{color:var(--secondary);font-size:.95rem;margin-top:.35rem;max-width:52ch}
+.svc-idx{font-family:var(--mono);font-size:.7rem;color:var(--main-accent)}
+@media(max-width:560px){.svc-item{grid-template-columns:auto 1fr}.svc-idx{display:none}}
+
+/* ==========================================================================
+   PRICING — one spec sheet, not three floating cards
+   ========================================================================== */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);border:var(--rule);
+  border-radius:14px;overflow:hidden;background:var(--white)}
+.plan{padding:1.75rem 1.5rem 1.9rem}
+.plan + .plan{border-left:var(--rule)}
+.plan.is-featured{background:var(--primary-accent);position:relative}
+.plan.is-featured::before{content:"";position:absolute;inset:0 0 auto;height:3px;
+  background:var(--primary)}
+.plan h3{font-size:1.15rem;display:flex;align-items:center;gap:.6rem}
+.tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;font-weight:600;
+  color:var(--white);background:var(--primary);padding:.25rem .5rem;border-radius:4px}
+.plan .who{font-size:.88rem;color:var(--secondary);margin-top:.4rem}
+.price{font-family:var(--display);font-size:2.6rem;font-weight:800;letter-spacing:-.045em;
+  margin-top:1.1rem;line-height:1}
+.price small{font-family:var(--mono);font-size:.7rem;font-weight:400;letter-spacing:.06em;
+  color:var(--secondary);margin-left:.4rem}
+.plan ul{list-style:none;margin:1.4rem 0 1.75rem;padding:0;font-size:.9rem}
+.plan li{display:flex;gap:.6rem;padding:.55rem 0;border-bottom:1px dotted var(--border-light)}
+.plan li svg{width:15px;height:15px;flex:none;color:var(--accent);translate:0 .25em}
+.plan .btn{width:100%;justify-content:center;font-size:.9rem;padding:.75rem 1rem}
+@media(max-width:820px){
+  .plans{grid-template-columns:1fr}
+  .plan + .plan{border-left:0;border-top:var(--rule)}
+}
+
+/* ==========================================================================
+   QUOTES — no stock avatars
+   ========================================================================== */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+@media(max-width:820px){.quotes{grid-template-columns:1fr}}
+.quote{background:var(--base);border:var(--rule);border-radius:12px;padding:1.6rem 1.5rem}
+.quote .mark{font-family:var(--display);font-size:2.6rem;font-weight:800;
+  color:var(--sand-deep);line-height:.6;display:block;margin-bottom:.6rem}
+.quote p{font-size:.98rem}
+.quote footer{margin-top:1.1rem;padding-top:.9rem;border-top:var(--rule);
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--secondary)}
+.quote footer b{display:block;color:var(--contrast);letter-spacing:0;
+  font-family:var(--body);font-size:.85rem;margin-bottom:.15rem}
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+.faq{border-top:var(--rule)}
+.faq details{border-bottom:var(--rule)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:1.25rem 2.5rem 1.25rem 0;position:relative;
+  font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"";position:absolute;right:.35rem;top:1.55rem;width:10px;height:10px;
+  border-right:2px solid var(--primary);border-bottom:2px solid var(--primary);
+  rotate:45deg;transition:rotate .22s;
+}
+.faq details[open] summary::after{rotate:225deg}
+.faq .ans{padding:0 3rem 1.4rem 0;color:var(--secondary);font-size:.97rem;max-width:62ch}
+
+/* ==========================================================================
+   CTA + FOOTER
+   ========================================================================== */
+.cta{background:var(--main);color:var(--base);padding-block:clamp(3.5rem,8vw,6rem)}
+.cta .shell{display:grid;grid-template-columns:1fr auto;gap:var(--gutter);align-items:center}
+@media(max-width:820px){.cta .shell{grid-template-columns:1fr}}
+.cta h2{font-size:clamp(2rem,1.4rem+2.4vw,3.2rem);font-weight:800;letter-spacing:-.035em;
+  margin-top:1.2rem;text-wrap:balance}
+.cta p{color:rgb(250 247 242 / .75);margin-top:1rem;max-width:44ch}
+.cta .label{color:var(--sand-deep)}
+
+.foot{background:var(--tertiary);padding-block:2.5rem}
+.foot .shell{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;
+  align-items:center;font-size:.85rem;color:var(--secondary)}
+.foot nav{display:flex;gap:1.5rem}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--primary)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <a class="wordmark" href="#">Aviendha<span>.</span></a>
+    <nav>
+      <ul class="nav">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="#contact">Start a project</a>
+  </div>
+</header>
+
+<!-- HERO ------------------------------------------------------------------->
+<section class="hero">
+  <div class="shell">
+    <div>
+      <p class="label">WordPress &amp; WooCommerce</p>
+      <h1>Nobody waits.<em>So don't make them.</em></h1>
+      <p class="lede">We build and repair WordPress and WooCommerce sites for businesses
+        that lose money every second the page is blank.</p>
+      <div class="btn-row">
+        <a class="btn btn-solid" href="#contact">Start a project</a>
+        <a class="btn btn-ghost" href="#work">See recent work</a>
+      </div>
+    </div>
+
+    <!-- SIGNATURE: a load waterfall, the thing the pitch is actually about -->
+    <figure class="waterfall" aria-label="Load waterfall for a site we rebuilt: largest contentful paint at 0.9 seconds">
+      <figcaption class="wf-head">
+        <span class="wf-url">harvest-table.com</span>
+        <span class="wf-badge">after rebuild</span>
+      </figcaption>
+
+      <div class="wf-rows">
+        <div class="wf-row"><span>document</span>
+          <div class="wf-track"><i class="wf-bar is-doc" style="left:0;width:22%;animation-delay:.1s"></i></div></div>
+        <div class="wf-row"><span>critical.css</span>
+          <div class="wf-track"><i class="wf-bar is-css" style="left:22%;width:14%;animation-delay:.25s"></i></div></div>
+        <div class="wf-row"><span>hero.webp</span>
+          <div class="wf-track"><i class="wf-bar is-img" style="left:26%;width:26%;animation-delay:.4s"></i></div></div>
+        <div class="wf-row"><span>fonts</span>
+          <div class="wf-track"><i class="wf-bar" style="left:30%;width:18%;animation-delay:.55s"></i></div></div>
+        <div class="wf-row"><span>cart.js</span>
+          <div class="wf-track"><i class="wf-bar" style="left:52%;width:20%;animation-delay:.7s"></i>
+            <b class="wf-lcp" style="left:52%"><span>LCP 0.9s</span></b></div></div>
+        <div class="wf-row"><span>analytics</span>
+          <div class="wf-track"><i class="wf-bar" style="left:72%;width:12%;animation-delay:.85s"></i></div></div>
+      </div>
+
+      <div class="wf-axis">
+        <span></span>
+        <span class="wf-ticks"><span>0s</span><span>0.5s</span><span>1.0s</span><span>1.5s</span></span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<div class="rail">
+  <div class="shell">
+    <div class="rail-item"><div class="rail-num good">0.9s</div>
+      <div class="rail-cap">Median LCP after rebuild</div></div>
+    <div class="rail-item"><div class="rail-num">-71%</div>
+      <div class="rail-cap">Page weight, typical build</div></div>
+    <div class="rail-item"><div class="rail-num">1 day</div>
+      <div class="rail-cap">Reply time on every enquiry</div></div>
+  </div>
+</div>
+
+<!-- WHAT WE DO -------------------------------------------------------------->
+<section class="section">
+  <div class="shell">
+    <div class="spine">
+      <p class="label">What we do</p>
+      <h2>Speed is a feature you can sell.</h2>
+      <p>Most of our work starts as a rescue and turns into a rebuild.</p>
+    </div>
+    <div class="prose">
+      <p class="big">A slow site is rarely one bad plugin. It's a page builder fighting a
+        caching layer, forty render-blocking stylesheets, and a hero image nobody resized.</p>
+      <p>We take sites that load in eight seconds and ship them back loading in one — then
+        keep them there. Every build runs on a Roots.io stack, version-controlled, deployed
+        from git, with a staging site you can break safely.</p>
+      <ul class="offer">
+        <li><span class="k">Audit</span><span>A written report of what's slow, what it costs you, and what we'd fix first.</span></li>
+        <li><span class="k">Rebuild</span><span>Custom block theme, no page builder, no plugin sprawl.</span></li>
+        <li><span class="k">Keep</span><span>Monitoring, updates, and someone who answers when it breaks.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -------------------------------------------------------------------->
+<section class="section section-tint" id="work">
+  <div class="shell">
+    <div class="spine">
+      <p class="label">Selected work</p>
+      <h2>Sites we shipped.</h2>
+      <p>Load times measured on a throttled 4G connection, not a lab.</p>
+    </div>
+    <div>
+      <div class="work-rail">
+        <a class="card s-spa" href="#">
+          <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">solstice-retreat.com</span></div>
+          <div class="shot"><div class="bar w1"></div><div class="bar w2"></div><span class="pill">Book a treatment</span></div>
+          <div class="card-foot"><span>Day spa · booking flow</span><span class="ms">1.1s</span></div>
+        </a>
+        <a class="card s-shop" href="#">
+          <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">shopfrontier.com</span></div>
+          <div class="shot"><div class="bar w1"></div><div class="bar w2"></div><span class="pill">Add to cart</span></div>
+          <div class="card-foot"><span>WooCommerce · 2,400 SKUs</span><span class="ms">0.8s</span></div>
+        </a>
+        <a class="card s-studio" href="#">
+          <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">formwork.design</span></div>
+          <div class="shot"><div class="bar w1"></div><div class="bar w2"></div><span class="pill">View studio</span></div>
+          <div class="card-foot"><span>Design studio · portfolio</span><span class="ms">0.7s</span></div>
+        </a>
+        <a class="card s-bike" href="#">
+          <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">wheelhouse-bikes.com</span></div>
+          <div class="shot"><div class="bar w1"></div><div class="bar w2"></div><span class="pill">Shop bikes</span></div>
+          <div class="card-foot"><span>Retail · click &amp; collect</span><span class="ms">1.0s</span></div>
+        </a>
+        <a class="card s-food" href="#">
+          <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">harvest-table.com</span></div>
+          <div class="shot"><div class="bar w1"></div><div class="bar w2"></div><span class="pill">Reserve a table</span></div>
+          <div class="card-foot"><span>Restaurant · reservations</span><span class="ms">0.9s</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES ---------------------------------------------------------------->
+<section class="section" id="services">
+  <div class="shell">
+    <div class="spine">
+      <p class="label">Services</p>
+      <h2>Four things, done properly.</h2>
+      <p>No retainers for work you don't need.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-item">
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5Z"/></svg>
+        <div><h3>Performance work</h3>
+          <p>Image pipelines, critical CSS, cache strategy, and killing the render-blocking scripts that page builders leave behind.</p></div>
+        <span class="svc-idx">01</span>
+      </div>
+      <div class="svc-item">
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <div><h3>Security &amp; maintenance</h3>
+          <p>Hardened servers, patched core and plugins, off-site backups, and uptime monitoring that pages a human.</p></div>
+        <span class="svc-idx">02</span>
+      </div>
+      <div class="svc-item">
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6-6 6 6 6"/><path d="m16 6 6 6-6 6"/></svg>
+        <div><h3>Custom development</h3>
+          <p>Block themes, custom Gutenberg blocks, and WooCommerce integrations built for the way your business actually takes orders.</p></div>
+        <span class="svc-idx">03</span>
+      </div>
+      <div class="svc-item">
+        <svg class="svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8 8 0 0 1-11.6 7.2L3 20.5l1.8-6.4A8 8 0 1 1 21 11.5Z"/></svg>
+        <div><h3>Ongoing support</h3>
+          <p>One person who knows your site, reachable by email, replying inside a business day.</p></div>
+        <span class="svc-idx">04</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING ----------------------------------------------------------------->
+<section class="section section-tint" id="pricing">
+  <div class="shell">
+    <div class="spine">
+      <p class="label">Care plans</p>
+      <h2>After launch, pick a lane.</h2>
+      <p>Monthly, cancel whenever. Build work is quoted separately.</p>
+    </div>
+    <div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Essential</h3>
+          <p class="who">One brochure site, low traffic</p>
+          <div class="price">€59<small>/ MONTH</small></div>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Uptime monitoring</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Monthly updates</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Email support</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Reply within 1 business day</li>
+          </ul>
+          <a class="btn btn-dark" href="#contact">Choose Essential</a>
+        </div>
+
+        <div class="plan is-featured">
+          <h3>Business <span class="tag">MOST CHOSEN</span></h3>
+          <p class="who">WooCommerce, orders daily</p>
+          <div class="price">€99<small>/ MONTH</small></div>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Performance monitoring</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Weekly updates on staging first</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Priority support</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>30 minutes on checkout issues</li>
+          </ul>
+          <a class="btn btn-solid" href="#contact">Choose Business</a>
+        </div>
+
+        <div class="plan">
+          <h3>Enterprise</h3>
+          <p class="who">Multisite or high traffic</p>
+          <div class="price">€199<small>/ MONTH</small></div>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>24/7 monitoring with alerting</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Daily updates and backups</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>Named contact, direct line</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 8 3.5 3.5L13 5"/></svg>15 minutes on anything down</li>
+          </ul>
+          <a class="btn btn-dark" href="#contact">Choose Enterprise</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS ----------------------------------------------------------------->
+<section class="section">
+  <div class="shell">
+    <div class="spine">
+      <p class="label">Clients</p>
+      <h2>In their words.</h2>
+      <p>Three of the last twelve projects.</p>
+    </div>
+    <div class="quotes">
+      <blockquote class="quote">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>Our checkout used to time out on Saturdays. It hasn't since. That alone paid for the rebuild in a month.</p>
+        <footer><b>Operations lead</b>Online retailer, Rotterdam</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>They explained what was slow in language I could repeat to my board, then fixed it without drama.</p>
+        <footer><b>Managing director</b>Design studio, Berlin</footer>
+      </blockquote>
+      <blockquote class="quote">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>I can edit the site myself now without worrying I'll break the layout. That was the whole point.</p>
+        <footer><b>Owner</b>Restaurant group, Amsterdam</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ --------------------------------------------------------------------->
+<section class="section section-tint" id="faq">
+  <div class="shell">
+    <div class="spine">
+      <p class="label">Questions</p>
+      <h2>Before you write in.</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>How long does a rebuild take?</summary>
+        <div class="ans">A brochure site is three to four weeks. A WooCommerce store with real
+          catalogue and checkout complexity is six to ten. You get a date at quote stage, and
+          we tell you early if it moves.</div>
+      </details>
+      <details>
+        <summary>Can you work with our existing theme?</summary>
+        <div class="ans">Often, yes — an audit and targeted fixes cost far less than a rebuild.
+          If the theme is the reason the site is slow, we'll say so and show you the numbers
+          rather than sell you a rebuild you don't need.</div>
+      </details>
+      <details>
+        <summary>Do you use page builders?</summary>
+        <div class="ans">No. We build block themes on the Roots.io stack. Page builders ship
+          megabytes of CSS you never use, and they're the single most common cause of the load
+          times we're called in to fix.</div>
+      </details>
+      <details>
+        <summary>What happens after launch?</summary>
+        <div class="ans">Thirty days of included support, then a care plan if you want one.
+          No plan is required, and you keep the code either way — it lives in your git
+          repository, not ours.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA --------------------------------------------------------------------->
+<section class="cta" id="contact">
+  <div class="shell">
+    <div>
+      <p class="label">Start here</p>
+      <h2>Send us the URL. We'll tell you what's slow.</h2>
+      <p>A short written audit of your site, free, back within one business day. No call required.</p>
+    </div>
+    <a class="btn btn-solid" href="mailto:hello@example.com">Request the audit</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="shell">
+    <span><strong>Aviendha</strong> — WordPress &amp; WooCommerce</span>
+    <nav><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+    <span>© 2026 Aviendha</span>
+  </div>
+</footer>
+
+</body>
+</html>

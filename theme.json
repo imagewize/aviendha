@@ -162,6 +162,12 @@
 				},
 				"border": {
 					"radius": "var(--wp--preset--border-radius--pill)"
+				},
+				":hover": {
+					"color": {
+						"text": "var(--wp--preset--color--base)",
+						"background": "var(--wp--preset--color--primary-alt)"
+					}
 				}
 			}
 		},
@@ -169,6 +175,69 @@
 			"core/separator": {
 				"color": {
 					"text": "var(--wp--preset--color--border-light)"
+				}
+			},
+			"woocommerce/mini-cart": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--small)"
+				}
+			},
+			"woocommerce/mini-cart-contents": {
+				"color": {
+					"background": "var(--wp--preset--color--base)",
+					"text": "var(--wp--preset--color--contrast)"
+				}
+			},
+			"woocommerce/product-button": {
+				"border": {
+					"radius": "var(--wp--preset--border-radius--pill)"
+				},
+				"color": {
+					"background": "var(--wp--preset--color--primary)",
+					"text": "var(--wp--preset--color--base)"
+				},
+				"typography": {
+					"fontWeight": "600"
+				}
+			},
+			"woocommerce/product-filters": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--small)"
+				}
+			},
+			"woocommerce/product-price": {
+				"color": {
+					"text": "var(--wp--preset--color--contrast)"
+				},
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600",
+					"letterSpacing": "-0.01em"
+				}
+			},
+			"woocommerce/product-rating": {
+				"color": {
+					"text": "var(--wp--preset--color--terracotta)"
+				}
+			},
+			"woocommerce/product-sale-badge": {
+				"border": {
+					"color": "var(--wp--preset--color--primary)",
+					"radius": "var(--wp--preset--border-radius--pill)"
+				},
+				"color": {
+					"background": "var(--wp--preset--color--primary)",
+					"text": "var(--wp--preset--color--base)"
+				},
+				"typography": {
+					"fontWeight": "600",
+					"letterSpacing": "0.04em",
+					"textTransform": "uppercase"
+				}
+			},
+			"woocommerce/product-summary": {
+				"color": {
+					"text": "var(--wp--preset--color--secondary)"
 				}
 			}
 		}

@@ -29,6 +29,8 @@ Aviendha is distributed under the terms of the GNU GPL.
  *    2.3 CTA button
  *    2.4 Mobile overlay navigation
  * 3. Footer
+ * 4. Utilities
+ *    4.1 Eyebrow
  */
 
 /* -------------------------------------------------------------------------
@@ -215,4 +217,51 @@ body .aviendha-header--dark .wp-block-site-logo {
 		gap: 0.5rem;
 		width: 100%;
 	}
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Utilities
+ * ------------------------------------------------------------------------- */
+
+/* 4.1 Eyebrow
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The theme's one repeated structural device: a mono, letter-spaced label
+ * introduced by a short rule. Add it as a class on any block that carries a
+ * short piece of text — a paragraph, a post-terms block — to mark a section
+ * without spending a heading on it.
+ *
+ * theme.json can't express it: the leading rule is a pseudo-element, and the
+ * class has to be available to arbitrary blocks rather than to one block type.
+ */
+.aviendha-eyebrow {
+	align-items: baseline;
+	color: var(--wp--preset--color--main-accent);
+	display: flex;
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	font-weight: 600;
+	gap: 0.6rem;
+	letter-spacing: 0.14em;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+
+.aviendha-eyebrow::before {
+	background: currentColor;
+	content: "";
+	flex: none;
+	height: 1px;
+	translate: 0 -0.28em;
+	width: 1.5rem;
+}
+
+.aviendha-eyebrow a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.aviendha-eyebrow a:hover {
+	color: var(--wp--preset--color--primary);
 }
