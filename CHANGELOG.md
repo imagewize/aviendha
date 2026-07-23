@@ -2,6 +2,59 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.8.0] - 2026-07-23
+
+### Added
+- **WooCommerce block styling in `theme.json`.** `styles.blocks` covered exactly one core block and
+  no store block, so prices, buttons, sale badges, the mini cart, filters, ratings and summaries all
+  rendered in WooCommerce's stock colours regardless of which style variation was active. Eight
+  entries now cover them: prices take the display font at 600, buttons and the sale badge take
+  `primary` on `base` with the pill radius (matching `elements.button`), stars take `terracotta`,
+  summaries take `secondary`.
+
+  `styles/twilight.json` needed no changes — every value is a `var(--wp--preset--*)` reference and
+  the variation overrides the palette under the same slugs, so it picks all of this up for free.
+- **`assets/css/woocommerce.css` is no longer an empty stub.** It holds what `theme.json` cannot
+  express, each section carrying the reason: the mini cart drawer panel (a component wrapper outside
+  the block, with a hardcoded white background), the classic product gallery, `del`/`ins` inside a
+  sale price, the quantity stepper and the specifications table (blocks that declare no colour or
+  typography supports at all), and the review form (core comment-form markup, not blocks).
+- **`.aviendha-eyebrow` utility** in `style.css` — a mono, letter-spaced label introduced by a short
+  rule. It can't come from `theme.json`: the rule is a pseudo-element, and the class has to be
+  available to any block rather than to one block type.
+- **A hover state on `elements.button`**, using `primary-alt`.
+- `designs/aviendha-redesign.html` — the visual reference this pass works from. Excluded from the
+  theme zip and from source archives.
+
+### Changed
+- **The single product page no longer uses `woocommerce/product-details`.** That block renders
+  WooCommerce's classic tab strip: PHP markup with jQuery behind it, declaring no colour or
+  typography supports, so nothing in the design system could reach it. Description, specifications
+  and reviews are now three stacked sections built from the standalone `woocommerce/product-description`,
+  `woocommerce/product-specifications` and `woocommerce/product-reviews` blocks, each marked by an
+  eyebrow label and separated by a hairline rule.
+
+  `woocommerce/accordion-group` was the other candidate and was rejected — hiding a product
+  description behind a click costs more than the vertical space it saves.
+- **Related products are now a `woocommerce/product-collection`** using the
+  `woocommerce/product-collection/related` collection, matching the card treatment on the archive.
+
+### Fixed
+- **Two blocks on the single product template rendered nothing at all.**
+  `woocommerce/product-meta` and `woocommerce/related-products` are containers, and both were
+  shipped self-closing: the first produced no SKU or tags, and the second had nothing to expand into
+  once WooCommerce's bundled patterns were unregistered in 1.7.0. Meta now wraps
+  `woocommerce/product-sku` and a tag list; related products is the collection described above.
+- **The mini cart drawer stayed white under a dark style variation**, so its contents rendered light
+  text on a white panel.
+- **The sale flash on a product page was WooCommerce's green circle**, unrelated to the rose pill
+  badge the archive cards use.
+- **Sale prices gave the old and new price the same weight and colour**, leaving the struck-through
+  price competing with the one the customer pays.
+- **The add-to-cart button had no hover state.** WordPress prints element styles before block styles
+  at the same specificity, so the `woocommerce/product-button` entry overrode the `elements.button`
+  hover that came before it; the hover is restated in `woocommerce.css`, which lands after both.
+
 ## [1.7.0] - 2026-07-23
 
 ### Added
