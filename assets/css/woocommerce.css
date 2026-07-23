@@ -3,9 +3,18 @@
  *
  * Enqueued only when WooCommerce is active (see functions.php). The design
  * system lives in theme.json — this file only holds what theme.json cannot
- * express, on the same terms as style.css does for core blocks.
+ * express, on the same terms as style.css does for core blocks: pseudo-classes,
+ * elements WooCommerce renders outside any block, and blocks that declare no
+ * colour or typography supports for theme.json to hook into.
  *
  * 1. Mini cart drawer
+ * 2. Product gallery
+ * 3. Prices
+ * 4. Quantity stepper
+ * 5. Add to cart button
+ * 6. Product meta
+ * 7. Specifications
+ * 8. Reviews
  */
 
 /* -------------------------------------------------------------------------
@@ -21,4 +30,231 @@
 .wc-block-components-drawer {
 	background: var(--wp--preset--color--base);
 	border-left-color: var(--wp--preset--color--border-light);
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Product gallery
+ * ------------------------------------------------------------------------- */
+
+/*
+ * `product-image-gallery` renders the classic PHP gallery, so nothing in it
+ * is a block: the image radius has to match the product cards by hand, and the
+ * sale flash is a bare `span.onsale` that WooCommerce styles as a green circle
+ * hanging off the top-left corner.
+ */
+.wp-block-woocommerce-product-image-gallery {
+	position: relative;
+}
+
+.woocommerce-product-gallery .woocommerce-product-gallery__image img {
+	border-radius: var(--wp--preset--border-radius--md);
+}
+
+.wp-block-woocommerce-product-image-gallery span.onsale {
+	background-color: var(--wp--preset--color--primary);
+	border-radius: var(--wp--preset--border-radius--pill);
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--xx-small);
+	font-weight: 600;
+	inset: var(--wp--preset--spacing--x-small) auto auto var(--wp--preset--spacing--x-small);
+	letter-spacing: 0.04em;
+	line-height: 1;
+	margin: 0;
+	min-height: 0;
+	min-width: 0;
+	padding: 0.55em 0.95em;
+	position: absolute;
+	text-transform: uppercase;
+	z-index: 2;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Prices
+ * ------------------------------------------------------------------------- */
+
+/*
+ * A sale price is one `.wc-block-components-product-price` containing `del` and
+ * `ins`. theme.json styles the container, so the two prices arrive at the same
+ * weight and colour and the old price competes with the new one.
+ */
+.wc-block-components-product-price del {
+	color: var(--wp--preset--color--main-accent);
+	font-weight: 400;
+	margin-inline-end: 0.4em;
+	opacity: 1;
+	text-decoration-thickness: 1px;
+}
+
+.wc-block-components-product-price ins {
+	background: none;
+	text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Quantity stepper
+ * ------------------------------------------------------------------------- */
+
+/*
+ * `add-to-cart-with-options-quantity-selector` declares no colour, border or
+ * typography supports, so theme.json has no way in. WooCommerce's own rules sit
+ * at two classes; these match that weight through the block wrapper.
+ */
+.wp-block-woocommerce-add-to-cart-with-options-quantity-selector .wc-block-components-quantity-selector {
+	background: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--pill);
+}
+
+.wp-block-woocommerce-add-to-cart-with-options-quantity-selector .wc-block-components-quantity-selector__button {
+	color: var(--wp--preset--color--secondary);
+	opacity: 1;
+	transition: color 0.18s ease;
+}
+
+.wp-block-woocommerce-add-to-cart-with-options-quantity-selector .wc-block-components-quantity-selector__button:hover:not(:disabled) {
+	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-woocommerce-add-to-cart-with-options-quantity-selector .wc-block-components-quantity-selector__button:disabled {
+	opacity: 0.35;
+}
+
+.wp-block-woocommerce-add-to-cart-with-options-quantity-selector .wc-block-components-quantity-selector__button:focus {
+	box-shadow: none;
+	outline: 2px solid var(--wp--preset--color--accent);
+	outline-offset: -2px;
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Add to cart button
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The `elements.button` hover in theme.json can't reach this one: WordPress
+ * prints element styles before block styles at the same specificity, so the
+ * `woocommerce/product-button` block entry overrides the hover that comes
+ * before it. Restate the hover here, where it lands after both.
+ */
+.wp-block-button.wc-block-components-product-button .wc-block-components-product-button__button:hover {
+	background-color: var(--wp--preset--color--primary-alt);
+	color: var(--wp--preset--color--base);
+}
+
+/* -------------------------------------------------------------------------
+ * 6. Product meta
+ * ------------------------------------------------------------------------- */
+
+/* SKU and tags read as a caption under the buy area, not as body copy. */
+.wp-block-woocommerce-product-meta .wp-block-woocommerce-product-sku,
+.wp-block-woocommerce-product-meta .wp-block-post-terms {
+	font-family: var(--wp--preset--font-family--mono);
+	letter-spacing: 0.02em;
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Specifications
+ * ------------------------------------------------------------------------- */
+
+/*
+ * `product-specifications` renders a table with no colour or border supports.
+ * Set as hairline rows with a mono label column it matches the rest of the
+ * page's rules rather than looking like a spreadsheet dropped into it.
+ */
+.wp-block-woocommerce-product-specifications table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.wp-block-woocommerce-product-specifications tbody tr {
+	border-bottom: 1px solid var(--wp--preset--color--border-light);
+}
+
+/*
+ * The header row is `.screen-reader-text`, so the top hairline has to hang off
+ * the first body row instead.
+ */
+.wp-block-woocommerce-product-specifications tbody tr:first-child {
+	border-top: 1px solid var(--wp--preset--color--border-light);
+}
+
+/* Taxonomy-backed attribute values arrive wrapped in a paragraph. */
+.wp-block-woocommerce-product-specifications td p {
+	margin: 0;
+}
+
+.wp-block-woocommerce-product-specifications th,
+.wp-block-woocommerce-product-specifications td {
+	border: 0;
+	padding: var(--wp--preset--spacing--x-small) 0;
+	text-align: left;
+	vertical-align: baseline;
+}
+
+.wp-block-woocommerce-product-specifications th {
+	color: var(--wp--preset--color--accent);
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	padding-inline-end: var(--wp--preset--spacing--medium);
+	text-transform: uppercase;
+	white-space: nowrap;
+	width: 12rem;
+}
+
+@media (max-width: 600px) {
+	.wp-block-woocommerce-product-specifications th {
+		white-space: normal;
+		width: 8rem;
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * 8. Reviews
+ * ------------------------------------------------------------------------- */
+
+.wp-block-woocommerce-product-review-template > li + li {
+	border-top: 1px solid var(--wp--preset--color--border-light);
+	margin-top: var(--wp--preset--spacing--medium);
+	padding-top: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-woocommerce-product-review-form .comment-reply-title {
+	display: block;
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--medium);
+	font-weight: 600;
+	margin-bottom: var(--wp--preset--spacing--x-small);
+}
+
+.wp-block-woocommerce-product-review-form .comment-form input:not([type="submit"]),
+.wp-block-woocommerce-product-review-form .comment-form select,
+.wp-block-woocommerce-product-review-form .comment-form textarea {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--sm);
+	color: inherit;
+	font-family: inherit;
+	font-size: var(--wp--preset--font-size--small);
+	padding: 0.6em 0.8em;
+	width: 100%;
+}
+
+.wp-block-woocommerce-product-review-form .comment-form select {
+	width: auto;
+}
+
+.wp-block-woocommerce-product-review-form .comment-form label {
+	color: var(--wp--preset--color--secondary);
+	display: inline-block;
+	font-size: var(--wp--preset--font-size--small);
+	margin-bottom: 0.35em;
+}
+
+.wp-block-woocommerce-product-review-form .comment-form .required {
+	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-woocommerce-product-review-form .comment-form-rating .stars a {
+	color: var(--wp--preset--color--terracotta);
 }
