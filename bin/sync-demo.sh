@@ -23,14 +23,19 @@ dest="$DEMO_ROOT/themes/aviendha"
 [ -d "$dest" ] || { echo "✗ $dest not found — is the demo site installed?" >&2; exit 1; }
 
 # Mirrors .distignore: push the shipped theme, not the dev tree.
-rsync -a --delete \
+rsync -a --delete --delete-excluded \
 	--exclude '.git/' \
 	--exclude '.github/' \
 	--exclude '.claude/' \
+	--exclude '.vscode/' \
 	--exclude 'node_modules/' \
 	--exclude 'vendor/' \
 	--exclude 'docs/' \
 	--exclude 'bin/' \
+	--exclude '.gitignore' \
+	--exclude '.gitattributes' \
+	--exclude '.distignore' \
+	--exclude '.editorconfig' \
 	--exclude '.DS_Store' \
 	"$AVIENDHA_SRC/" "$dest/"
 
