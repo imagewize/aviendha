@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.5.2
+Version: 1.5.3
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -17,7 +17,44 @@ Aviendha WordPress Theme, (C) 2026 Jasper Frumau
 Aviendha is distributed under the terms of the GNU GPL.
 */
 
-/* Header - sticky positioning and wordmark styling */
+/*
+ * The design system lives in theme.json — this file only holds what
+ * theme.json cannot express: sticky positioning, pseudo-classes, media
+ * queries, and overrides of core block styles that ship `!important`.
+ *
+ * 1. Template parts (global)
+ * 2. Header
+ *    2.1 Sticky masthead
+ *    2.2 Wordmark and logo
+ *    2.3 CTA button
+ *    2.4 Mobile overlay navigation
+ * 3. Footer
+ */
+
+/* -------------------------------------------------------------------------
+ * 1. Template parts (global)
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Core's `:where(.wp-site-blocks) > *` global style adds a 24px
+ * margin-block-start to every top-level block, including the
+ * wp-block-template-part wrapper WordPress injects around header/footer —
+ * not to the .aviendha-header--dark/.foot block inside it, so setting
+ * margin on those directly has no effect on the wrapper. Reset it for all
+ * template parts generally (same fix as Imagewize's Elayne theme uses),
+ * since no template part should carry the inter-block content gap.
+ */
+.wp-site-blocks > .wp-block-template-part {
+	margin-block-start: 0;
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Header
+ * ------------------------------------------------------------------------- */
+
+/* 2.1 Sticky masthead
+ * ------------------------------------------------------------------------- */
+
 .aviendha-header--dark {
 	position: sticky;
 	top: 0;
@@ -36,18 +73,8 @@ Aviendha is distributed under the terms of the GNU GPL.
 	z-index: 50;
 }
 
-/*
- * Core's `:where(.wp-site-blocks) > *` global style adds a 24px
- * margin-block-start to every top-level block, including the
- * wp-block-template-part wrapper WordPress injects around header/footer —
- * not to the .aviendha-header--dark/.foot block inside it, so setting
- * margin on those directly has no effect on the wrapper. Reset it for all
- * template parts generally (same fix as Imagewize's Elayne theme uses),
- * since no template part should carry the inter-block content gap.
- */
-.wp-site-blocks > .wp-block-template-part {
-	margin-block-start: 0;
-}
+/* 2.2 Wordmark and logo
+ * ------------------------------------------------------------------------- */
 
 .aviendha-header--dark .wp-block-site-title a {
 	font-family: var(--wp--preset--font-family--display);
@@ -65,6 +92,9 @@ Aviendha is distributed under the terms of the GNU GPL.
 body .aviendha-header--dark .wp-block-site-logo {
 	display: none;
 }
+
+/* 2.3 CTA button
+ * ------------------------------------------------------------------------- */
 
 .aviendha-header__cta .wp-block-button__link {
 	font-family: var(--wp--preset--font-family--mono);
@@ -87,7 +117,33 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
-/* Footer - match redesign mockup */
+/* 2.4 Mobile overlay navigation
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The dark header's navigation has no background of its own, so core's
+ * `.wp-block-navigation:not(.has-background) …is-menu-open` rule paints the
+ * mobile overlay white — while the block's `textColor: "base"` keeps the
+ * links and close button white too, leaving the open menu unreadable.
+ *
+ * Scoped to `.is-menu-open`: with `overlayMenu: "mobile"` the container
+ * carries no `hidden-by-default` class, so above 600px core reuses that same
+ * element to render the inline desktop nav. An unscoped rule here would
+ * darken those desktop links against the dark masthead.
+ *
+ * !important needed: the navigation markup carries has-base-color, and core
+ * emits `.has-base-color { color: ... !important }`.
+ */
+.aviendha-header--dark .wp-block-navigation__responsive-container.is-menu-open,
+.aviendha-header--dark .wp-block-navigation__responsive-container.is-menu-open * {
+	color: var(--wp--preset--color--main) !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Footer
+ * ------------------------------------------------------------------------- */
+
+/* Match redesign mockup */
 .foot {
 	background-color: var(--wp--preset--color--tertiary);
 }
