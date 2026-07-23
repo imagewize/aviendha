@@ -2,6 +2,35 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.2] - 2026-07-23
+
+### Added
+- **Footer parity (Step 14 of the Aviendha/Aludra redesign).** `parts/footer.html` now matches
+  the redesign mockup: uses `.foot` class with constrained layout (not `alignfull`), tertiary
+  background, 2.5rem padding, and a `.shell` inner group with flex layout, gap, and
+  space-between alignment. Branding text updated to "Aviendha — WordPress & WooCommerce",
+  copyright includes year. Navigation uses `foot-nav` class and flex layout. `style.css` adds
+  corresponding `.foot`, `.foot .shell`, `.foot .wp-block-navigation-*`, and `.foot a` rules
+  for proper styling and hover states.
+
+### Fixed
+- **The footer's constrained layout was never applied.** Same class of bug as the 1.5.1 header
+  fix: the outer group's `layout` attribute sat outside the parsed JSON object (a stray `}`
+  after `backgroundColor`), so WordPress silently dropped it and rendered `is-layout-flow`
+  instead of `is-layout-constrained`. The inner `.shell` group also lacked `align:"wide"`, so
+  nothing clamped its width — the branding text and copyright sat flush against the viewport
+  edges instead of the mockup's centered column.
+- **A visible gap sat between the last section and the footer.** Core's
+  `:where(.wp-site-blocks) > *` global style adds a 24px `margin-block-start` to every
+  top-level block, including the `wp-block-template-part` wrapper WordPress injects around
+  header/footer — not to the `.foot`/`.aviendha-header--dark` block inside it, so a margin
+  reset on those blocks directly had no effect on the wrapper. Reset generally for all
+  template parts via `.wp-site-blocks > .wp-block-template-part`.
+- **The header CTA's text was invisible on hover.** The button's saved markup carries
+  `has-base-color`, and WordPress core emits `.has-base-color` with `!important`, so the
+  hover rule's `color` override never won — white text sat on the hover state's white
+  background. Added `!important` to the hover rule.
+
 ## [1.5.1] - 2026-07-21
 
 ### Fixed

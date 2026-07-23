@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.5.1
+Version: 1.5.2
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -34,6 +34,19 @@ Aviendha is distributed under the terms of the GNU GPL.
 	position: sticky;
 	top: 0;
 	z-index: 50;
+}
+
+/*
+ * Core's `:where(.wp-site-blocks) > *` global style adds a 24px
+ * margin-block-start to every top-level block, including the
+ * wp-block-template-part wrapper WordPress injects around header/footer —
+ * not to the .aviendha-header--dark/.foot block inside it, so setting
+ * margin on those directly has no effect on the wrapper. Reset it for all
+ * template parts generally (same fix as Imagewize's Elayne theme uses),
+ * since no template part should carry the inter-block content gap.
+ */
+.wp-site-blocks > .wp-block-template-part {
+	margin-block-start: 0;
 }
 
 .aviendha-header--dark .wp-block-site-title a {
@@ -66,6 +79,51 @@ body .aviendha-header--dark .wp-block-site-logo {
 
 .aviendha-header__cta .wp-block-button__link:hover {
 	background-color: var(--wp--preset--color--base);
-	color: var(--wp--preset--color--main);
+	/* !important needed: the saved button markup carries has-base-color,
+	 * and core emits `.has-base-color { color: ... !important }` — a plain
+	 * override here loses to that, leaving white text on the white hover
+	 * background. */
+	color: var(--wp--preset--color--main) !important;
 	border-color: var(--wp--preset--color--base);
+}
+
+/* Footer - match redesign mockup */
+.foot {
+	background-color: var(--wp--preset--color--tertiary);
+}
+
+.foot .shell {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.85rem;
+	color: var(--wp--preset--color--secondary);
+}
+
+.foot .wp-block-navigation {
+	margin: 0;
+	padding: 0;
+}
+
+.foot .wp-block-navigation-links {
+	display: flex;
+	gap: 1.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.foot .wp-block-navigation-link {
+	margin: 0;
+	padding: 0;
+}
+
+.foot a {
+	text-decoration: none;
+}
+
+.foot a:hover {
+	color: var(--wp--preset--color--primary);
 }

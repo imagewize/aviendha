@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,12 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.5.2 =
+* Add: footer parity with the redesign mockup (Step 14) — `.foot` class with constrained layout, tertiary background, and a `.shell` inner group with flex layout matching the mockup's wrapped row
+* Fixed: the footer's constrained layout was never applied — same class of bug as 1.5.1's header fix, a stray `}` put the `layout` attribute outside the parsed JSON, so it rendered `is-layout-flow` and the branding/copyright sat flush against the viewport edges
+* Fixed: a visible gap between the last section and the footer — core's global styles add a 24px top margin to every top-level block, including the `wp-block-template-part` wrapper around header/footer, which a margin reset on the inner block couldn't reach; reset generally for all template parts
+* Fixed: the header CTA's text was invisible on hover — the button's `has-base-color` markup carries a core `!important` rule the hover state's color override couldn't beat
 
 = 1.5.1 =
 * Fixed: the 1.5.0 header styling was never live — `style.css`'s theme header comment was missing its closing `*/`, so every rule that release added sat inside the comment and was discarded by the parser
