@@ -33,6 +33,8 @@ AGENTS.md
 CONTRIBUTING.md
 README.md
 docs/*
+designs/
+designs/*
 
 # OS and editor cruft
 .DS_Store
