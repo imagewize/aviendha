@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,17 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.8.0 =
+* Changed: the single product page replaces WooCommerce's tab strip with stacked description, specifications, and reviews sections, each built from blocks the theme can style
+* Added: WooCommerce block styling in `theme.json` — prices, buttons, sale badges, the mini cart, filters, ratings, and summaries now follow the theme's palette and type in every style variation, including the dark one
+* Added: `assets/css/woocommerce.css` covers what `theme.json` cannot reach — the mini cart drawer, the classic product gallery, sale prices, the quantity stepper, the specifications table, and the review form
+* Added: an eyebrow label utility, used to mark the product page's sections
+* Added: a hover state on buttons
+* Fixed: the product page showed no SKU or tags, and no related products — both blocks were shipped without the inner blocks they need
+* Fixed: the mini cart drawer stayed white under a dark style variation, leaving light text on a white panel
+* Fixed: the sale flash on a product page was WooCommerce's green circle instead of the theme's badge, and a discounted product's old and new price were styled identically
+* Fixed: the add to cart button had no hover state
 
 = 1.7.0 =
 * Added: product filtering and sorting on the product archive — a results count and sorting bar, plus a sidebar with active-filter chips, price slider, category, availability, and rating filters
