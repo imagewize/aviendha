@@ -79,7 +79,11 @@ body .aviendha-header--dark .wp-block-site-logo {
 
 .aviendha-header__cta .wp-block-button__link:hover {
 	background-color: var(--wp--preset--color--base);
-	color: var(--wp--preset--color--main);
+	/* !important needed: the saved button markup carries has-base-color,
+	 * and core emits `.has-base-color { color: ... !important }` — a plain
+	 * override here loses to that, leaving white text on the white hover
+	 * background. */
+	color: var(--wp--preset--color--main) !important;
 	border-color: var(--wp--preset--color--base);
 }
 
