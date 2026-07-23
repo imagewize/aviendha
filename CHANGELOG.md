@@ -23,6 +23,10 @@ All notable changes to Aviendha are documented in this file.
   the script.
 
 ### Fixed
+- **`screenshot.png` was missing.** WordPress requires every theme to ship one, and the new
+  `theme-check.yml` workflow was the first thing to say so — it failed at the structure check
+  before running a single review test. Added at the required 1200×900 (4:3), showing the
+  masthead, the hero with its load waterfall, the stat rail, and one full spine section.
 - `package.json` declared version `1.5.2` while the theme was on `1.5.4`. It now tracks the
   theme version, though `style.css`, `readme.txt`, and `CHANGELOG.md` remain the three files
   that matter.
