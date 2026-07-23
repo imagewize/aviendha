@@ -87,6 +87,21 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
+/*
+ * Fix mobile navigation text color in dark header.
+ * When overlayMenu="mobile" is used, the responsive container opens with
+ * a light background. The navigation block has textColor: "base", so
+ * .wp-block-navigation-item__content inherits that light color, causing
+ * white text on white background in the mobile menu.
+ * Also affects the close button which inherits the same light color.
+ * !important needed: the navigation markup carries has-base-color,
+ * and core emits `.has-base-color { color: ... !important }`.
+ */
+.aviendha-header--dark .wp-block-navigation__responsive-container,
+.aviendha-header--dark .wp-block-navigation__responsive-container * {
+	color: var(--wp--preset--color--main) !important;
+}
+
 /* Footer - match redesign mockup */
 .foot {
 	background-color: var(--wp--preset--color--tertiary);
