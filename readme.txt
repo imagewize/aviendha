@@ -38,7 +38,7 @@ store templates.
 == Changelog ==
 
 = 1.5.4 =
-* Change: footer navigation now displays as a vertical list on mobile screens instead of a hamburger menu overlay
+* Change: footer navigation no longer collapses into a hamburger menu — it renders as a plain list at every width, stacking vertically under 600px
 
 = 1.5.3 =
 * Fixed: the dark header's mobile menu showed white text on a white overlay — the navigation block sets no background, so core paints the open overlay white while the block's `base` text color keeps the links and close button white. The override is scoped to the open menu only, since above 600px core reuses the same element for the inline desktop nav.
