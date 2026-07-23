@@ -26,6 +26,10 @@ All notable changes to Aviendha are documented in this file.
   header/footer — not to the `.foot`/`.aviendha-header--dark` block inside it, so a margin
   reset on those blocks directly had no effect on the wrapper. Reset generally for all
   template parts via `.wp-site-blocks > .wp-block-template-part`.
+- **The header CTA's text was invisible on hover.** The button's saved markup carries
+  `has-base-color`, and WordPress core emits `.has-base-color` with `!important`, so the
+  hover rule's `color` override never won — white text sat on the hover state's white
+  background. Added `!important` to the hover rule.
 
 ## [1.5.1] - 2026-07-21
 
