@@ -2,9 +2,9 @@
 
 Gap analysis of Aviendha's WooCommerce surface, with prioritised work items.
 
-**Status:** §1–§3 are implemented on `feat/woocommerce-improvements` and verified on the demo
-subsite. §4–§6 are outstanding. Sections kept in place after implementation so the reasoning behind
-each choice stays with the theme.
+**Status:** §1–§3 shipped in 1.7.0. §5's `theme.json` half is on
+`feat/woocommerce-design-system`; the CSS half of §5, plus §4 and §6, are outstanding. Sections kept
+in place after implementation so the reasoning behind each choice stays with the theme.
 
 **Baseline for this document:** Aviendha 1.6.0, WooCommerce 10.9.4 (the version installed on the
 `demo.imagewize.test/aviendha/` test site). Every block named below ships in that version — nothing
@@ -31,9 +31,9 @@ difference, not a capability one.
 | Cart / checkout / order confirmation / product search / attribute archives | Not shipped — inherited from WooCommerce's own block templates. See §4. |
 | `parts/header.html` | Contains `woocommerce/mini-cart`, stripped when the plugin is inactive. |
 | `functions.php` | Theme supports, conditional stylesheet enqueue, and the plugin-state branch described in §1. |
-| `assets/css/woocommerce.css` | Empty stub — a comment and nothing else. See §5. |
-| `theme.json` → `styles.blocks` | One entry (`core/separator`). No WooCommerce blocks styled. See §5. |
-| `styles/twilight.json` | No WooCommerce block overrides. See §5. |
+| `assets/css/woocommerce.css` | Mini-cart drawer panel only. The rest of the §5 CSS pass is outstanding. |
+| `theme.json` → `styles.blocks` | `core/separator` plus eight WooCommerce blocks. See §5. |
+| `styles/twilight.json` | No WooCommerce block overrides — and needs none; see §5. |
 
 ---
 
@@ -196,7 +196,7 @@ WooCommerce 10.9.4's own template set, for reference: `archive-product`, `single
 
 ---
 
-## 5. The design system doesn't reach WooCommerce
+## 5. The design system doesn't reach WooCommerce — theme.json part done
 
 `theme.json` is described in `CLAUDE.md` as the single source of truth for the design system, but
 its `styles.blocks` section has exactly one entry (`core/separator`) and mentions no WooCommerce
@@ -223,8 +223,51 @@ Keep to the existing rule: everything expressible in `theme.json` goes in `theme
 `woocommerce.css` takes only what it can't express (pseudo-classes, media queries, overriding Woo's
 `!important` declarations) — the same division `style.css` already documents for core blocks.
 
-Once `theme.json` carries Woo block styles, `styles/twilight.json` needs matching palette overrides
-for them, and any future variation inherits the work.
+### Shipped in `theme.json`
+
+`price`, `button`, `sale-badge`, `mini-cart`, `mini-cart-contents`, `product-filters`,
+`product-rating` and `product-summary`. Prices take the display font at 600; buttons and the sale
+badge take `primary` on `base` with the pill radius, matching `elements.button`; stars take
+`terracotta`; summaries take `secondary`.
+
+**`styles/twilight.json` needed no changes.** Every value is a `var(--wp--preset--*)` reference and
+twilight overrides the palette under the same slugs, so the variation picks the Woo block styles up
+for free. Only a block needing a *different* choice per variation (not just a different colour
+value) would need an entry there — none do so far.
+
+### Half of the list can't be done in `theme.json`
+
+Checked against each block's `supports` in Woo 10.9.4. Three of the blocks named above declare no
+colour or typography supports at all, so a `styles.blocks` entry for them generates nothing:
+
+- `woocommerce/product-details` — `align` only.
+- `woocommerce/add-to-cart-with-options-quantity-selector` — `interactivity` only.
+- `woocommerce/product-filter-clear-button`, `-chips`, `-removable-chips` — `interactivity` only.
+
+Those are the CSS pass, along with two things the shipped entries surfaced:
+
+- **The mini-cart drawer panel.** `.wc-block-components-drawer` sits *outside* the
+  `mini-cart-contents` block, and Woo hardcodes `background: #fff` on it, so the block's theme.json
+  entry can't reach it and a dark variation renders light text on white. Already fixed in
+  `assets/css/woocommerce.css` — it's what makes the `mini-cart-contents` entry correct rather than
+  a separate concern.
+- **Sale prices.** `product-price` renders `<del>`/`<ins>`; theme.json styles the container, so
+  muting the struck-through price needs CSS.
+
+### Cascade notes
+
+Global styles print *after* every `wc-blocks-style-*` stylesheet in `wp_head`, and WordPress wraps
+block styles as `:root :where(…)` — specificity 0,1,0 with everything inside `:where()` discounted.
+So theme.json beats Woo's own block CSS on source order, but loses to anything Woo declares at two
+classes or with `!important`, and loses to per-instance preset classes in the templates. That last
+part is why **no entry sets `font-size`** on a block the templates size per instance
+(`product-price`, `product-sale-badge`): the template attribute is the intended winner, and a
+theme.json font-size would be a coin-flip on source order for blocks whose preset class lands on the
+same element the block selector targets.
+
+`woocommerce/product-rating-stars` was tried and dropped — it resolves to the same
+`.wc-block-components-product-rating` selector as `product-rating`, so it only emitted a duplicate
+rule.
 
 ---
 
@@ -259,6 +302,12 @@ wp wc tool run regenerate_product_lookup_tables --user=1 --url=demo.imagewize.te
 Two filters legitimately stay hidden on a fresh store: `product-filter-active` (nothing selected)
 and `product-filter-rating` (no reviews).
 
+**`woocommerce/product-rating` renders nothing until a product has a review**, which also makes the
+star styling unverifiable. The sample data ships none. Seed one with `wp comment create
+--comment_post_ID=<id> --comment_type=review --comment_approved=1`, `wp comment meta set <id> rating
+5`, then set the product's `average_rating` / `rating_counts` / `review_count` and save it — the
+comment alone doesn't update the product's cached rating.
+
 **Alignment has to be set per block, not inherited.** In a `constrained` main group, `alignwide`
 columns sit wider than an unaligned heading above them, so the archive title appeared indented
 relative to its own sidebar. `query-title`, `term-description` and the results bar all carry
@@ -276,8 +325,10 @@ off (`wp option update woocommerce_coming_soon no`), and the lookup tables regen
 **PR 1 — correctness, archive, single product.** Done: §1, §2, §3 on
 `feat/woocommerce-improvements`.
 
-**PR 2 — design system.** §5: `theme.json` Woo block styles plus the `twilight.json` counterparts.
-Now unblocked — every block that needs styling exists in a template and renders on the demo site.
+**PR 2 — design system.** §5. The `theme.json` half is on `feat/woocommerce-design-system`;
+`twilight.json` turned out to need nothing. What's left is the `woocommerce.css` pass for the blocks
+with no styling supports — the product-details tab strip, the quantity stepper, the filter chips and
+clear button — plus struck-through sale prices.
 
 **PR 3 — additional templates.** §4, in the priority order of that table, plus the §6 header blocks.
 
