@@ -1,0 +1,37 @@
+name: Theme Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  theme-check:
+    runs-on: ubuntu-latest
+    name: Theme Check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # The action copies the repo root straight into its test theme, so
+      # anything tracked here gets reviewed — Theme Check's File_Check rejects a
+      # theme carrying a `.sh` file outright ("Shell script file found. This
+      # file must not be in the production version of the theme"). Keep dev-only
+      # scripts out of the repo (the demo sync script lives in wp-ops) rather
+      # than adding a build step to hide them from the check.
+      #
+      # accessible-ready runs the stricter a11y suite. Aviendha does not claim
+      # the accessibility-ready tag in readme.txt, but Elayne runs it the same
+      # way — keep both themes held to it rather than only the baseline checks.
+      - name: Run Theme Review Tests
+        id: theme-test
+        uses: WordPress/theme-review-action@trunk
+        with:
+          accessible-ready: true
+          ui-debug: true

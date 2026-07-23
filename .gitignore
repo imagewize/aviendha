@@ -3,3 +3,4 @@ vendor
 node_modules
 .env
 create-pr.sh
+bin/sync-demo.sh

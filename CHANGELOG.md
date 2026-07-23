@@ -2,6 +2,42 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.6.0] - 2026-07-23
+
+### Added
+- **Release packaging.** `.github/workflows/create-release.yml` attaches a theme zip to every
+  published GitHub release, built with `zip -x@.distignore` — the same mechanism the Aludra
+  plugin uses. A new `.distignore` keeps dev-only files (Composer/npm metadata, `vendor/`,
+  `phpcs.xml`, contributor docs, tooling) out of that zip, and `.gitattributes` mirrors it with
+  `export-ignore` so source archives match. Verified: the zip is 35 files — templates, parts,
+  styles, assets, `theme.json`, `functions.php`, `style.css`, `readme.txt`, languages, licence,
+  changelog.
+- **CI checks**, matching Elayne's: `wpcs.yml` runs PHPCS against the WordPress standard on every
+  pull request, and `theme-check.yml` runs the WordPress theme review action (including the
+  stricter accessibility suite) on pull requests and pushes to `main`. The review action copies
+  the repo root, so anything tracked here is reviewed — which is exactly how the missing
+  screenshot and a stray shell script were both caught.
+
+### Changed
+- **Demo-site syncing moved to [wp-ops](https://github.com/imagewize/wp-ops)**
+  (`scripts/rsync-package-to-site.sh`) instead of a `bin/sync-demo.sh` committed here. It does the
+  same thing — rsyncs a dist-faithful tree (`--delete --delete-excluded`, honouring `.distignore`)
+  into the demo Bedrock site, so what you test is what ships — but it takes the package kind and
+  slug as arguments and reads the destination from `SITE_ROOT`, so one script serves the theme,
+  the Aludra plugin, Elayne and Nynaeve. The paths in the old copy were personal configuration
+  rather than theme code, and Theme Check's `File_Check` rejects a theme that ships a `.sh` file
+  at all, so keeping it here would have meant working around CI to hide it. It is gitignored now
+  if you want a local shortcut.
+
+### Fixed
+- **`screenshot.png` was missing.** WordPress requires every theme to ship one, and the new
+  `theme-check.yml` workflow was the first thing to say so — it failed at the structure check
+  before running a single review test. Added at the required 1200×900 (4:3), showing the
+  masthead, the hero with its load waterfall, the stat rail, and one full spine section.
+- `package.json` declared version `1.5.2` while the theme was on `1.5.4`. It now tracks the
+  theme version, though `style.css`, `readme.txt`, and `CHANGELOG.md` remain the three files
+  that matter.
+
 ## [1.5.4] - 2026-07-23
 
 ### Changed

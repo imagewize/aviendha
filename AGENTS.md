@@ -25,6 +25,19 @@ content is composed directly from blocks (core blocks or the Aludra block librar
   enabling it in WP Admin, or `wp theme activate aviendha`.
 - `composer install` then `composer run lint` / `composer run wpcs:scan` / `composer run wpcs:fix`.
 - Regenerate translations when strings change: `wp i18n make-pot . languages/aviendha.pot`.
+- **Testing unreleased changes: sync, don't release.** The theme is a pinned Composer dependency
+  on the local demo site (`~/code/imagewize.com/demo`, subsite
+  `http://demo.imagewize.test/aviendha/`), not a symlink. Use wp-ops'
+  `scripts/rsync-package-to-site.sh theme aviendha`, with `SITE_ROOT` pointing at that site's
+  `web/app`; it rsyncs this working copy with `--delete --delete-excluded` honouring `.distignore`,
+  so what you test is what ships. `composer update` on that site restores the released version.
+  Do not commit a sync script here — Theme Check rejects a theme that ships a `.sh` file.
+- **Releases** are packaged by `.github/workflows/create-release.yml` (`zip -x@.distignore`) on
+  publish. Keep `.distignore` and `.gitattributes` (`export-ignore`) in step so the release zip
+  and source archives contain the same files.
+- **CI**: `wpcs.yml` (PHPCS, WordPress standard) on pull requests, `theme-check.yml` (WordPress
+  theme review action, accessibility suite included) on pull requests and pushes to `main`. Run
+  `composer run wpcs:scan` locally before pushing — it uses the same standard.
 
 ## Coding Style
 

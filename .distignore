@@ -1,0 +1,60 @@
+# Files and directories excluded from the distributed theme zip.
+# Consumed by `zip -x@.distignore` in .github/workflows/create-release.yml.
+# Directories need a /* suffix to exclude recursively.
+
+# Version control and CI
+.git/*
+.github/*
+.claude/*
+.gitignore
+.distignore
+.gitattributes
+.editorconfig
+
+# Dependencies (dev-only — the theme has no runtime Composer or npm deps)
+vendor/*
+node_modules/*
+composer.json
+composer.lock
+package.json
+package-lock.json
+
+# Tooling and scripts
+bin/*
+*.sh
+create-pr.sh
+phpcs.xml
+phpcs.xml.dist
+.phpunit.result.cache
+
+# Contributor documentation (readme.txt ships, these do not)
+CLAUDE.md
+AGENTS.md
+CONTRIBUTING.md
+README.md
+docs/*
+
+# OS and editor cruft
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+.Spotlight-V100
+.Trashes
+__MACOSX
+.vscode/*
+.idea/*
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.sw?
+*~
+*.tmp
+*.bak
+
+# Logs and environment
+*.log
+.env
+.env.local
+.env.*.local

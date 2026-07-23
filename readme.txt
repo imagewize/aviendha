@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.5.4
+Stable tag: 1.6.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,13 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.6.0 =
+* Added: GitHub release workflow that attaches a theme zip to every published release, with a `.distignore` and matching `.gitattributes` keeping dev-only files out of the package
+* Added: CI checks matching Elayne's — PHPCS against the WordPress standard on every pull request, and the WordPress theme review action on pull requests and pushes to main
+* Fixed: `screenshot.png` was missing — WordPress requires every theme to ship one, and the new theme review check was the first thing to say so
+* Changed: demo-site syncing now uses a shared script kept outside the theme, so no development shell script ships in the repository
+* Fixed: `package.json` version drifted behind the theme version and now tracks it
 
 = 1.5.4 =
 * Change: footer navigation no longer collapses into a hamburger menu — it renders as a plain list at every width, stacking vertically under 600px

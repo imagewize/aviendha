@@ -91,6 +91,56 @@ composer run wpcs:scan  # PHPCS against phpcs.xml (WordPress standard)
 composer run wpcs:fix   # PHPCBF auto-fix
 ```
 
+### Testing on the demo site
+
+Aviendha is exercised on the `/aviendha/` subsite of the local Trellis/Bedrock multisite at
+`~/code/imagewize.com/demo` (`http://demo.imagewize.test/aviendha/`), alongside the
+[Aludra](https://github.com/imagewize/aludra) block library the content is composed from.
+
+Both are pinned Composer dependencies there, **not** symlinks to these working copies. Do not cut
+a release to test a local change — sync instead, with `rsync-package-to-site.sh` from
+[wp-ops](https://github.com/imagewize/wp-ops) (`scripts/rsync-package-to-site.sh`):
+
+```bash
+SITE_ROOT=~/code/imagewize.com/demo/web/app \
+  ~/code/wp-ops/scripts/rsync-package-to-site.sh theme aviendha ~/code/aviendha
+```
+
+It rsyncs a dist-faithful tree (`--delete --delete-excluded`, honouring `.distignore`), so what
+you test is what ships; pass `plugin aludra` for the block library. A `composer update` on the
+demo site puts the released code back.
+
+The script deliberately lives in wp-ops rather than here: its paths are personal configuration,
+not theme code, and Theme Check's `File_Check` rejects a theme that ships a `.sh` file at all.
+Elayne and Nynaeve keep their copies untracked for the same reason; `bin/sync-demo.sh` is
+gitignored here if you want a local shortcut.
+
+Run one-off WP-CLI commands against it with:
+
+```bash
+cd ~/code/imagewize.com/trellis
+trellis vm shell --workdir /srv/www/demo.imagewize.com/current -- wp <command> --url=demo.imagewize.test/aviendha/
+```
+
+### CI
+
+Two checks run on GitHub, both mirroring Elayne's:
+
+- `wpcs.yml` — PHPCS against the WordPress standard, on every pull request. `composer run
+  wpcs:scan` runs the same standard locally.
+- `theme-check.yml` — the WordPress theme review action with the stricter accessibility suite
+  enabled, on pull requests and pushes to `main`. It reviews the repo root, exactly as Elayne's
+  does. The action copies whatever `root-folder` points at, so anything tracked here is reviewed:
+  Theme Check's `File_Check` rejects a theme carrying a `.sh` file, which is why the sync script
+  lives in wp-ops and is gitignored here. Keep it that way rather than reaching for a build step.
+
+### Release packaging
+
+Publishing a GitHub release triggers `.github/workflows/create-release.yml`, which zips the theme
+with `zip -x@.distignore` and attaches it to the release. Anything that should not reach an
+installed site belongs in `.distignore` — and, so source archives match, in `.gitattributes` as
+`export-ignore`. Keep the two in step.
+
 ## Version Management
 
 When updating the theme version, update **three files** in sync:
