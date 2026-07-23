@@ -12,6 +12,9 @@ All notable changes to Aviendha are documented in this file.
   `export-ignore` so source archives match. Verified: the zip is 35 files — templates, parts,
   styles, assets, `theme.json`, `functions.php`, `style.css`, `readme.txt`, languages, licence,
   changelog.
+- **CI checks**, matching Elayne's: `wpcs.yml` runs PHPCS against the WordPress standard on every
+  pull request, and `theme-check.yml` runs the WordPress theme review action (including the
+  stricter accessibility suite) on pull requests and pushes to `main`.
 - **`bin/sync-demo.sh`** — pushes this working copy into the demo Bedrock site
   (`~/code/imagewize.com/demo/web/app/themes/aviendha`) so unreleased theme changes can be
   tested there without cutting a release. Rsyncs a dist-faithful tree (`--delete
