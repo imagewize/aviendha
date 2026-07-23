@@ -1,6 +1,24 @@
 /**
  * Aviendha WooCommerce overrides.
  *
- * Enqueued only when WooCommerce is active (see functions.php). Empty for now —
- * add store-specific overrides here as they come up.
+ * Enqueued only when WooCommerce is active (see functions.php). The design
+ * system lives in theme.json — this file only holds what theme.json cannot
+ * express, on the same terms as style.css does for core blocks.
+ *
+ * 1. Mini cart drawer
  */
+
+/* -------------------------------------------------------------------------
+ * 1. Mini cart drawer
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The drawer panel is a component wrapper outside the mini-cart-contents
+ * block, so the `woocommerce/mini-cart-contents` theme.json entry can't reach
+ * it — WooCommerce hardcodes `background: #fff`. Left alone, a dark style
+ * variation renders light contents text on a white panel.
+ */
+.wc-block-components-drawer {
+	background: var(--wp--preset--color--base);
+	border-left-color: var(--wp--preset--color--border-light);
+}
