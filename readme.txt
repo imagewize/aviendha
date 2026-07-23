@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.6.0
+Stable tag: 1.7.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,7 +37,16 @@ store templates.
 
 == Changelog ==
 
-= 1.6.0 =
+= 1.7.0 =
+* Added: product filtering and sorting on the product archive — a results count and sorting bar, plus a sidebar with active-filter chips, price slider, category, availability, and rating filters
+* Added: breadcrumbs, term description, and an empty state on the product archive; a filtered archive matching no products previously rendered nothing at all
+* Added: theme add-to-cart layouts for simple and variable products, so the quantity stepper and variation chips use the theme's spacing instead of WooCommerce's defaults
+* Added: short product description and stock status on the single product template
+* Changed: the single product template uses WooCommerce's block-based add to cart instead of the legacy form, so the design system can style it
+* Changed: WooCommerce's bundled block patterns are unregistered, matching the theme's no-patterns design (the coming soon patterns are kept, since WooCommerce's own templates use them)
+* Fixed: the store templates and the header's mini cart no longer appear on sites without WooCommerce active
+* Fixed: discounted products showed two sale badges on the archive
+* Fixed: the archive heading sat indented from the product grid below it
 * Added: GitHub release workflow that attaches a theme zip to every published release, with a `.distignore` and matching `.gitattributes` keeping dev-only files out of the package
 * Added: CI checks matching Elayne's — PHPCS against the WordPress standard on every pull request, and the WordPress theme review action on pull requests and pushes to main
 * Fixed: `screenshot.png` was missing — WordPress requires every theme to ship one, and the new theme review check was the first thing to say so

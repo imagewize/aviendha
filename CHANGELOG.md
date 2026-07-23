@@ -2,6 +2,68 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.7.0] - 2026-07-23
+
+### Added
+- **Product filtering and sorting on the archive.** `templates/archive-product.html` was a bare
+  product grid — customers could not sort a category at all. It now carries a results bar
+  (`woocommerce/product-results-count` + `woocommerce/catalog-sorting`) and a 25% filters sidebar
+  built from `woocommerce/product-filters`: active-filter chips with a clear button, a price
+  slider, category, availability, and rating. Also added breadcrumbs, `core/term-description`, and
+  a `woocommerce/product-collection-no-results` empty state — a filtered archive that matched
+  nothing previously rendered nothing at all.
+
+  `woocommerce/product-filter-attribute` is deliberately not shipped: its `attributeId` defaults to
+  `0`, so a bundled instance renders as an unconfigured prompt on every store, and which attribute
+  matters is per-store by definition. Add it per site in the Site Editor.
+- **Per-product-type add-to-cart layouts.** `parts/simple-product-add-to-cart-with-options.html`
+  and `parts/variable-product-add-to-cart-with-options.html` override WooCommerce's own parts in
+  the `add-to-cart-with-options` template part area (registered in `theme.json`), giving the
+  quantity stepper and variation chips theme spacing presets instead of the plugin's hardcoded
+  `1rem` margins. External and grouped products keep WooCommerce's defaults.
+- **`woocommerce/product-summary` and `woocommerce/product-stock-indicator`** on the single product
+  template. The full description was reachable only through the `product-details` tabs, and stock
+  state was not shown anywhere.
+- `docs/woocommerce-roadmap.md` — gap analysis and the reasoning behind each of these choices,
+  plus what remains (store block styling in `theme.json`, additional templates). Not shipped in
+  the theme zip.
+
+### Changed
+- **`woocommerce/add-to-cart-form` replaced with `woocommerce/add-to-cart-with-options`** on
+  `templates/single-product.html`. The former is the legacy PHP-rendered form, which can only be
+  restyled by overriding WooCommerce's markup; the latter is composed of blocks the design system
+  can reach.
+- **WooCommerce's bundled block patterns are unregistered.** `functions.php` already called
+  `remove_theme_support( 'core-block-patterns' )` to keep the inserter clean, but WooCommerce
+  registered its own `woocommerce-blocks/*` set on top — patterns this theme never designed and
+  does not style. The `woocommerce/coming-soon*` patterns are left alone, since the plugin's own
+  templates render them. `pattern-toolkit-full-composability` is also removed from
+  `woocommerce_admin_features`, which stops the pattern-assembler onboarding flow from offering to
+  overwrite the theme's templates.
+- Product Collection now uses the current `displayLayout` shape
+  (`{"type":"flex","columns":3,"shrinkColumns":true}` plus `dimensions`) instead of the older grid
+  attributes. `shrinkColumns` is what collapses columns sensibly on narrow viewports.
+
+### Fixed
+- **The store templates were registered on sites without WooCommerce.** `single-product` and
+  `archive-product` appeared in the Site Editor's template list on a site that cannot render them,
+  and `parts/header.html`'s hardcoded mini cart showed an unsupported-block placeholder in the
+  editor. `functions.php` now branches on `class_exists( 'WooCommerce' )`: when the plugin is
+  absent, the store templates and add-to-cart parts are filtered out of `get_block_templates`, and
+  `woocommerce/mini-cart` and `woocommerce/customer-account` are stripped from template part
+  content (`get_block_file_template` is filtered too, since the front end resolves parts through
+  it). The `add-to-cart-with-options` template part area is registered by the theme in that branch
+  only — the plugin registers it otherwise, and an unknown area on a `theme.json` template part
+  triggers a `_doing_it_wrong` notice.
+- **Two sale badges rendered on every discounted product card.** `woocommerce/product-image`
+  renders its own badge (`showSaleBadge` defaults to `true`), so the nested
+  `woocommerce/product-sale-badge` block produced a second one — one left-aligned, one right. The
+  image block's own badge is now disabled and the explicit block kept, which is what carries the
+  font size and stays visible in the editor's list view.
+- **The archive's heading sat indented from its own product grid.** In a `constrained` main group,
+  `alignwide` columns are wider than an unaligned heading above them. `query-title`,
+  `term-description` and the results bar now set `align: "wide"` explicitly.
+
 ## [1.6.0] - 2026-07-23
 
 ### Added
