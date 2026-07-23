@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,10 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.5.3 =
+* Fixed: the dark header's mobile menu showed white text on a white overlay — the navigation block sets no background, so core paints the open overlay white while the block's `base` text color keeps the links and close button white. The override is scoped to the open menu only, since above 600px core reuses the same element for the inline desktop nav.
+* Change: organize `style.css` into numbered sections (template parts, header, footer) with a table of contents.
 
 = 1.5.2 =
 * Add: footer parity with the redesign mockup (Step 14) — `.foot` class with constrained layout, tertiary background, and a `.shell` inner group with flex layout matching the mockup's wrapped row

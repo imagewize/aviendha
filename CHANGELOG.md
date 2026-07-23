@@ -2,6 +2,27 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.5.3] - 2026-07-23
+
+### Fixed
+- **The dark header's mobile menu was white text on a white overlay.** The navigation block
+  sets no background of its own, so core's
+  `.wp-block-navigation:not(.has-background) …is-menu-open` rule paints the overlay `#fff`,
+  while the block's `textColor: "base"` keeps the links — and the close button — white.
+  `style.css` now overrides the color inside the open overlay (with `!important`, since the
+  markup carries `has-base-color` and core emits that with `!important`).
+
+  The override is scoped to `.is-menu-open`. With `overlayMenu: "mobile"` the responsive
+  container gets no `hidden-by-default` class, so above 600px core reuses that same element to
+  render the *inline desktop* nav — an unscoped rule would darken the desktop links against the
+  dark masthead, and would win over core's own `color: inherit !important` on the strength of
+  the `.aviendha-header--dark` prefix.
+
+### Changed
+- `style.css` is now organized into numbered sections (template parts → header → footer), with
+  a table of contents and a note on what belongs in this file versus `theme.json`. No rule
+  changes beyond the scoping fix above.
+
 ## [1.5.2] - 2026-07-23
 
 ### Added
