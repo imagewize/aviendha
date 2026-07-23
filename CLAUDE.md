@@ -111,6 +111,15 @@ cd ~/code/imagewize.com/trellis
 trellis vm shell --workdir /srv/www/demo.imagewize.com/current -- wp <command> --url=demo.imagewize.test/aviendha/
 ```
 
+### CI
+
+Two checks run on GitHub, both mirroring Elayne's:
+
+- `wpcs.yml` — PHPCS against the WordPress standard, on every pull request. `composer run
+  wpcs:scan` runs the same standard locally.
+- `theme-check.yml` — the WordPress theme review action with the stricter accessibility suite
+  enabled, on pull requests and pushes to `main`.
+
 ### Release packaging
 
 Publishing a GitHub release triggers `.github/workflows/create-release.yml`, which zips the theme

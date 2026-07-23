@@ -34,6 +34,9 @@ content is composed directly from blocks (core blocks or the Aludra block librar
 - **Releases** are packaged by `.github/workflows/create-release.yml` (`zip -x@.distignore`) on
   publish. Keep `.distignore` and `.gitattributes` (`export-ignore`) in step so the release zip
   and source archives contain the same files.
+- **CI**: `wpcs.yml` (PHPCS, WordPress standard) on pull requests, `theme-check.yml` (WordPress
+  theme review action, accessibility suite included) on pull requests and pushes to `main`. Run
+  `composer run wpcs:scan` locally before pushing — it uses the same standard.
 
 ## Coding Style
 
