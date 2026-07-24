@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.11.0
+Version: 1.12.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -35,6 +35,15 @@ Aviendha is distributed under the terms of the GNU GPL.
  * 4. Utilities
  *    4.1 Eyebrow
  * 5. Content rhythm
+ * 6. Single post
+ *    6.1 Post meta line
+ *    6.2 Two-column article and sticky sidebar
+ *    6.3 Prose
+ *    6.4 Post tail and author card
+ *    6.5 Sidebar widgets
+ *    6.6 Related posts
+ *    6.7 Comments
+ *    6.8 Reading-progress bar
  */
 
 /* -------------------------------------------------------------------------
@@ -523,4 +532,446 @@ body .aviendha-header--dark .wp-block-site-logo {
  */
 .entry-content :is(h2, h3, h4, h5, h6) + * {
 	margin-block-start: var(--wp--preset--spacing--small);
+}
+
+/* -------------------------------------------------------------------------
+ * 6. Single post
+ *
+ * All scoped to the `.single` body class core adds on single posts, so none
+ * of it leaks onto pages or archives. Layout primitives (the sticky sidebar,
+ * the two-column collapse) and pseudo-elements live here because theme.json
+ * cannot express them; colours and type reference the presets as everywhere
+ * else.
+ * ------------------------------------------------------------------------- */
+
+/* 6.1 Post meta line
+ * ------------------------------------------------------------------------- */
+
+/*
+ * A mono, letter-spaced byline under the title: avatar, author, date. Built
+ * from core blocks (avatar / post-author-name / post-date) rather than one
+ * block, so each piece can be styled and a reading-time block can slot in
+ * later without disturbing the rest.
+ */
+.aviendha-post-meta {
+	color: var(--wp--preset--color--main-accent);
+	font-family: var(--wp--preset--font-family--mono);
+	gap: 0.55rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.aviendha-post-meta .wp-block-avatar {
+	line-height: 0;
+}
+
+.aviendha-post-meta .wp-block-avatar img {
+	border-radius: 999px;
+}
+
+/* "By" reads muted (inherits the block colour); the name link takes contrast. */
+.aviendha-post-meta .wp-block-post-author-name::before {
+	content: "By ";
+}
+
+.aviendha-post-meta .wp-block-post-author-name a {
+	color: var(--wp--preset--color--contrast);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* A hairline dot separates the date from the author; the flex gap does the spacing. */
+.aviendha-post-meta .wp-block-post-date::before {
+	color: var(--wp--preset--color--sand-deep);
+	content: "·";
+	padding-right: 0.55rem;
+}
+
+.aviendha-post-meta .wp-block-post-date a,
+.aviendha-post-meta .wp-block-post-date time {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* The lede under the title: colour and size come from the block; cap the measure. */
+.aviendha-post-lede {
+	max-width: 56ch;
+}
+
+/* 6.2 Two-column article and sticky sidebar
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The content column has no width (it grows); the sidebar column is a fixed
+ * 300px. Two columns that both carry a percentage summing to 100% wrap onto
+ * two rows once the column gap is added, so the grow-plus-fixed pairing is
+ * what keeps them on one row.
+ *
+ * Sticky is not a core group support, so the inner sidebar group carries a
+ * class and the positioning lives here. The offset clears the sticky masthead
+ * (~66px) plus a little breathing room.
+ */
+.single .aviendha-sidebar__sticky {
+	position: sticky;
+	top: 5.5rem;
+}
+
+/*
+ * Collapse to one column below 980px — earlier than core's own 782px column
+ * stacking, because the 300px sidebar beside a shrinking content column gets
+ * cramped before then. Once stacked, the sidebar drops its sticky behaviour
+ * (nothing to stick against in a single column) and sits below the article.
+ */
+@media (max-width: 980px) {
+	.single .aviendha-article > .wp-block-column {
+		flex-basis: 100%;
+	}
+
+	.single .aviendha-sidebar__sticky {
+		position: static;
+	}
+}
+
+/* 6.3 Prose
+ * ------------------------------------------------------------------------- */
+
+/*
+ * theme.json and §5 handle block rhythm; these are the post-body flourishes
+ * that need element or pseudo selectors: a display-face pull quote, primary
+ * list markers, and a drop cap on a post that opens with a paragraph.
+ */
+.single .entry-content blockquote {
+	border-left: 3px solid var(--wp--preset--color--primary);
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--large);
+	font-weight: 500;
+	letter-spacing: -0.02em;
+	line-height: 1.3;
+	margin-inline: 0;
+	padding: var(--wp--preset--spacing--small) 0 var(--wp--preset--spacing--small) var(--wp--preset--spacing--medium);
+}
+
+.single .entry-content li::marker {
+	color: var(--wp--preset--color--primary);
+}
+
+/*
+ * Drop cap only when the very first child is a paragraph — `:first-child`
+ * rather than `:first-of-type`, so a post opening with a heading, list or
+ * image is left alone rather than having a paragraph further down capitalised.
+ */
+.single .entry-content > p:first-child::first-letter {
+	color: var(--wp--preset--color--primary);
+	float: left;
+	font-family: var(--wp--preset--font-family--display);
+	font-size: 3.1em;
+	font-weight: 700;
+	line-height: 0.78;
+	padding: 0.06em 0.12em 0 0;
+}
+
+/* 6.4 Post tail and author card
+ * ------------------------------------------------------------------------- */
+
+/* Tags render as mono outline pills (post-terms with an empty separator). */
+.single .aviendha-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.single .aviendha-tags a {
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: 999px;
+	color: var(--wp--preset--color--secondary);
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	letter-spacing: 0.06em;
+	padding: 0.35em 0.7em;
+	text-decoration: none;
+	transition: border-color 0.14s, color 0.14s;
+}
+
+.single .aviendha-tags a:hover {
+	border-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--primary);
+}
+
+/* The author card is core/post-author; background/padding/radius are block attrs. */
+.single .aviendha-author-card {
+	align-items: flex-start;
+	display: flex;
+	gap: var(--wp--preset--spacing--small);
+}
+
+.single .aviendha-author-card .wp-block-post-author__avatar img {
+	border-radius: 999px;
+}
+
+.single .aviendha-author-card .wp-block-post-author__byline {
+	color: var(--wp--preset--color--main-accent);
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	letter-spacing: 0.1em;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.single .aviendha-author-card .wp-block-post-author__name {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--medium);
+	font-weight: 600;
+	margin: 0.15em 0 0.3em;
+}
+
+.single .aviendha-author-card .wp-block-post-author__bio {
+	color: var(--wp--preset--color--secondary);
+	font-size: var(--wp--preset--font-size--small);
+	margin: 0;
+}
+
+/* 6.5 Sidebar widgets
+ * ------------------------------------------------------------------------- */
+
+/* A mono label with a hairline under it, distinct from the display headings. */
+.single .aviendha-widget-title {
+	border-bottom: 1px solid var(--wp--preset--color--border-light);
+	color: var(--wp--preset--color--main-accent);
+	font-family: var(--wp--preset--font-family--mono);
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	margin-bottom: var(--wp--preset--spacing--small);
+	padding-bottom: var(--wp--preset--spacing--2-x-small);
+	text-transform: uppercase;
+}
+
+/* Recent (core/latest-posts) — title over a mono date, hairline between items. */
+.single .aviendha-mini-posts {
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+.single .aviendha-mini-posts li {
+	border-bottom: 1px solid var(--wp--preset--color--border-light);
+	padding-block: var(--wp--preset--spacing--x-small);
+}
+
+.single .aviendha-mini-posts li:last-child {
+	border-bottom: 0;
+}
+
+.single .aviendha-mini-posts a {
+	color: var(--wp--preset--color--contrast);
+	display: block;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 500;
+	line-height: 1.3;
+	text-decoration: none;
+}
+
+.single .aviendha-mini-posts a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+.single .aviendha-mini-posts .wp-block-latest-posts__post-date {
+	color: var(--wp--preset--color--main-accent);
+	display: block;
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	letter-spacing: 0.06em;
+	margin-top: 0.15em;
+}
+
+/* Topics (core/categories) — a plain hairline-separated list. */
+.single .aviendha-topics {
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+.single .aviendha-topics li {
+	border-bottom: 1px solid var(--wp--preset--color--border-light);
+	padding-block: 0.3rem;
+}
+
+.single .aviendha-topics li:last-child {
+	border-bottom: 0;
+}
+
+.single .aviendha-topics a {
+	color: var(--wp--preset--color--secondary);
+	font-size: var(--wp--preset--font-size--small);
+	text-decoration: none;
+}
+
+.single .aviendha-topics a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/*
+ * Sidebar CTA button: base on main, inverting the theme.json primary button.
+ * The named-colour classes core emits carry `!important`, so the hover has to
+ * as well to win — same idiom the dark header's CTA hover uses (§2.5).
+ */
+.single .aviendha-aside-cta .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--white) !important;
+	color: var(--wp--preset--color--main) !important;
+}
+
+/* 6.6 Related posts
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The query loop renders a grid of <li> cards. The featured image sits flush
+ * to the card's top edge (card `overflow: hidden` clips it to the radius); the
+ * text blocks carry their own inline padding. A card without a featured image
+ * keeps its top spacing from the eyebrow's own top margin, so both cases read.
+ */
+.single .aviendha-related__grid .wp-block-post-template > li {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--lg);
+	overflow: hidden;
+	padding-bottom: var(--wp--preset--spacing--medium);
+	transition: transform 0.16s, box-shadow 0.16s, border-color 0.16s;
+}
+
+.single .aviendha-related__grid .wp-block-post-template > li:hover {
+	border-color: var(--wp--preset--color--sand-deep);
+	box-shadow: 0 16px 32px -22px rgb(33 28 26 / 0.55);
+	transform: translateY(-3px);
+}
+
+.single .aviendha-related__grid .wp-block-post-featured-image {
+	margin: 0;
+}
+
+.single .aviendha-related__grid .wp-block-post-featured-image img {
+	aspect-ratio: 16 / 10;
+	border-radius: 0;
+	object-fit: cover;
+	width: 100%;
+}
+
+.single .aviendha-related__grid :is(.wp-block-post-terms, .wp-block-post-title, .wp-block-post-excerpt) {
+	padding-inline: var(--wp--preset--spacing--medium);
+}
+
+/* 6.7 Comments
+ * ------------------------------------------------------------------------- */
+
+.single .aviendha-comments .wp-block-comment-template {
+	list-style: none;
+	margin-top: var(--wp--preset--spacing--large);
+	padding-left: 0;
+}
+
+.single .aviendha-comments .wp-block-comment-template > li {
+	border-bottom: 1px solid var(--wp--preset--color--border-light);
+	padding-block: var(--wp--preset--spacing--medium);
+}
+
+.single .aviendha-comments .wp-block-avatar img {
+	border-radius: 999px;
+}
+
+.single .aviendha-comment__meta {
+	gap: 0.6rem;
+}
+
+.single .aviendha-comment__meta .wp-block-comment-author-name {
+	font-family: var(--wp--preset--font-family--display);
+	font-weight: 600;
+}
+
+.single .aviendha-comment__meta .wp-block-comment-author-name a {
+	text-decoration: none;
+}
+
+.single .aviendha-comment__meta .wp-block-comment-date,
+.single .aviendha-comment__meta .wp-block-comment-date a {
+	color: var(--wp--preset--color--main-accent);
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	letter-spacing: 0.06em;
+	text-decoration: none;
+}
+
+/*
+ * Comment form. Core renders the browser-default field: a white box with a
+ * sharp grey border, which reads as a foreign element on the cream page. Put
+ * the fields on `base` with a hairline border and the theme radius, and give
+ * their labels the same mono treatment the sidebar widgets and meta line use,
+ * so the form belongs to the design rather than the browser.
+ */
+.single .aviendha-comments .comment-form label {
+	color: var(--wp--preset--color--main-accent);
+	display: block;
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--xx-small);
+	letter-spacing: 0.1em;
+	margin-bottom: var(--wp--preset--spacing--2-x-small);
+	text-transform: uppercase;
+}
+
+.single .aviendha-comments .comment-form :is(textarea, input[type="text"], input[type="email"], input[type="url"]) {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--md);
+	color: var(--wp--preset--color--contrast);
+	font-family: var(--wp--preset--font-family--primary);
+	font-size: var(--wp--preset--font-size--base);
+	padding: 0.75em 0.9em;
+	width: 100%;
+}
+
+.single .aviendha-comments .comment-form textarea {
+	min-height: 130px;
+	resize: vertical;
+}
+
+.single .aviendha-comments .comment-form :is(textarea, input[type="text"], input[type="email"], input[type="url"]):focus {
+	border-color: var(--wp--preset--color--primary);
+	outline: none;
+}
+
+.single .aviendha-comments .comment-form ::placeholder {
+	color: var(--wp--preset--color--main-accent);
+	opacity: 1;
+}
+
+/* 6.8 Reading-progress bar
+ * ------------------------------------------------------------------------- */
+
+/*
+ * A hairline under the masthead that fills as the page scrolls. Driven by a
+ * scroll timeline rather than a scroll listener, for the same reason §2.2's
+ * header edge is: the theme ships no JavaScript, and where `scroll()` is
+ * unsupported the bar simply never appears — the rest state we would choose
+ * anyway. Scoped to `.single` so it is a reading affordance for posts only.
+ *
+ * Anchored to `.aviendha-header`, which §2.1 already makes sticky (hence
+ * positioned), so the absolute bar sits on its bottom edge.
+ */
+@supports (animation-timeline: scroll()) {
+	.single .aviendha-header::after {
+		animation: aviendha-read-progress linear both;
+		animation-timeline: scroll(root block);
+		background: var(--wp--preset--color--primary);
+		bottom: 0;
+		content: "";
+		height: 2px;
+		left: 0;
+		position: absolute;
+		transform: scaleX(0);
+		transform-origin: left;
+		width: 100%;
+	}
+}
+
+@keyframes aviendha-read-progress {
+	to {
+		transform: scaleX(1);
+	}
 }
