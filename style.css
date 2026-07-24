@@ -68,24 +68,42 @@ Aviendha is distributed under the terms of the GNU GPL.
 }
 
 /*
- * The footer takes up the slack, not `main`. Growing `main` also works, but its
- * background is transparent, so the stretch showed as a base-coloured strip
- * between the page's last section and the footer — invisible on a plain prose
- * page, obvious under any section that has a background of its own, which is
- * how most Aludra-built pages end.
- *
- * Growing the wrapper instead, in the footer's own colour, makes that leftover
- * space read as part of the footer. `justify-content: flex-end` keeps the
- * footer's content at the bottom of the box rather than floating at the top of
- * it. On a page long enough to fill the viewport there is no free space to
- * distribute, so none of this applies and the footer renders as it always did.
+ * `main` takes up the slack. Its background is transparent, so on an ordinary
+ * prose page the stretch is indistinguishable from the content area around it —
+ * base on base, nothing to see.
  */
-.wp-site-blocks > footer {
-	background-color: var(--wp--preset--color--tertiary);
-	display: flex;
+.wp-site-blocks > main {
 	flex: 1 0 auto;
+}
+
+/*
+ * Unless the page ends in a full-bleed section, where that same transparent
+ * stretch reads as a base-coloured strip below the section's own colour. Then
+ * the section itself should absorb the space instead, so its background simply
+ * continues to the footer.
+ *
+ * Growing the footer rather than `main` was the other way to hide the strip, but
+ * it is the same region either way — only the colour changes — and a viewport's
+ * worth of it in the footer's tertiary reads as an enormous footer on a short
+ * page (622px of it on the Sample Page). Absorbing the space is what removes it.
+ *
+ * Scoped with `:has()` rather than applied to every page for two reasons: `float`
+ * is ignored on flex items, so an `alignleft`/`alignright` image inside
+ * `entry-content` would stop wrapping its text — a real cost on prose pages, and
+ * one they get nothing back for, since their filler is already invisible. Pages
+ * that end in an `alignfull` section are section-built and do not float. Where
+ * `:has()` is unsupported the chain simply never engages and the base-coloured
+ * strip comes back, which is the unstyled behaviour anyway.
+ */
+.wp-site-blocks > main:has(> .entry-content > :last-child.alignfull),
+.wp-site-blocks > main:has(> .entry-content > :last-child.alignfull) > .entry-content {
+	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
+}
+
+.wp-site-blocks > main:has(> .entry-content > :last-child.alignfull) > .entry-content,
+.wp-site-blocks > main:has(> .entry-content > :last-child.alignfull) > .entry-content > :last-child {
+	flex: 1 0 auto;
 }
 
 /* -------------------------------------------------------------------------

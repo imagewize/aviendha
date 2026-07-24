@@ -43,9 +43,19 @@ All notable changes to Aviendha are documented in this file.
 
 ### Fixed
 - **The footer no longer floats mid-viewport on short pages.** `.wp-site-blocks` is a `100vh` flex
-  column and the footer takes up the slack. The footer rather than `main`, because `main` is
-  transparent: growing it showed a base-coloured strip between a page's last section and the footer,
-  invisible on a prose page but obvious under any section with a background of its own.
+  column and `main` takes up the slack. `main` is transparent, so on a prose page the stretch is
+  indistinguishable from the content area around it.
+
+  Where the page ends in a full-bleed section, that same stretch would read as a base-coloured strip
+  under the section's own colour, so the section itself absorbs the space instead and its background
+  continues to the footer. Scoped with `:has()` rather than applied everywhere, because `float` is
+  ignored on flex items: a prose page with an `alignleft` image would lose its text wrap, and it
+  gains nothing in return since its filler is already invisible. Where `:has()` is unsupported the
+  chain never engages and the strip comes back, which is the unstyled behaviour anyway.
+
+  Growing the footer instead of `main` hides the strip too, but it is the same region either way —
+  only the colour differs — and a viewport's worth of it in the footer's `tertiary` reads as an
+  enormous footer on a short page.
 
 ## [1.8.1] - 2026-07-24
 
