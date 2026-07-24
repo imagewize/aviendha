@@ -32,6 +32,11 @@ CLAUDE.md
 AGENTS.md
 CONTRIBUTING.md
 README.md
+
+# Kept as a guard, not a description: there is no docs/ or designs/ directory
+# here any more. Planning documents and design mockups live in the private
+# imagewize.com repo under docs/aviendha/ and designs/aviendha/ (see CLAUDE.md).
+# These entries stay so that a stray file re-added here never reaches a zip.
 docs/*
 designs/
 designs/*
