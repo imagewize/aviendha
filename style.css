@@ -33,6 +33,7 @@ Aviendha is distributed under the terms of the GNU GPL.
  * 3. Footer
  * 4. Utilities
  *    4.1 Eyebrow
+ * 5. Content rhythm
  */
 
 /* -------------------------------------------------------------------------
@@ -405,4 +406,21 @@ body .aviendha-header--dark .wp-block-site-logo {
 
 .aviendha-eyebrow a:hover {
 	color: var(--wp--preset--color--primary);
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Content rhythm
+ * ------------------------------------------------------------------------- */
+
+/*
+ * theme.json sets the global `blockGap` that separates blocks, and an `h2` top
+ * margin that opens a section up. What it cannot express is the other half of
+ * the pairing — a heading should sit *close* to the block it introduces, which
+ * needs a sibling selector.
+ *
+ * Without this the full block gap lands between a heading and its own first
+ * paragraph, and the heading reads as belonging to the text above it.
+ */
+.entry-content :is(h2, h3, h4, h5, h6) + * {
+	margin-block-start: var(--wp--preset--spacing--small);
 }
