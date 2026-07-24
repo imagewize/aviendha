@@ -2,6 +2,12 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.10.0] - 2026-07-24
+
+### Added
+- **`product-search-results.html`** — theme-provided search results template matching the product archive's layout: breadcrumbs, search query title, results bar with count and sorting, product grid with the same card styling, pagination, and a branded no-results state. Without this, product search results fall back to WooCommerce's generic template and don't match the archive customers just came from.
+- **`coming-soon.html`** — theme-provided coming-soon template wrapping WooCommerce's coming-soon block with the theme's header and footer. This is the first page a new store shows when launch mode is active; branding it provides a consistent experience with the rest of the site.
+
 ## [1.9.0] - 2026-07-24
 
 ### Added

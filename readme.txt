@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.9.0
+Stable tag: 1.10.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,10 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.10.0 =
+* Added: product-search-results.html template matching the archive layout for consistent search results
+* Added: coming-soon.html template wrapping WooCommerce's coming-soon block with header/footer
 
 = 1.9.0 =
 * Added: the Page With Title template opens with a tinted title band, supplying the top spacing it lacked and giving the light header a tonal change to sit against
