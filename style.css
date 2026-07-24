@@ -28,7 +28,8 @@ Aviendha is distributed under the terms of the GNU GPL.
  *    2.2 Scroll edge (light header)
  *    2.3 Wordmark and logo
  *    2.4 CTA button
- *    2.5 Mobile overlay navigation
+ *    2.5 Navigation underline
+ *    2.6 Mobile overlay navigation
  * 3. Footer
  * 4. Utilities
  *    4.1 Eyebrow
@@ -49,6 +50,26 @@ Aviendha is distributed under the terms of the GNU GPL.
  */
 .wp-site-blocks > .wp-block-template-part {
 	margin-block-start: 0;
+}
+
+/*
+ * Pin the footer to the bottom on short pages, where it would otherwise float
+ * mid-viewport with dead space beneath it. `main` is the only growable child;
+ * `flex-basis: auto` (the `0 auto` part) keeps it sized by its content so long
+ * pages are unaffected.
+ *
+ * Safe to make `.wp-site-blocks` a flex column: its children stretch to full
+ * width by default, so the constrained-layout margins that produce alignwide
+ * and alignfull still resolve against the same box they did before.
+ */
+.wp-site-blocks {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.wp-site-blocks > main {
+	flex: 1 0 auto;
 }
 
 /* -------------------------------------------------------------------------
@@ -158,7 +179,71 @@ body .aviendha-header--dark .wp-block-site-logo {
 	letter-spacing: 0.04em;
 	padding: 0.5rem 0.9rem;
 	border-radius: 999px;
+	white-space: nowrap;
 	transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+}
+
+/*
+ * Below 960px the masthead row has no width to spare for the CTA. Between 600px
+ * and 960px core still renders the navigation inline (`overlayMenu: "mobile"`),
+ * so the nav, the account and cart icons and the button all compete and the flex
+ * row resolves it by crushing the button — at 600px it wrapped to six lines and
+ * took the header to 162px tall. Below 600px the nav collapses to a hamburger,
+ * but the logo and two icons still leave less than the button's ~150px, so it
+ * runs off the right edge instead. Neither band can hold it; the CTA is also the
+ * one item here that the page content below repeats, so it is the one to drop.
+ *
+ * The `.wp-block-buttons >` part is load-bearing, not decoration: core emits
+ * `.wp-block-buttons > .wp-block-button { display: inline-block }`, and a lone
+ * class selector here loses to it and leaves the button visible.
+ */
+@media (max-width: 959px) {
+	.aviendha-header .wp-block-buttons > .aviendha-header__cta {
+		display: none;
+	}
+}
+
+/* 2.5 Navigation underline
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Wipe-in underline on hover, held open for the current page. `currentColor`
+ * rather than `primary` so the same rule serves both headers — primary against
+ * the dark header's `main` background is too low-contrast to read as a marker.
+ *
+ * Hooked on `[aria-current="page"]`, which core puts on the link itself, rather
+ * than the `.current-menu-item` class it puts on the `li`. Scoped to the
+ * top-level container so submenu items do not pick it up.
+ */
+.aviendha-header .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content {
+	position: relative;
+	text-decoration: none;
+}
+
+.aviendha-header .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+	background: currentColor;
+	bottom: -0.25em;
+	content: "";
+	height: 2px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.16s ease;
+}
+
+.aviendha-header .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.aviendha-header .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content[aria-current="page"]::after {
+	transform: scaleX(1);
+}
+
+/*
+ * The mobile overlay stacks the same links full-width, where an underline
+ * spanning the whole row reads as a divider rather than a marker.
+ */
+.aviendha-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content::after {
+	content: none;
 }
 
 .aviendha-header--dark .aviendha-header__cta .wp-block-button__link {
@@ -175,7 +260,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
-/* 2.5 Mobile overlay navigation
+/* 2.6 Mobile overlay navigation
  * ------------------------------------------------------------------------- */
 
 /*
