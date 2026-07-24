@@ -25,9 +25,10 @@ Aviendha is distributed under the terms of the GNU GPL.
  * 1. Template parts (global)
  * 2. Header
  *    2.1 Sticky masthead
- *    2.2 Wordmark and logo
- *    2.3 CTA button
- *    2.4 Mobile overlay navigation
+ *    2.2 Scroll edge (light header)
+ *    2.3 Wordmark and logo
+ *    2.4 CTA button
+ *    2.5 Mobile overlay navigation
  * 3. Footer
  * 4. Utilities
  *    4.1 Eyebrow
@@ -57,7 +58,12 @@ Aviendha is distributed under the terms of the GNU GPL.
 /* 2.1 Sticky masthead
  * ------------------------------------------------------------------------- */
 
-.aviendha-header--dark {
+/*
+ * Both variants stick. The rules below are scoped to `.aviendha-header` rather
+ * than `.aviendha-header--dark` wherever they are tonal-neutral, so the light
+ * header is a colour alternative rather than a header with features missing.
+ */
+.aviendha-header {
 	position: sticky;
 	top: 0;
 	z-index: 50;
@@ -69,16 +75,57 @@ Aviendha is distributed under the terms of the GNU GPL.
  * tall as the header itself, so a sticky child has no scroll range to move
  * within and never sticks. Make the wrapper the sticky element in that case.
  */
-.wp-block-template-part:has(> .aviendha-header--dark) {
+.wp-block-template-part:has(> .aviendha-header) {
 	position: sticky;
 	top: 0;
 	z-index: 50;
 }
 
-/* 2.2 Wordmark and logo
+/* 2.2 Scroll edge (light header)
  * ------------------------------------------------------------------------- */
 
-.aviendha-header--dark .wp-block-site-title a {
+/*
+ * The light header sits on `base` and so does the page under it, so a resting
+ * border has no tonal change to describe — it reads as a scratch rather than a
+ * boundary. Instead the edge appears only once the page has moved, when the
+ * sticky masthead genuinely is above something.
+ *
+ * Done with a scroll-driven animation rather than a scroll listener because the
+ * theme ships no JavaScript. Where `scroll()` is unsupported the header simply
+ * stays flush, which is the rest state we are choosing anyway — so no fallback
+ * is needed. The dark header is excluded: it carries its own light hairline in
+ * the block markup, and a `border-light` shadow under it would read as a seam.
+ *
+ * The colours are literal because a keyframe needs the transparent stop to be
+ * the same colour at zero alpha: `#e5ded2` is `border-light`, `#211c1a` is
+ * `contrast`. Same hex-with-alpha idiom the dark header's border uses.
+ */
+@supports (animation-timeline: scroll()) {
+	.aviendha-header:not(.aviendha-header--dark) {
+		animation: aviendha-header-edge linear both;
+		animation-range: 0 8px;
+		animation-timeline: scroll(root block);
+	}
+}
+
+@keyframes aviendha-header-edge {
+	from {
+		box-shadow:
+			0 1px 0 0 #e5ded200,
+			0 8px 24px -18px #211c1a00;
+	}
+
+	to {
+		box-shadow:
+			0 1px 0 0 #e5ded2,
+			0 8px 24px -18px #211c1a80;
+	}
+}
+
+/* 2.3 Wordmark and logo
+ * ------------------------------------------------------------------------- */
+
+.aviendha-header .wp-block-site-title a {
 	font-family: var(--wp--preset--font-family--display);
 	font-weight: 800;
 	font-size: 1.15rem;
@@ -86,7 +133,7 @@ Aviendha is distributed under the terms of the GNU GPL.
 	text-decoration: none;
 }
 
-.aviendha-header--dark .wp-block-site-title a:hover {
+.aviendha-header .wp-block-site-title a:hover {
 	text-decoration: none;
 }
 
@@ -95,9 +142,15 @@ body .aviendha-header--dark .wp-block-site-logo {
 	display: none;
 }
 
-/* 2.3 CTA button
+/* 2.4 CTA button
  * ------------------------------------------------------------------------- */
 
+/*
+ * Shape and type are shared; colour is not. The light header uses the filled
+ * `primary` button straight from theme.json (`styles.elements.button`), so it
+ * needs no colour rules here at all — including hover, which theme.json already
+ * takes to `primary-alt`. Only the dark header's outline treatment is below.
+ */
 .aviendha-header__cta .wp-block-button__link {
 	font-family: var(--wp--preset--font-family--mono);
 	font-size: var(--wp--preset--font-size--x-small);
@@ -105,11 +158,14 @@ body .aviendha-header--dark .wp-block-site-logo {
 	letter-spacing: 0.04em;
 	padding: 0.5rem 0.9rem;
 	border-radius: 999px;
-	border-color: rgb(250 247 242 / 0.3);
 	transition: background-color 0.18s, border-color 0.18s, color 0.18s;
 }
 
-.aviendha-header__cta .wp-block-button__link:hover {
+.aviendha-header--dark .aviendha-header__cta .wp-block-button__link {
+	border-color: rgb(250 247 242 / 0.3);
+}
+
+.aviendha-header--dark .aviendha-header__cta .wp-block-button__link:hover {
 	background-color: var(--wp--preset--color--base);
 	/* !important needed: the saved button markup carries has-base-color,
 	 * and core emits `.has-base-color { color: ... !important }` — a plain
@@ -119,7 +175,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
-/* 2.4 Mobile overlay navigation
+/* 2.5 Mobile overlay navigation
  * ------------------------------------------------------------------------- */
 
 /*
