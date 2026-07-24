@@ -1,0 +1,31 @@
+<!-- wp:template-part {"slug":"header","theme":"aviendha"} /-->
+
+<!-- wp:group {"tagName":"main","align":"wide","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|x-large"},"blockGap":"var:preset|spacing|medium"}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignwide" style="padding-bottom:var(--wp--preset--spacing--x-large)"><!-- wp:woocommerce/order-confirmation {"orderConfirmTemplate":"true"} -->
+<div class="wp-block-woocommerce-order-confirmation"><!-- wp:woocommerce/order-confirmation-header -->
+<div class="wp-block-woocommerce-order-confirmation-header"><!-- wp:woocommerce/order-confirmation-title {"level":1,"align":"wide","fontSize":"x-large"} /-->
+
+<!-- wp:woocommerce/order-confirmation-details {"fontSize":"medium"} /--></div>
+<!-- /wp:woocommerce/order-confirmation-header -->
+
+<!-- wp:woocommerce/order-confirmation-products {"heading":"Items in your order","headingLevel":2} -->
+<div class="wp-block-woocommerce-order-confirmation-products"><!-- wp:heading {"level":2,"fontSize":"large"} -->
+<h2 class="wp-block-heading has-large-font-size">Items in your order</h2>
+<!-- /wp:heading -->
+
+<!-- wp:woocommerce/order-confirmation-products-table /-->
+
+<!-- wp:woocommerce/order-confirmation-totals /--></div>
+<!-- /wp:woocommerce/order-confirmation-products -->
+
+<!-- wp:woocommerce/order-confirmation-additional-informations -->
+<div class="wp-block-woocommerce-order-confirmation-additional-informations"><!-- wp:woocommerce/order-confirmation-customer-addresses /-->
+
+<!-- wp:woocommerce/order-confirmation-billing-address {"heading":"Billing address","headingLevel":2} /-->
+
+<!-- wp:woocommerce/order-confirmation-shipping-address {"heading":"Shipping address","headingLevel":2} /--></div>
+<!-- /wp:woocommerce/order-confirmation-additional-informations --></div>
+<!-- /wp:woocommerce/order-confirmation --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"aviendha","tagName":"footer"} /-->
