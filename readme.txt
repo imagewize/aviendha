@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.10.0
+Stable tag: 1.11.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,12 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.11.0 =
+* Added: order-confirmation.html template wrapping WooCommerce's order-confirmation blocks with the theme's header and footer, so the highest-trust page in the funnel matches the rest of the site
+* Added: a customer-account icon in both the light and dark header, matching the cart, stripped alongside the mini cart on sites without WooCommerce
+* Fixed: the customer-account icon rendered invisibly — WooCommerce's own sizing rule targets a class the block doesn't emit, so the theme sizes the icon directly
+* Fixed: order-confirmation is filtered out of the Site Editor's template list on sites without WooCommerce
 
 = 1.10.0 =
 * Added: product-search-results.html template matching the archive layout for consistent search results

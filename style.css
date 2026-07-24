@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.10.0
+Version: 1.11.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -30,6 +30,7 @@ Aviendha is distributed under the terms of the GNU GPL.
  *    2.4 CTA button
  *    2.5 Navigation underline
  *    2.6 Overlay navigation
+ *    2.7 Account icon
  * 3. Footer
  * 4. Utilities
  *    4.1 Eyebrow
@@ -351,6 +352,35 @@ body .aviendha-header--dark .wp-block-site-logo {
 .aviendha-header--dark .wp-block-navigation__responsive-container.is-menu-open,
 .aviendha-header--dark .wp-block-navigation__responsive-container.is-menu-open * {
 	color: var(--wp--preset--color--main) !important;
+}
+
+/* 2.7 Account icon
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The customer-account block renders as a link, so it picks up the global
+ * `primary` link colour — rose, which is too low-contrast on the dark header's
+ * `main` background and reads as a different element from the mini cart beside
+ * it. Inherit the surrounding header text colour instead, so the account icon
+ * follows the cart in both headers: `base` on the dark header, `contrast` on
+ * the light one. The icon's SVG paints in `currentColor`, so it comes along.
+ */
+.aviendha-header .wp-block-woocommerce-customer-account a {
+	color: inherit;
+}
+
+/*
+ * Size the account icon. WooCommerce ships its sizing rule against
+ * `.wc-block-customer-account__account-icon`, but the block actually renders
+ * the SVG with `class="icon"` (its `iconClass` default) — the two never match,
+ * so the icon collapses to zero and is invisible in every display mode. Give
+ * it an explicit size here; the `:not()` leaves the dropdown caret, which
+ * carries its own dimensions, alone. `em` so it tracks the header font size,
+ * matching WooCommerce's intended 1.5em.
+ */
+.aviendha-header .wp-block-woocommerce-customer-account svg:not(.wc-block-customer-account__caret) {
+	height: 1.5em;
+	width: 1.5em;
 }
 
 /* -------------------------------------------------------------------------
