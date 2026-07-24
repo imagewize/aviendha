@@ -55,9 +55,7 @@ Aviendha is distributed under the terms of the GNU GPL.
 
 /*
  * Pin the footer to the bottom on short pages, where it would otherwise float
- * mid-viewport with dead space beneath it. `main` is the only growable child;
- * `flex-basis: auto` (the `0 auto` part) keeps it sized by its content so long
- * pages are unaffected.
+ * mid-viewport with dead space beneath it.
  *
  * Safe to make `.wp-site-blocks` a flex column: its children stretch to full
  * width by default, so the constrained-layout margins that produce alignwide
@@ -69,8 +67,25 @@ Aviendha is distributed under the terms of the GNU GPL.
 	min-height: 100vh;
 }
 
-.wp-site-blocks > main {
+/*
+ * The footer takes up the slack, not `main`. Growing `main` also works, but its
+ * background is transparent, so the stretch showed as a base-coloured strip
+ * between the page's last section and the footer — invisible on a plain prose
+ * page, obvious under any section that has a background of its own, which is
+ * how most Aludra-built pages end.
+ *
+ * Growing the wrapper instead, in the footer's own colour, makes that leftover
+ * space read as part of the footer. `justify-content: flex-end` keeps the
+ * footer's content at the bottom of the box rather than floating at the top of
+ * it. On a page long enough to fill the viewport there is no free space to
+ * distribute, so none of this applies and the footer renders as it always did.
+ */
+.wp-site-blocks > footer {
+	background-color: var(--wp--preset--color--tertiary);
+	display: flex;
 	flex: 1 0 auto;
+	flex-direction: column;
+	justify-content: flex-end;
 }
 
 /* -------------------------------------------------------------------------
@@ -185,20 +200,16 @@ body .aviendha-header--dark .wp-block-site-logo {
 }
 
 /*
- * Below 960px the masthead row has no width to spare for the CTA. Between 600px
- * and 960px core still renders the navigation inline (`overlayMenu: "mobile"`),
- * so the nav, the account and cart icons and the button all compete and the flex
- * row resolves it by crushing the button — at 600px it wrapped to six lines and
- * took the header to 162px tall. Below 600px the nav collapses to a hamburger,
- * but the logo and two icons still leave less than the button's ~150px, so it
- * runs off the right edge instead. Neither band can hold it; the CTA is also the
- * one item here that the page content below repeats, so it is the one to drop.
+ * Drop the CTA below 600px, where the wordmark, the hamburger and the two icons
+ * leave less than the button's ~150px and it runs off the right edge. Above that
+ * it always has room — §2.6 keeps the navigation collapsed until 1024px, and by
+ * the time the menu goes inline the row is wide enough for both.
  *
  * The `.wp-block-buttons >` part is load-bearing, not decoration: core emits
  * `.wp-block-buttons > .wp-block-button { display: inline-block }`, and a lone
  * class selector here loses to it and leaves the button visible.
  */
-@media (max-width: 959px) {
+@media (max-width: 599px) {
 	.aviendha-header .wp-block-buttons > .aviendha-header__cta {
 		display: none;
 	}
@@ -261,8 +272,37 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
-/* 2.6 Mobile overlay navigation
+/* 2.6 Overlay navigation
  * ------------------------------------------------------------------------- */
+
+/*
+ * Raise the overlay breakpoint from core's 600px to 1024px.
+ *
+ * `overlayMenu: "mobile"` only takes the three keywords, so the width at which
+ * the navigation collapses is not configurable — core hardcodes it in two rules
+ * inside `@media (min-width: 600px)`: one flips `.wp-block-navigation__responsive-container`
+ * from the hidden fixed-position overlay to an inline block, the other hides the
+ * hamburger. Between 600px and 1024px that left the inline menu competing with
+ * the wordmark, the cart and account icons and the CTA, and the row wrapped — a
+ * 105px-tall masthead on a tablet.
+ *
+ * Restoring those two declarations to their base values across the band is the
+ * whole fix: everything else about the overlay, including the fixed positioning
+ * it needs when open, already lives outside the media query.
+ *
+ * 1024px rather than a rounder 960px because the masthead's own contents decide
+ * it: this menu's six items plus the wordmark, icons and CTA measure 973px, so
+ * at 960px the row still wrapped. A longer menu would want this raised again.
+ */
+@media (min-width: 600px) and (max-width: 1023px) {
+	.aviendha-header .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+		display: none;
+	}
+
+	.aviendha-header .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: flex;
+	}
+}
 
 /*
  * The dark header's navigation has no background of its own, so core's
