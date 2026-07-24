@@ -86,7 +86,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\aviendha_enqueue_woocommerce
  * @return string[] Template slugs.
  */
 function aviendha_woocommerce_template_slugs() {
-	return array( 'archive-product', 'single-product' );
+	return array( 'archive-product', 'single-product', 'product-search-results', 'coming-soon' );
 }
 
 /**

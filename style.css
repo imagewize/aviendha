@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.9.0
+Version: 1.10.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -73,6 +73,18 @@ Aviendha is distributed under the terms of the GNU GPL.
  * base on base, nothing to see.
  */
 .wp-site-blocks > main {
+	flex: 1 0 auto;
+}
+
+/*
+ * The WooCommerce coming-soon template wraps its `main` in the block's own
+ * `.wp-block-woocommerce-coming-soon` div, so `main` is no longer a direct child
+ * of `.wp-site-blocks` and the rule above cannot reach it. The wrapper is the
+ * direct child instead, and — with no background of its own — it stands in for
+ * `main` here: growing it stretches base on base, invisibly, and the footer
+ * still settles at the bottom on a short page.
+ */
+.wp-site-blocks > .wp-block-woocommerce-coming-soon {
 	flex: 1 0 auto;
 }
 

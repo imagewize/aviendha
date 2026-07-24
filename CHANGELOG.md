@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.10.0] - 2026-07-24
+
+### Added
+- **`product-search-results.html`** — theme-provided search results template matching the product archive's layout: breadcrumbs, search query title, results bar with count and sorting, product grid with the same card styling, pagination, and a branded no-results state. Without this, product search results fall back to WooCommerce's generic template and don't match the archive customers just came from.
+- **`coming-soon.html`** — theme-provided coming-soon template wrapping WooCommerce's coming-soon block with the theme's header and footer, and a centred launch message inside it. This is the first page a new store shows when launch mode is active; branding it provides a consistent experience with the rest of the site. The `woocommerce/coming-soon` block only renders its inner blocks — it does not load a design from `comingSoonPatternId` — so the template supplies the message directly.
+
+### Fixed
+- **The footer no longer floats mid-viewport on the coming-soon template.** The short-page fix grows `.wp-site-blocks > main`, but the `woocommerce/coming-soon` block wraps `main` in its own `.wp-block-woocommerce-coming-soon` div, making that wrapper — not `main` — the flex child of `.wp-site-blocks`. Growing the wrapper (transparent, so the stretch is invisible base-on-base) sends the footer back to the bottom.
+
 ## [1.9.0] - 2026-07-24
 
 ### Added

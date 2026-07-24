@@ -37,10 +37,22 @@ content is composed directly from blocks (core blocks or the Aludra block librar
 - Regenerate translations when strings change: `wp i18n make-pot . languages/aviendha.pot`.
 - **Testing unreleased changes: sync, don't release.** The theme is a pinned Composer dependency
   on the local demo site (`~/code/imagewize.com/demo`, subsite
-  `http://demo.imagewize.test/aviendha/`), not a symlink. Use wp-ops'
-  `scripts/rsync-package-to-site.sh theme aviendha`, with `SITE_ROOT` pointing at that site's
-  `web/app`; it rsyncs this working copy with `--delete --delete-excluded` honouring `.distignore`,
-  so what you test is what ships. `composer update` on that site restores the released version.
+  `http://demo.imagewize.test/aviendha/`), not a symlink.
+  
+  Sync to the demo site by running this **from anywhere**, always passing the theme working copy
+  as the explicit third (source) argument — do **not** `cd` into the demo site first:
+  ```bash
+  SITE_ROOT=/Users/j/code/imagewize.com/demo/web/app \
+    bash ~/code/wp-ops/scripts/rsync-package-to-site.sh theme aviendha /Users/j/code/aviendha
+  ```
+
+  **Critical — omitting that source argument wipes the theme.** The script defaults the source to
+  `$PWD`, so running it from inside the demo site rsyncs the whole Bedrock site *into*
+  `themes/aviendha/` and, because the sync uses `--delete --delete-excluded`, deletes the real
+  theme. Preview with `--dry-run` (before the `theme` argument) when unsure; if it shows deletions
+  of WordPress core (`web/wp/...`) or Bedrock files (`.env`, `config/`), the source is wrong — stop.
+  `composer update` on that site restores the released version. See CLAUDE.md → *Testing on the
+  demo site* for the canonical, fuller version of this workflow (keep the two in step).
   Do not commit a sync script here — Theme Check rejects a theme that ships a `.sh` file.
 - **Releases** are packaged by `.github/workflows/create-release.yml` (`zip -x@.distignore`) on
   publish. Keep `.distignore` and `.gitattributes` (`export-ignore`) in step so the release zip
