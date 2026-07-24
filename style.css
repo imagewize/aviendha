@@ -77,6 +77,18 @@ Aviendha is distributed under the terms of the GNU GPL.
 }
 
 /*
+ * The WooCommerce coming-soon template wraps its `main` in the block's own
+ * `.wp-block-woocommerce-coming-soon` div, so `main` is no longer a direct child
+ * of `.wp-site-blocks` and the rule above cannot reach it. The wrapper is the
+ * direct child instead, and — with no background of its own — it stands in for
+ * `main` here: growing it stretches base on base, invisibly, and the footer
+ * still settles at the bottom on a short page.
+ */
+.wp-site-blocks > .wp-block-woocommerce-coming-soon {
+	flex: 1 0 auto;
+}
+
+/*
  * Unless the page ends in a full-bleed section, where that same transparent
  * stretch reads as a base-coloured strip below the section's own colour. Then
  * the section itself should absorb the space instead, so its background simply

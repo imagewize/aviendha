@@ -39,7 +39,8 @@ store templates.
 
 = 1.10.0 =
 * Added: product-search-results.html template matching the archive layout for consistent search results
-* Added: coming-soon.html template wrapping WooCommerce's coming-soon block with header/footer
+* Added: coming-soon.html template wrapping WooCommerce's coming-soon block with header/footer and a centred launch message
+* Fixed: the footer no longer floats mid-viewport on the coming-soon template
 
 = 1.9.0 =
 * Added: the Page With Title template opens with a tinted title band, supplying the top spacing it lacked and giving the light header a tonal change to sit against
