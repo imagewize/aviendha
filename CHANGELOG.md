@@ -2,6 +2,18 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.11.0] - 2026-07-24
+
+### Added
+- **`order-confirmation.html`** — theme-provided order-confirmation template wrapping WooCommerce's order-confirmation blocks with the theme's header and footer. It is the highest-trust page in the funnel and previously rendered unbranded through WooCommerce's default. The body mirrors the plugin's own default structure verbatim — `order-confirmation-status`, `-summary`, the `totals-wrapper` and `downloads-wrapper`, the shipping/billing address columns, `additional-fields-wrapper` and `-additional-information`, each heading supplied by WooCommerce's own `woocommerce/order-confirmation-*-heading` patterns (left registered, since only the `woocommerce-blocks/*` prefix is unregistered) — so it stays valid across Woo releases rather than inventing block markup the plugin doesn't ship.
+- **`woocommerce/customer-account` in both headers.** The light and dark header carried only the mini cart; they now open the icon group with an account icon as well, stripped alongside the mini cart on sites without WooCommerce. It's set icon-only so it sits with the cart rather than reading as a stray text link, and `style.css` makes it inherit the header's own text colour — the block renders as a link and would otherwise pick up the global rose link colour, which is too low-contrast on the dark header's `main` background.
+
+  A header search was considered and left out of the shipped theme. An always-visible inline `woocommerce/product-search` crowds the masthead and wraps the navigation, and an icon-triggered search *overlay* is an Aludra block (`aludra/search-overlay-trigger`) — putting it in a theme file would reintroduce the hardcoded Aludra dependency 0.2.0 removed, against the "Aludra recommended, not required" position. Search belongs in the header via the Site Editor (the Aludra overlay on stores that run it, a `core/search` block otherwise) — DB-stored, matching how the mega menu already works — rather than shipped as theme markup.
+
+### Fixed
+- **The header account icon rendered invisibly.** WooCommerce sizes the customer-account icon with a rule targeting `.wc-block-customer-account__account-icon`, but the block renders the SVG with `class="icon"` (its `iconClass` default), so the two never match and the icon collapses to zero in every display mode. `style.css` sizes the SVG directly — which is what makes the icon-only account link usable at all.
+- **`order-confirmation` is filtered out of the Site Editor on sites without WooCommerce**, added to the theme's Woo template slugs alongside the existing store templates so it doesn't appear where it can't render.
+
 ## [1.10.0] - 2026-07-24
 
 ### Added
