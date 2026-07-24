@@ -2,6 +2,51 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.9.0] - 2026-07-24
+
+### Added
+- **`page-with-title` opens with a tinted title band.** The template previously printed a bare
+  `post-title` with no spacing above it, so the title sat flush under the masthead. It now leads
+  with a full-width `tertiary` group holding the `h1`, which both supplies that spacing and gives
+  the light header a tonal change to sit against.
+
+  Title only — no breadcrumb, no lede. Core ships no breadcrumb block, and `post-excerpt` falls
+  back to an auto-trimmed content snippet when a page has no excerpt set: on a prose page the band
+  would have repeated the page's own opening paragraph directly above it, and on a block-built page
+  it rendered nothing at all.
+- **The light header carries the same "Start a project" CTA as the dark one**, in the filled
+  `primary` style straight from `elements.button` rather than the dark header's outline treatment.
+- **A wipe-in underline marks the current page in the navigation**, held open on
+  `[aria-current="page"]`. Drawn in `currentColor` so one rule serves both headers — `primary`
+  against the dark header's `main` background is too low-contrast to read as a marker — and
+  suppressed in the mobile overlay, where a full-width rule reads as a divider.
+- **A global block rhythm in `theme.json`:** a root `blockGap` of `medium` and an `h2` top margin of
+  `large`, so vertical spacing comes from the design system rather than per-block padding that rots
+  the first time a client edits a page. `settings.spacing.blockGap` has to be enabled alongside it
+  or core emits no gap styles at all.
+
+### Changed
+- **The light header no longer draws a resting hairline.** It sat on `base` with `base` beneath it,
+  so a `border-light` rule had no tonal change to describe and read as a scratch across the page
+  rather than a boundary. The edge now appears only once the page scrolls, when the sticky masthead
+  genuinely is above something — done with a scroll-driven animation rather than a scroll listener,
+  so the theme still ships no JavaScript. Where `animation-timeline: scroll()` is unsupported the
+  header simply stays flush, which is the resting state either way.
+- **The light header is sticky, and wears the display-font wordmark.** Both behaviours existed but
+  were scoped to `.aviendha-header--dark`, which made the light variant a header with features
+  missing rather than a colour alternative. The tonal-neutral rules are now shared.
+- **The navigation stays behind the hamburger until 1024px**, up from core's hardcoded 600px.
+  Between those widths the inline menu competed with the wordmark, the cart and account icons and
+  the CTA, and the row wrapped — a 105px-tall masthead on a tablet. 1024px rather than a rounder
+  960px because the masthead's own contents decide it: they measure 973px, so at 960px it still
+  wrapped. A longer menu would want this raised again.
+
+### Fixed
+- **The footer no longer floats mid-viewport on short pages.** `.wp-site-blocks` is a `100vh` flex
+  column and the footer takes up the slack. The footer rather than `main`, because `main` is
+  transparent: growing it showed a base-coloured strip between a page's last section and the footer,
+  invisible on a prose page but obvious under any section with a background of its own.
+
 ## [1.8.1] - 2026-07-24
 
 ### Fixed

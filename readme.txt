@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.8.1
+Stable tag: 1.9.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,16 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.9.0 =
+* Added: the Page With Title template opens with a tinted title band, supplying the top spacing it lacked and giving the light header a tonal change to sit against
+* Added: the light header carries the same "Start a project" call to action as the dark one
+* Added: a wipe-in underline marks the current page in the navigation, on both headers
+* Added: a global block rhythm in `theme.json` — spacing between blocks and above headings now comes from the design system rather than per-block padding
+* Changed: the light header no longer draws a resting line beneath it; the edge appears once the page scrolls, with no JavaScript
+* Changed: the light header is sticky and takes the display-font wordmark, both of which were previously dark-header only
+* Changed: the navigation stays behind the hamburger until 1024px, so the masthead no longer wraps to two rows on a tablet
+* Fixed: the footer no longer floats mid-viewport on pages shorter than the window
 
 = 1.8.1 =
 * Fixed: the product archive's filter sidebar rendered in WooCommerce's stock greys — active-filter chips, checkboxes, the price slider, and the clear button now follow the theme's palette and radii in every style variation
