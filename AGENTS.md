@@ -18,6 +18,16 @@ content is composed directly from blocks (core blocks or the Aludra block librar
   WooCommerce stylesheet).
 - Reusable PHP lives in `functions.php` — keep it there, not scattered across templates.
 - Translations live in `languages/` (text domain: `aviendha`).
+- **No `docs/` or `designs/` directory here.** Planning documents, roadmaps and HTML design mockups
+  live in the `imagewize/imagewize.com` repo under `docs/aviendha/` and `designs/aviendha/`, the
+  same per-project layout Aludra, Elayne and Nynaeve use. This repo is public and distributable, so
+  mockups carrying client names and roadmaps of unshipped work do not belong in it, and a second
+  copy of a design file only drifts from the first.
+- **That repo is private — Imagewize team only.** Outside contributors cannot read it, so never
+  point one at a document there or write a comment that assumes the reader can open it. Anything an
+  outside contributor needs belongs in this repo, in `readme.txt`, `CHANGELOG.md` or a code
+  comment; durable rationale for a change belongs in its commit message. Team members clone
+  `imagewize.com` next to this repo and read those documents locally.
 
 ## Build, Test, and Development Commands
 
