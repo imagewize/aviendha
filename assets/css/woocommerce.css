@@ -15,6 +15,7 @@
  * 6. Product meta
  * 7. Specifications
  * 8. Reviews
+ * 9. Product filters
  */
 
 /* -------------------------------------------------------------------------
@@ -257,4 +258,128 @@
 
 .wp-block-woocommerce-product-review-form .comment-form-rating .stars a {
 	color: var(--wp--preset--color--terracotta);
+}
+
+/* -------------------------------------------------------------------------
+ * 9. Product filters
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The archive sidebar. `product-filter-removable-chips`, `-clear-button`,
+ * `-checkbox-list` and `-price-slider` all declare `interactivity` supports
+ * only, so theme.json has no way in and every control below renders in
+ * WooCommerce's stock greys — including under a dark style variation.
+ *
+ * WooCommerce exposes custom properties for most of it (`--wc-product-filter-*`),
+ * which is the hook to prefer: nothing in the plugin sets them unless an editor
+ * user picks colours on the block, so a value set here always applies, and a
+ * user who does pick colours still wins through the inline style the block
+ * writes on the same wrapper. Where a property doesn't exist the rule has to
+ * out-specify WooCommerce's own, since these block stylesheets are enqueued as
+ * their blocks render and can land after the theme's.
+ */
+
+/* Chips: the active-filter pills above the sidebar. */
+.wc-block-product-filter-removable-chips {
+	--wc-product-filter-removable-chips-background: var(--wp--preset--color--tertiary);
+	--wc-product-filter-removable-chips-border: var(--wp--preset--color--border-light);
+	--wc-product-filter-removable-chips-text: var(--wp--preset--color--contrast);
+}
+
+/* Radius and gap are hardcoded (2px / 4px), so they need the two-class weight. */
+.wc-block-product-filter-removable-chips .wc-block-product-filter-removable-chips__items {
+	gap: var(--wp--preset--spacing--2-x-small);
+}
+
+.wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item {
+	border-radius: var(--wp--preset--border-radius--pill);
+	padding: 0.3em 0.5em 0.3em 0.85em;
+}
+
+.wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item .wc-block-product-filter-removable-chips__remove {
+	color: var(--wp--preset--color--secondary);
+	transition: color 0.18s ease;
+}
+
+.wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item .wc-block-product-filter-removable-chips__remove:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+/*
+ * The clear button is a core button block, so `elements.button` and the outline
+ * style already reach it. Only WooCommerce's hardcoded `1rem` gap needs
+ * replacing with the spacing scale.
+ */
+.wp-block-woocommerce-product-filter-clear-button .wp-block-buttons {
+	margin-top: var(--wp--preset--spacing--x-small);
+}
+
+/* Checkbox lists: categories, stock status and rating. */
+.wc-block-product-filter-checkbox-list {
+	--wc-product-filter-checkbox-list-option-element: var(--wp--preset--color--base);
+	--wc-product-filter-checkbox-list-option-element-border: var(--wp--preset--color--border-light);
+	--wc-product-filter-checkbox-list-option-element-selected: var(--wp--preset--color--base);
+}
+
+/*
+ * WooCommerce fills the unchecked box with a `currentColor` wash from a
+ * pseudo-element, hidden only when the block carries `has-option-element-color`
+ * — an editor-set attribute the template doesn't use. Left in place it sits on
+ * top of the background above, so drop it and let the border do the work.
+ */
+.wc-block-product-filter-checkbox-list .wc-block-product-filter-checkbox-list__input-wrapper::before {
+	display: none;
+}
+
+.wc-block-product-filter-checkbox-list input[type="checkbox"].wc-block-product-filter-checkbox-list__input {
+	border-radius: var(--wp--preset--border-radius--sm);
+}
+
+.wc-block-product-filter-checkbox-list input[type="checkbox"].wc-block-product-filter-checkbox-list__input:checked {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+
+.wc-block-product-filter-checkbox-list .wc-block-product-filter-checkbox-list__count {
+	color: var(--wp--preset--color--secondary);
+}
+
+.wc-block-product-filter-checkbox-list .wc-block-product-filter-checkbox-list__stars {
+	color: var(--wp--preset--color--terracotta);
+}
+
+.wc-block-product-filter-checkbox-list .wc-block-product-filter-checkbox-list__show-more-button {
+	color: var(--wp--preset--color--primary);
+}
+
+/* Price slider. */
+.wc-block-product-filter-price-slider {
+	--wc-product-filter-price-slider: var(--wp--preset--color--primary);
+	--wc-product-filter-price-slider-handle: var(--wp--preset--color--base);
+	--wc-product-filter-price-slider-handle-border: var(--wp--preset--color--primary);
+}
+
+.wc-block-product-filter-price-slider .text input[type="text"] {
+	background: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--sm);
+	color: inherit;
+}
+
+/*
+ * The handle's hover and focus states are the one part with no custom property
+ * — WooCommerce hardcodes `#1e1e1e` on `#fff`, which inverts to an invisible
+ * handle under a dark variation. Each vendor pseudo-element needs its own rule:
+ * browsers drop a whole selector list containing one they don't recognise.
+ */
+.wc-block-product-filter-price-slider .wc-block-product-filter-price-slider__range input[type="range"]:focus::-webkit-slider-thumb,
+.wc-block-product-filter-price-slider .wc-block-product-filter-price-slider__range input[type="range"]::-webkit-slider-thumb:hover {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--base);
+}
+
+.wc-block-product-filter-price-slider .wc-block-product-filter-price-slider__range input[type="range"]:focus::-moz-range-thumb,
+.wc-block-product-filter-price-slider .wc-block-product-filter-price-slider__range input[type="range"]::-moz-range-thumb:hover {
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--base);
 }

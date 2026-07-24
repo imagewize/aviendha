@@ -2,8 +2,9 @@
 
 Gap analysis of Aviendha's WooCommerce surface, with prioritised work items.
 
-**Status:** §1–§3 shipped in 1.7.0. §3b and §5 are on `feat/woocommerce-design-system`. §4 and §6
-are outstanding, as is the filter-chip styling noted in §5. Sections kept in place after
+**Status:** §1–§3 shipped in 1.7.0. §3b and §5 shipped in 1.8.0; §5's outstanding filter styling
+followed in 1.8.1, which completes it. §4 and §6 are outstanding — see the sequencing note at the
+end for what's still worth doing and what has been dropped. Sections kept in place after
 implementation so the reasoning behind each choice stays with the theme.
 
 **Baseline for this document:** Aviendha 1.6.0, WooCommerce 10.9.4 (the version installed on the
@@ -31,7 +32,7 @@ difference, not a capability one.
 | Cart / checkout / order confirmation / product search / attribute archives | Not shipped — inherited from WooCommerce's own block templates. See §4. |
 | `parts/header.html` | Contains `woocommerce/mini-cart`, stripped when the plugin is inactive. |
 | `functions.php` | Theme supports, conditional stylesheet enqueue, and the plugin-state branch described in §1. |
-| `assets/css/woocommerce.css` | Drawer, gallery, prices, stepper, button hover, meta, specifications, reviews. See §5. |
+| `assets/css/woocommerce.css` | Drawer, gallery, prices, stepper, button hover, meta, specifications, reviews, filters. See §5. |
 | `theme.json` → `styles.blocks` | `core/separator` plus eight WooCommerce blocks. See §5. |
 | `styles/twilight.json` | No WooCommerce block overrides — and needs none; see §5. |
 
@@ -215,7 +216,7 @@ These four are a different case:
 | Template | Why | Priority |
 | --- | --- | --- |
 | `product-search-results.html` | Woo's default is generic; without one, search results look nothing like the archive customers just came from — which now has a filters sidebar and results bar, widening the gap. | High. |
-| `taxonomy-product_cat.html` | Falls back to `archive-product`, which is now filtered — acceptable. Only worth its own file if category pages should differ from the shop index. | Low, reassessed after §2. |
+| `taxonomy-product_cat.html` | Falls back to `archive-product`, which is now filtered — acceptable. Only worth its own file if category pages should differ from the shop index. | Dropped after §2; see sequencing. |
 | `coming-soon.html` | Woo's launch / coming-soon mode, on by default for new stores — the aviendha subsite was in it until switched off, so this is the *first* page a new store shows. Branding it is genuinely valuable and self-contained. | Medium–high. |
 | `order-confirmation.html` | The highest-trust page in the funnel and it currently renders unbranded. Cheap. | Low–medium. |
 
@@ -271,7 +272,8 @@ colour or typography supports at all, so a `styles.blocks` entry for them genera
 
 - `woocommerce/product-details` — `align` only. Since resolved by not using the block; see §3b.
 - `woocommerce/add-to-cart-with-options-quantity-selector` — `interactivity` only.
-- `woocommerce/product-filter-clear-button`, `-chips`, `-removable-chips` — `interactivity` only.
+- `woocommerce/product-filter-clear-button`, `-chips`, `-removable-chips`, `-checkbox-list`,
+  `-price-slider` — `interactivity` only. Handled in CSS in 1.8.1; see below.
 
 Worth checking `supports` before adding any entry: `product-specifications` looks like a styling
 target and declares only `align`, `spacing` and two typography properties.
@@ -289,11 +291,37 @@ The file is no longer a stub. What's in it, and why each one couldn't be theme.j
 | Add to cart hover | See the cascade note below. |
 | Specifications | No colour or border supports; the block renders a table. |
 | Reviews | The review form is core comment-form markup, not blocks. |
+| Filters | Every filter control declares `interactivity` supports only (see above). |
 
 The product-details tab strip left the list when the template stopped using that block — see §3b.
 
-`product-filter-clear-button`, `-chips` and `-removable-chips` are still outstanding; they're on the
-archive, not the product page, and haven't had a styling pass yet.
+### The filter sidebar — done in 1.8.1
+
+The last outstanding piece of this section. It turned out to be less hostile than the supports list
+suggests: **WooCommerce exposes `--wc-product-filter-*` custom properties** on the chips, checkbox
+lists and price slider, and *nothing in the plugin sets them* unless an editor user picks colours on
+the block. So a value set in the theme stylesheet always applies, and a user who does pick colours
+still wins — the block writes an inline style on the same wrapper the theme targets. Prefer these
+over selector overrides for anything they cover.
+
+Three things they don't cover, each needing a real override:
+
+- **The price slider handle's `:hover` and `:focus`.** Hardcoded `#1e1e1e` on `#fff` with no
+  property behind it — the handle went near-invisible under twilight. Each vendor pseudo-element
+  (`::-webkit-slider-thumb`, `::-moz-range-thumb`) needs its own rule; a selector list containing
+  one the browser doesn't recognise is dropped whole.
+- **The unchecked checkbox's `currentColor` wash**, a pseudo-element the plugin hides only when the
+  block carries `has-option-element-color` — an editor-set attribute the shipped template doesn't
+  use, so the wash sat on top of the theme's background.
+- **Hardcoded `2px` radii and the `1rem` gap above the clear button.**
+
+The clear button needed nothing else: it's a core button block, so `elements.button` and the outline
+style already reached it.
+
+**On load order:** these filter stylesheets are enqueued as their blocks render, so the theme's
+sheet landing after them isn't guaranteed the way it is for `wp_head`. Observed on the demo archive
+it does — Woo's filter CSS inlines early and `woocommerce.css` follows it — but the rules are
+written to out-specify rather than rely on that.
 
 ### Cascade notes
 
@@ -324,7 +352,8 @@ that sets a property `elements.button` also hovers has the same problem.
   §1 stripping already covers it, so it can be added without further PHP work.
 - **`woocommerce/product-search`** in the header or footer, pairing with the
   `product-search-results` template from §4.
-- **`taxonomy-product_tag.html`** — same fallback situation as `product_cat`; lower value.
+- **`taxonomy-product_tag.html`** — same fallback situation as `product_cat`, and dropped for the
+  same reason; see sequencing.
 
 ---
 
@@ -384,11 +413,25 @@ off (`wp option update woocommerce_coming_soon no`), and the lookup tables regen
 **PR 1 — correctness, archive, single product.** Done: §1, §2, §3 on
 `feat/woocommerce-improvements`.
 
-**PR 2 — design system.** §5 plus the §3b template rebuild, on `feat/woocommerce-design-system`.
-`twilight.json` turned out to need nothing. Outstanding from this PR's scope: the filter chips and
-clear button on the archive.
+**PR 2 — design system.** Done: §5 plus the §3b template rebuild, on
+`feat/woocommerce-design-system`, released as 1.8.0. `twilight.json` turned out to need nothing.
 
-**PR 3 — additional templates.** §4, in the priority order of that table, plus the §6 header blocks.
+**PR 2b — filter sidebar.** Done: the piece left over from PR 2, on `fix/product-filter-chips`,
+released as 1.8.1. Widened past the chips and clear button to the checkboxes and price slider once
+the custom-property hook made them cheap — a half-styled sidebar is still an inconsistent one.
+
+**PR 3 — additional templates.** `product-search-results.html` together with
+`woocommerce/product-search` in the header (the template has no entry point without it), then
+`coming-soon.html`, plus `woocommerce/customer-account` in the header.
+
+**Dropped, not deferred:** `taxonomy-product_cat.html` and `taxonomy-product_tag.html`. §2's
+resolution made the archive fallback the intended behaviour, so shipping near-duplicate template
+files would contradict `CLAUDE.md`'s rule against markup added for completeness. `order-confirmation.html`
+stays on the list but below `coming-soon.html` — cheap, but low traffic and currently only
+theoretically a problem.
+
+Testing `coming-soon.html` means flipping `woocommerce_coming_soon` back to `yes` on the demo
+subsite, which the §Implementation notes turned off — and remembering to flip it back.
 
 Each PR should be verified on the demo subsite before merge — sync with `rsync-package-to-site.sh`
 per `CLAUDE.md`, don't cut a release to test.
