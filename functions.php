@@ -86,7 +86,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\aviendha_enqueue_woocommerce
  * @return string[] Template slugs.
  */
 function aviendha_woocommerce_template_slugs() {
-	return array( 'archive-product', 'single-product', 'product-search-results', 'coming-soon' );
+	return array( 'archive-product', 'single-product', 'product-search-results', 'coming-soon', 'order-confirmation' );
 }
 
 /**
@@ -194,7 +194,7 @@ function aviendha_strip_woocommerce_blocks( $content ) {
 	}
 
 	return (string) preg_replace(
-		'#<!--\s+wp:woocommerce/(?:mini-cart|customer-account)\b.*?/-->\s*#s',
+		'#<!--\s+wp:woocommerce/(?:mini-cart|customer-account|product-search)\b.*?/-->\s*#s',
 		'',
 		$content
 	);
