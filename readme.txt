@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.11.0
+Stable tag: 1.12.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,13 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.12.0 =
+* Changed: the single post template is now a designed reading surface — a tinted title band (category eyebrow, title, lede, and a mono meta line of avatar, author, and date), a two-column layout with a sticky sidebar (Recent, Topics, and a call to action), a post tail with tag pills and an author card, a Related posts band, and restyled comments
+* Added: a reading-progress hairline under the header that fills as the post scrolls, using a CSS scroll timeline so the theme ships no JavaScript and the bar is simply absent where unsupported
+* Added: prose styling scoped to single posts — a display pull-quote, coloured list markers, and a drop cap on posts that open with a paragraph — plus a global rule that sits a heading close to the block it introduces
+* Note: post content now sits inside the reading column, so a post's full-width blocks fill the column rather than the viewport — a change from the previous full-width single
+* Note: related posts are the latest three by date, a core-only stand-in for true related-by-taxonomy posts
 
 = 1.11.0 =
 * Added: order-confirmation.html template wrapping WooCommerce's order-confirmation blocks with the theme's header and footer, so the highest-trust page in the funnel matches the rest of the site

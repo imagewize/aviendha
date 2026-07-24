@@ -2,6 +2,47 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.12.0] - 2026-07-24
+
+### Changed
+- **`templates/single.html` is a designed reading surface, not a raw stack.** The blog single was
+  the least-designed template in the theme — `post-title → featured-image → post-content → post-terms
+  → comments`, with no meta, no author box, no related posts, no sidebar. It is now built as: a
+  `tertiary` **title band** (category eyebrow, `h1`, `post-excerpt` lede, and a mono **meta line** of
+  avatar · author · date) matching the `page-with-title` band so posts and titled pages share a
+  language; the featured image; a **two-column article grid** with the prose on the left and a
+  **sticky sidebar** on the right (Recent, Topics, and a dark CTA); a **post tail** with a mono tag
+  list and an inline **author card**; a **Related posts** band; and **restyled comments** built from
+  the comment blocks with avatars, mono timestamps, and hairline separators.
+
+  **Behaviour change worth noting:** `post-content` now sits inside a column, so `alignwide` /
+  `alignfull` blocks in a post fill the *reading column* rather than the viewport. This is wanted for
+  a text-first blog (no full-bleed images breaking the column) but is a real change from the previous
+  full-width single — a post that relied on a full-bleed image will render it column-width. A separate
+  `single-wide.html` is the escape hatch if one is ever needed, rather than withholding the sidebar
+  from the default.
+
+  **Related posts are latest-by-date, not related-by-taxonomy.** A `core/query` set to the three
+  latest posts is a core-only stand-in; true relevance would need an Aludra block or a plugin and is
+  not worth it for this pass. With few posts the grid shows empty trailing slots — expected, and it
+  fills as posts accumulate.
+
+### Added
+- **`style.css` sections 5–6 — content rhythm and the single-post design.** Section 5 pairs a heading
+  tightly with the block it introduces (`:is(h2…h6) + *`), the other half of the global `blockGap` /
+  `h2` margin theme.json sets. Section 6, scoped entirely to core's `.single` body class so none of it
+  leaks onto pages or archives, covers the mono meta line, the two-column grid and its sticky sidebar
+  (a fixed 300px column beside a growing content column, collapsing to one column under 980px and
+  dropping sticky there), the prose flourishes theme.json cannot express (a display pull-quote,
+  `primary` list markers, a drop cap only when the post opens with a paragraph), the tag pills and
+  author card, the sidebar widgets and dark CTA, the related-posts cards, and the comment thread and
+  form.
+- **A reading-progress hairline under the masthead**, filling as the post scrolls. Driven by
+  `animation-timeline: scroll()` rather than a scroll listener — the same no-JavaScript technique the
+  light header's scroll edge uses — so where `scroll()` is unsupported the bar simply never appears,
+  which is the resting state either way. Scoped to `.single`, so it is a reading affordance for posts
+  only.
+
 ## [1.11.0] - 2026-07-24
 
 ### Added
