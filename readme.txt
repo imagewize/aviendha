@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,10 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.8.1 =
+* Fixed: the product archive's filter sidebar rendered in WooCommerce's stock greys — active-filter chips, checkboxes, the price slider, and the clear button now follow the theme's palette and radii in every style variation
+* Fixed: the price slider handle turned near-invisible on hover and focus under a dark style variation
 
 = 1.8.0 =
 * Changed: the single product page replaces WooCommerce's tab strip with stacked description, specifications, and reviews sections, each built from blocks the theme can style

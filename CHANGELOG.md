@@ -2,6 +2,31 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.8.1] - 2026-07-24
+
+### Fixed
+- **The product archive's filter sidebar is styled.** 1.8.0 covered the WooCommerce blocks that
+  declare colour and typography supports, which left the filter controls out: every one of
+  `product-filter-removable-chips`, `-clear-button`, `-checkbox-list` and `-price-slider` declares
+  `interactivity` supports only, so `theme.json` had no way in and the sidebar rendered in
+  WooCommerce's stock greys regardless of the active style variation.
+
+  `assets/css/woocommerce.css` gains a filters section covering the active-filter chips, the
+  category / availability / rating checkboxes, the price slider and its inputs, and the spacing
+  above the clear button. Most of it goes through the `--wc-product-filter-*` custom properties
+  WooCommerce exposes: nothing in the plugin sets them unless an editor user picks colours on the
+  block, so a value set here always applies, and a user who does pick colours still wins through
+  the inline style the block writes on the same wrapper.
+
+  The clear button needed nothing beyond spacing — it is a core button block, so `elements.button`
+  and the outline style already reached it.
+- **The price slider handle was near-invisible on hover and focus under a dark style variation.**
+  It is the one part of the sidebar with no custom property: WooCommerce hardcodes `#1e1e1e` on
+  `#fff` for those two states. Restated against the palette.
+- **The unchecked filter checkbox showed WooCommerce's `currentColor` wash on top of the theme's
+  background.** The plugin hides that pseudo-element only when the block carries
+  `has-option-element-color`, an editor-set attribute the shipped template doesn't use.
+
 ## [1.8.0] - 2026-07-23
 
 ### Added
