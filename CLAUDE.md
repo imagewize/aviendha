@@ -128,6 +128,14 @@ SITE_ROOT=~/code/imagewize.com/demo/web/app \
   ~/code/wp-ops/scripts/rsync-package-to-site.sh theme aviendha ~/code/aviendha
 ```
 
+**Always pass the theme working copy (`~/code/aviendha`) as the explicit source argument, and do
+not `cd` into the demo site to run this.** When the source argument is omitted the script defaults
+it to `$PWD` — so running this from inside the demo site rsyncs the entire Bedrock site *into*
+`themes/aviendha/`, and because the sync uses `--delete --delete-excluded`, it wipes the real
+theme. Preview with `--dry-run` (before the `theme` argument) when unsure; if the output shows it
+deleting WordPress core (`web/wp/...`) or Bedrock files (`.env`, `config/`), the source argument is
+wrong — stop.
+
 It rsyncs a dist-faithful tree (`--delete --delete-excluded`, honouring `.distignore`), so what
 you test is what ships; pass `plugin aludra` for the block library. A `composer update` on the
 demo site puts the released code back.
