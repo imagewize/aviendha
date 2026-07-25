@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.13.0
+Stable tag: 1.14.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,12 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.14.0 =
+* Added: product cards across the shop archive, search results, and single-product related products now sit in a bordered, rounded card that lifts on hover — one visual treatment for "a clickable item in a grid," shared with the blog's related-posts cards
+* Added: the shop sidebar's filter headings (Price, Category, Availability, Rating) use the theme's mono eyebrow style, and a hairline now separates each filter group
+* Changed: the results count reads in the same muted secondary colour as the breadcrumb above it
+* Changed: the catalog sort dropdown is now styled to match the theme instead of rendering as a bare browser control
 
 = 1.13.0 =
 * Changed: the theme's wide width is now 1360px rather than 1200px, so the shop archive's three product columns are no longer squeezed by the filter sidebar

@@ -2,6 +2,38 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.14.0] - 2026-07-25
+
+### Added
+- **Product cards are contained and hover-lift.** Across the shop archive, search results, and the
+  single-product "related products" grid, `woocommerce/product-template` items now sit in a bordered,
+  rounded card (`base` background, `border-light` hairline, `lg` radius, `overflow: hidden`) that lifts
+  and gains a shadow on hover — the same idiom `style.css`'s `.aviendha-related__grid` already uses for
+  the blog's related posts, so a grid item reads as one thing site-wide rather than two different
+  treatments. `woocommerce/product-image` no longer carries its own corner radius in any of the three
+  templates that use it — the card's `overflow: hidden` does the rounding instead, so the image doesn't
+  double up a smaller radius inside the card's larger one.
+- **Sidebar filter headings read as eyebrows.** Price, Category, Availability, and Rating now carry
+  `aviendha-eyebrow` — the same mono, uppercase, dash-prefixed label already used for "Description",
+  "Specifications", "Reviews", and "More like this" on the single-product page — rather than a plain
+  bold heading, so the filter sidebar speaks the same label language as the rest of the product page.
+- **A hairline separates each filter group.** `product-filter-price`, `-taxonomy`, `-status`, and
+  `-rating` previously ran together as one stack under `blockGap`; each now gets a `border-bottom`
+  except the last, so the sidebar reads as sectioned filters rather than a single undivided list. The
+  rule anchors on `:last-child` rather than `:first-child` because the active-filter-chips group
+  collapses to `display: none` when empty instead of leaving the DOM — a hidden sibling still counts
+  for `:not(:last-child)` but renders no box, so no rule floats above the first visible group.
+- **The catalog sort dropdown is themed.** `woocommerce/catalog-sorting` renders a bare `<select>`
+  with no colour, border, or typography supports — previously the one native, unstyled control next to
+  an otherwise-designed toolbar. It now gets the theme's pill radius, `border-light` border, and an
+  inlined chevron in place of the browser's native arrow (`appearance: none`; no build step to source a
+  separate asset from).
+
+### Changed
+- **The results count matches the breadcrumb's tone.** `woocommerce/product-results-count` now carries
+  `textColor: secondary`, so "Showing 1–16 of 17 results" reads as muted supporting text rather than at
+  full `contrast` weight, consistent with the breadcrumb directly above it.
+
 ## [1.13.0] - 2026-07-25
 
 ### Changed
