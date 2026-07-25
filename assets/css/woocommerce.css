@@ -383,3 +383,46 @@
 	background: var(--wp--preset--color--primary);
 	border-color: var(--wp--preset--color--base);
 }
+
+/* -------------------------------------------------------------------------
+ * 10. Product grid
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The archive grid. `woocommerce/product-template` builds its own grid and
+ * hardcodes `grid-gap: 1.25em` — 20px, a value that sits nowhere on the
+ * spacing scale. The block declares only `interactivity` and layout supports
+ * with `allowEditing: false`, so neither theme.json nor the template markup
+ * has a way in and the gap has to be replaced here.
+ *
+ * Rows get a wider gap than columns on purpose: a column break separates two
+ * images, a row break has to separate an "Add to cart" button from the image
+ * below it, and at 20px the rows ran together into one dense block.
+ */
+.wc-block-product-template__responsive {
+	grid-gap: var(--wp--preset--spacing--large) var(--wp--preset--spacing--medium);
+}
+
+/*
+ * The track formula subtracts the gap WooCommerce assumed, so changing the gap
+ * without changing this makes each track wider than a third of the row and
+ * `auto-fill` drops to two columns. Three columns share two gaps, hence 2/3.
+ * `columns-3` is the only variant the theme's templates use.
+ */
+.wc-block-product-template__responsive.columns-3 {
+	grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(33.3333% - var(--wp--preset--spacing--medium) * 2 / 3)), 1fr));
+}
+
+/*
+ * Cards stretch to the tallest in their row, but their content is top-aligned,
+ * so a wrapped two-line title on one card leaves its neighbours' buttons
+ * floating at different heights. Pin the button to the bottom instead.
+ */
+.wc-block-product-template__responsive .wc-block-product {
+	display: flex;
+	flex-direction: column;
+}
+
+.wc-block-product-template__responsive .wc-block-product .wc-block-components-product-button {
+	margin-top: auto;
+}

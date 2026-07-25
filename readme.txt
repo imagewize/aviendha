@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.12.0
+Stable tag: 1.13.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,12 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.13.0 =
+* Changed: the theme's wide width is now 1360px rather than 1200px, so the shop archive's three product columns are no longer squeezed by the filter sidebar
+* Added: the product grid uses the theme's spacing scale for its gaps instead of WooCommerce's hardcoded 20px, with wider gaps between rows than columns so rows no longer run together
+* Added: product cards pin their Add to cart button to the bottom, so buttons stay aligned when a title wraps to two lines
+* Added: an Indigo colour in the palette, giving the Blue product variations a colour that belongs to the theme
 
 = 1.12.0 =
 * Changed: the single post template is now a designed reading surface — a tinted title band (category eyebrow, title, lede, and a mono meta line of avatar, author, and date), a two-column layout with a sticky sidebar (Recent, Topics, and a call to action), a post tail with tag pills and an author card, a Related posts band, and restyled comments
