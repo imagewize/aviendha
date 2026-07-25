@@ -2,6 +2,39 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.13.0] - 2026-07-25
+
+### Changed
+- **`layout.wideSize` 1200px → 1360px.** The shop archive is the template that pays for a narrow
+  wide width: it spends 25% of the row on the filter sidebar before the product grid gets any, so at
+  1200px the three cards came out 267px each and the grid read as cramped on a large display. 1360px
+  puts them at 320px. It is a theme-wide change by design rather than a shop-only override — the
+  header and footer align to the same wide width, and widening only `archive-product.html` would have
+  left the grid hanging past the masthead. 1360px plus the `content-padding` clamp still fits a 14"
+  laptop's 1512px viewport with margin to spare, which is the narrowest screen this must not overflow.
+
+### Added
+- **`assets/css/woocommerce.css` section 10 — the product grid.** `woocommerce/product-template`
+  builds its own grid and hardcodes `grid-gap: 1.25em` (20px), a value on no part of the spacing
+  scale, and the block declares only `interactivity` plus a layout support with `allowEditing: false`
+  — so neither theme.json nor the template markup can reach it. The gap is now `large` on rows and
+  `medium` on columns; rows get the wider one because a row break has to separate an "Add to cart"
+  button from the image below it, and at 20px the rows ran together into one dense block.
+
+  **The `columns-3` track formula has to be overridden in the same breath.** WooCommerce sizes each
+  track as `minmax(max(150px, calc(33.3333% - .83333em)), 1fr)` — the subtraction assumes the 20px
+  gap it also hardcoded. Changing the gap without changing the formula makes each track wider than a
+  third of the row and `auto-fill` silently drops the grid to two columns. `columns-3` is the only
+  variant the theme's templates use.
+
+  Cards are flex columns now with the button pinned to the bottom, so a wrapped two-line title on one
+  card no longer leaves its neighbours' buttons floating at different heights.
+- **`indigo` (`#1E3A5F`) in the palette.** The WooCommerce sample catalogue ships a **Blue**
+  `pa_color` term and the palette had no blue to map it onto, so the demo's blue hoodie and blue
+  v-neck had nothing in-system to be drawn in. Added as a product colour alongside `terracotta` and
+  `sand-deep` rather than invented in the artwork, which keeps the featured-image set's rule — every
+  colour is a theme.json preset — true.
+
 ## [1.12.0] - 2026-07-24
 
 ### Changed
