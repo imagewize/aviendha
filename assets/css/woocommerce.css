@@ -435,13 +435,14 @@
  * so a wrapped two-line title on one card leaves its neighbours' buttons
  * floating at different heights. Pin the button to the bottom instead.
  *
- * The card itself gets the same contained, hover-lift treatment as the
- * related-posts grid on single posts (see style.css, `.aviendha-related__grid`
- * `.wp-block-post-template > li`) — one visual idiom for "a clickable item in
- * a grid" rather than two. `overflow: hidden` lets the card's own radius do
- * the rounding, so the product-image block carries none of its own (see
- * `archive-product.html`, `product-search-results.html` and
- * `single-product.html`, where the block's radius attribute was dropped).
+ * The card itself is a bordered container so a product reads as one
+ * contained thing in the grid rather than a bare image. `overflow: hidden`
+ * lets the card's own radius do the rounding, so the product-image block
+ * carries none of its own (see `archive-product.html`,
+ * `product-search-results.html` and `single-product.html`, where the
+ * block's radius attribute was dropped). Hover is a tint and border
+ * darkening rather than a lift — no transform or shadow, so nothing moves
+ * or reflows as the pointer crosses a dense grid of these.
  */
 .wc-block-product-template__responsive .wc-block-product {
 	background: var(--wp--preset--color--base);
@@ -451,13 +452,12 @@
 	flex-direction: column;
 	overflow: hidden;
 	padding-bottom: var(--wp--preset--spacing--medium);
-	transition: border-color 0.16s, box-shadow 0.16s, transform 0.16s;
+	transition: background-color 0.16s, border-color 0.16s;
 }
 
 .wc-block-product-template__responsive .wc-block-product:hover {
+	background: var(--wp--preset--color--tertiary);
 	border-color: var(--wp--preset--color--sand-deep);
-	box-shadow: 0 16px 32px -22px rgb(33 28 26 / 0.55);
-	transform: translateY(-3px);
 }
 
 /* The image sits flush with the card's edges; everything below it gets the card's inline padding. */

@@ -5,14 +5,14 @@ All notable changes to Aviendha are documented in this file.
 ## [1.14.0] - 2026-07-25
 
 ### Added
-- **Product cards are contained and hover-lift.** Across the shop archive, search results, and the
-  single-product "related products" grid, `woocommerce/product-template` items now sit in a bordered,
-  rounded card (`base` background, `border-light` hairline, `lg` radius, `overflow: hidden`) that lifts
-  and gains a shadow on hover — the same idiom `style.css`'s `.aviendha-related__grid` already uses for
-  the blog's related posts, so a grid item reads as one thing site-wide rather than two different
-  treatments. `woocommerce/product-image` no longer carries its own corner radius in any of the three
-  templates that use it — the card's `overflow: hidden` does the rounding instead, so the image doesn't
-  double up a smaller radius inside the card's larger one.
+- **Product cards are contained.** Across the shop archive, search results, and the single-product
+  "related products" grid, `woocommerce/product-template` items now sit in a bordered, rounded card
+  (`base` background, `border-light` hairline, `lg` radius, `overflow: hidden`) that tints to
+  `tertiary` and darkens its border to `sand-deep` on hover — no transform or shadow, so nothing moves
+  or reflows as the pointer crosses a dense grid of cards. `woocommerce/product-image` no longer
+  carries its own corner radius in any of the three templates that use it — the card's
+  `overflow: hidden` does the rounding instead, so the image doesn't double up a smaller radius inside
+  the card's larger one.
 - **Sidebar filter headings read as eyebrows.** Price, Category, Availability, and Rating now carry
   `aviendha-eyebrow` — the same mono, uppercase, dash-prefixed label already used for "Description",
   "Specifications", "Reviews", and "More like this" on the single-product page — rather than a plain

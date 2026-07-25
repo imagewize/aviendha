@@ -38,7 +38,7 @@ store templates.
 == Changelog ==
 
 = 1.14.0 =
-* Added: product cards across the shop archive, search results, and single-product related products now sit in a bordered, rounded card that lifts on hover — one visual treatment for "a clickable item in a grid," shared with the blog's related-posts cards
+* Added: product cards across the shop archive, search results, and single-product related products now sit in a bordered, rounded card that tints and darkens its border on hover — one visual treatment for "a clickable item in a grid"
 * Added: the shop sidebar's filter headings (Price, Category, Availability, Rating) use the theme's mono eyebrow style, and a hairline now separates each filter group
 * Changed: the results count reads in the same muted secondary colour as the breadcrumb above it
 * Changed: the catalog sort dropdown is now styled to match the theme instead of rendering as a bare browser control
