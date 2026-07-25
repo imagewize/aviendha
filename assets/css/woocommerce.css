@@ -16,6 +16,8 @@
  * 7. Specifications
  * 8. Reviews
  * 9. Product filters
+ * 10. Product grid
+ * 11. Sort dropdown
  */
 
 /* -------------------------------------------------------------------------
@@ -279,6 +281,21 @@
  * their blocks render and can land after the theme's.
  */
 
+/*
+ * Each filter group (price, category, availability, rating) is a direct
+ * child of the overlay content wrapper. A hairline between them reads as
+ * one filter panel with sections, rather than four headings stacked with
+ * nothing to separate their controls from the next label. The active-chips
+ * group collapses to `display: none` when empty rather than being removed
+ * from the DOM, so `:last-child` — not `:first-child` — is the safe anchor:
+ * a hidden element still counts for sibling selectors but renders no box,
+ * so it never leaves a stray rule floating above the first visible group.
+ */
+.wc-block-product-filters__overlay-content > div:not(:last-child) {
+	border-bottom: 1px solid var(--wp--preset--color--border-light);
+	padding-bottom: var(--wp--preset--spacing--medium);
+}
+
 /* Chips: the active-filter pills above the sidebar. */
 .wc-block-product-filter-removable-chips {
 	--wc-product-filter-removable-chips-background: var(--wp--preset--color--tertiary);
@@ -450,4 +467,38 @@
 
 .wc-block-product-template__responsive .wc-block-product .wc-block-components-product-button {
 	margin-top: auto;
+}
+
+/* -------------------------------------------------------------------------
+ * 11. Sort dropdown
+ * ------------------------------------------------------------------------- */
+
+/*
+ * `catalog-sorting` renders a bare `<select>` with no colour, border or
+ * typography supports — the browser-default control next to the themed
+ * result count and filter sidebar. `appearance: none` drops the native arrow
+ * so a themed chevron can replace it; the SVG is inlined because this file
+ * has no build step to reference a separate asset.
+ */
+.wc-block-catalog-sorting .orderby {
+	appearance: none;
+	background-color: var(--wp--preset--color--base);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2357534E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+	background-position: right 0.7em center;
+	background-repeat: no-repeat;
+	background-size: 1em;
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--pill);
+	color: var(--wp--preset--color--contrast);
+	font-family: inherit;
+	padding: 0.55em 2.2em 0.55em 1.1em;
+}
+
+.wc-block-catalog-sorting .orderby:hover {
+	border-color: var(--wp--preset--color--sand-deep);
+}
+
+.wc-block-catalog-sorting .orderby:focus-visible {
+	border-color: var(--wp--preset--color--primary);
+	outline: none;
 }
