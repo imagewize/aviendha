@@ -31,7 +31,8 @@
 				{ "name": "Primary Alt", "slug": "primary-alt", "color": "#7F0F2E" },
 				{ "name": "White", "slug": "white", "color": "#FFFFFF" },
 				{ "name": "Terracotta", "slug": "terracotta", "color": "#C2410C" },
-				{ "name": "Sand Deep", "slug": "sand-deep", "color": "#D6C7AE" }
+				{ "name": "Sand Deep", "slug": "sand-deep", "color": "#D6C7AE" },
+				{ "name": "Indigo", "slug": "indigo", "color": "#1E3A5F" }
 			],
 			"gradients": [
 				{
@@ -58,7 +59,7 @@
 		},
 		"layout": {
 			"contentSize": "720px",
-			"wideSize": "1200px"
+			"wideSize": "1360px"
 		},
 		"spacing": {
 			"blockGap": true,
