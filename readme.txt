@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.14.0
+Stable tag: 1.15.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,11 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.15.0 =
+* Added: a `control-border` design token at 3:1 against the page, so form controls have a boundary that can actually be seen — the shop filter checkboxes, sort dropdown, price slider inputs, and comment form fields all used a hairline that was 1.25:1 against the background (WCAG 2.1 AA, 1.4.11)
+* Changed: `main-accent` darkened from #78716C to #6F6862, clearing the 4.5:1 minimum for body text on form labels, placeholders, post meta, and struck-through sale prices (WCAG 2.1 AA, 1.4.3)
+* Changed: the comment form fields and the catalog sort dropdown now draw a real 2px focus ring instead of swapping a 1px border colour, so keyboard focus is visible on both (WCAG 2.1 AA, 2.4.7)
 
 = 1.14.0 =
 * Added: product cards across the shop archive, search results, and single-product related products now sit in a bordered, rounded card whose border darkens on hover — one visual treatment for "a clickable item in a grid"

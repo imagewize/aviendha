@@ -2,6 +2,39 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.15.0] - 2026-07-27
+
+Three WCAG 2.1 AA failures found by auditing the theme against the European Accessibility Act, which
+points at EN 301 549 and so at WCAG 2.1 AA for anything on the web. All three are contrast or focus
+issues in CSS — nothing structural changed, and no markup moved.
+
+### Added
+- **A `control-border` custom colour, at 3:1 against the page.** WCAG 1.4.11 asks for 3:1 between a
+  control's boundary and its background; `border-light` is **1.25:1** on `base`, so every form
+  control the theme styled had a boundary nobody could see. The filter checkbox was the sharp case —
+  `woocommerce.css` removes WooCommerce's `currentColor` wash from the unchecked box and lets the
+  border do the work, which made that invisible hairline the entire unchecked state. The new token is
+  `#8C8378` (3.49:1 on `base`, 3.09:1 on `tertiary`), and `#7A6F68` under `twilight` (3.45:1 /
+  3.12:1). It lives in `settings.custom.color` rather than the palette because it is a system token,
+  not a colour anyone should be picking in the editor.
+
+  `border-light` is unchanged and still correct for decorative rules, card edges, and group
+  separators — 1.4.11 doesn't reach those, and Aludra's patterns reference the slug.
+
+### Changed
+- **`main-accent` `#78716C` → `#6F6862`.** It was **4.49:1** on `base` against a 4.5:1 requirement,
+  missing 1.4.3 by a hair — on comment form labels, placeholder text, post meta, the author byline,
+  sidebar widget titles, comment dates, eyebrow labels, and the struck-through old price on sale
+  items. Now 5.13:1 on `base` and 4.54:1 on `tertiary`. `tertiary` is the tighter of the two grounds,
+  so check any future adjustment against it rather than against `base`. Twilight's `#A8A29E` was
+  already 6.68:1 and is untouched.
+- **Real focus rings on the comment form fields and the catalog sorting select.** Both removed the
+  outline and swapped a 1px border colour in its place. That is technically a visible indicator, but
+  it repaints the same pixel the resting state already draws, and with the border at 1.25:1 the change
+  was close to imperceptible. Both now use `outline: 2px solid` `primary` at a 2px offset, matching
+  the quantity stepper — which had the only correct focus treatment in the theme. The comment form
+  moved from `:focus` to `:focus-visible` at the same time, so clicking a field no longer rings it.
+
 ## [1.14.0] - 2026-07-25
 
 ### Added
