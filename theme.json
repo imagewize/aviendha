@@ -26,7 +26,7 @@
 				{ "name": "Primary", "slug": "primary", "color": "#9F1239" },
 				{ "name": "Accent", "slug": "accent", "color": "#4D7C0F" },
 				{ "name": "Secondary", "slug": "secondary", "color": "#57534E" },
-				{ "name": "Main Accent", "slug": "main-accent", "color": "#78716C" },
+				{ "name": "Main Accent", "slug": "main-accent", "color": "#6F6862" },
 				{ "name": "Primary Accent", "slug": "primary-accent", "color": "#FDE8EC" },
 				{ "name": "Primary Alt", "slug": "primary-alt", "color": "#7F0F2E" },
 				{ "name": "White", "slug": "white", "color": "#FFFFFF" },
@@ -53,6 +53,9 @@
 			]
 		},
 		"custom": {
+			"color": {
+				"control-border": "#8C8378"
+			},
 			"spacing": {
 				"content-padding": "clamp(1rem, 4vw, 2rem)"
 			}

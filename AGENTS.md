@@ -70,6 +70,31 @@ content is composed directly from blocks (core blocks or the Aludra block librar
 - Color and spacing preset slugs in `theme.json` (`base`, `contrast`, `secondary`, `main`,
   `primary`, `accent`, `tertiary`, `border-light`; `small`, `medium`, `large`, etc.) are referenced
   by Aludra's own block patterns — don't rename them without checking `aludra/patterns/*.php`.
+- **Borders on form controls use `--wp--custom--color--control-border`, not `border-light`.**
+  `border-light` is a decorative hairline at 1.25:1 against `base` — correct for card edges, group
+  separators and rules, and far too faint for anything a user has to find and operate. WCAG 2.1 AA
+  (1.4.11) wants 3:1 on a control's boundary, which is what `control-border` is for. Both style
+  variations define it; a new variation must too.
+- **Don't remove a focus outline.** If a focus treatment needs to change, replace the outline with
+  another outline — `outline: 2px solid` `primary` at a 2px offset is the theme's pattern. Swapping
+  a 1px border colour in place of `outline: none` is not enough to satisfy 2.4.7, especially at the
+  border weights this theme uses.
+- **Text colours clear 4.5:1 against every ground they land on.** `tertiary` is usually the tighter
+  of the two grounds, not `base` — check muted greys against it before assuming they pass.
+
+## Version Management
+
+Bumping the theme version means updating **four files** in sync (CLAUDE.md carries the same list —
+keep the two in step):
+
+1. `CHANGELOG.md` — add a new version section
+2. `readme.txt` — update the `Stable tag` header and add a changelog entry
+3. `style.css` — update the `Version` header
+4. `package.json` — update `version`
+
+`style.css` is the version WordPress actually reads and the only one that affects an installed
+site; the other three keep the repo, the WP.org listing and the release tooling honest. Check all
+four before tagging.
 
 ## Commit & Pull Request Guidelines
 

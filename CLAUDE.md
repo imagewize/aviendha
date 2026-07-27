@@ -173,11 +173,16 @@ installed site belongs in `.distignore` — and, so source archives match, in `.
 
 ## Version Management
 
-When updating the theme version, update **three files** in sync:
+When updating the theme version, update **four files** in sync:
 
 1. **CHANGELOG.md** — add a new version section
 2. **readme.txt** — update `Stable tag` header and add a changelog entry
 3. **style.css** — update the `Version` header
+4. **package.json** — update `version`
+
+`style.css` is the version WordPress actually reads, and the only one that affects an installed
+site; the other three keep the repo, the WP.org listing and the release tooling honest. Check all
+four before tagging.
 
 ## Git Commit Guidelines
 

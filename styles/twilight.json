@@ -3,6 +3,11 @@
 	"title": "Twilight",
 	"version": 3,
 	"settings": {
+		"custom": {
+			"color": {
+				"control-border": "#7A6F68"
+			}
+		},
 		"color": {
 			"palette": [
 				{ "name": "Base", "slug": "base", "color": "#211C1A" },
