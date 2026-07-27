@@ -331,10 +331,19 @@
 	margin-top: var(--wp--preset--spacing--x-small);
 }
 
-/* Checkbox lists: categories, stock status and rating. */
+/*
+ * Checkbox lists: categories, stock status and rating.
+ *
+ * The border is `control-border`, not `border-light`. With the `currentColor`
+ * wash below removed, this border is the *only* thing that draws an unchecked
+ * box, and WCAG 1.4.11 asks for 3:1 against the background on a control's
+ * boundary — `border-light` is 1.25:1 on `base`, a hairline nobody can find.
+ * `border-light` stays right for the decorative rules and card edges that
+ * criterion doesn't reach.
+ */
 .wc-block-product-filter-checkbox-list {
 	--wc-product-filter-checkbox-list-option-element: var(--wp--preset--color--base);
-	--wc-product-filter-checkbox-list-option-element-border: var(--wp--preset--color--border-light);
+	--wc-product-filter-checkbox-list-option-element-border: var(--wp--custom--color--control-border);
 	--wc-product-filter-checkbox-list-option-element-selected: var(--wp--preset--color--base);
 }
 
@@ -378,7 +387,7 @@
 
 .wc-block-product-filter-price-slider .text input[type="text"] {
 	background: var(--wp--preset--color--base);
-	border-color: var(--wp--preset--color--border-light);
+	border-color: var(--wp--custom--color--control-border);
 	border-radius: var(--wp--preset--border-radius--sm);
 	color: inherit;
 }
@@ -486,7 +495,7 @@
 	background-position: right 0.7em center;
 	background-repeat: no-repeat;
 	background-size: 1em;
-	border: 1px solid var(--wp--preset--color--border-light);
+	border: 1px solid var(--wp--custom--color--control-border);
 	border-radius: var(--wp--preset--border-radius--pill);
 	color: var(--wp--preset--color--contrast);
 	font-family: inherit;
@@ -497,7 +506,14 @@
 	border-color: var(--wp--preset--color--sand-deep);
 }
 
+/*
+ * A real focus ring rather than the border swap this used to do. A 1px border
+ * changing colour is technically a visible indicator, but it is the same
+ * pixel the resting state already draws — next to the quantity stepper's
+ * outline above it read as nothing happening. Offset outwards so the pill's
+ * own border stays legible underneath.
+ */
 .wc-block-catalog-sorting .orderby:focus-visible {
-	border-color: var(--wp--preset--color--primary);
-	outline: none;
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
 }

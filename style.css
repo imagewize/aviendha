@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing theme for WooCommerce stores. 
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Version: 1.14.0
+Version: 1.15.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -917,7 +917,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 
 .single .aviendha-comments .comment-form :is(textarea, input[type="text"], input[type="email"], input[type="url"]) {
 	background: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--border-light);
+	border: 1px solid var(--wp--custom--color--control-border);
 	border-radius: var(--wp--preset--border-radius--md);
 	color: var(--wp--preset--color--contrast);
 	font-family: var(--wp--preset--font-family--primary);
@@ -931,9 +931,15 @@ body .aviendha-header--dark .wp-block-site-logo {
 	resize: vertical;
 }
 
-.single .aviendha-comments .comment-form :is(textarea, input[type="text"], input[type="email"], input[type="url"]):focus {
+/*
+ * `:focus-visible` rather than `:focus` so a pointer click doesn't ring the
+ * field, and a real outline rather than the border swap this used to do — see
+ * the matching note on the catalog sorting select in `woocommerce.css`.
+ */
+.single .aviendha-comments .comment-form :is(textarea, input[type="text"], input[type="email"], input[type="url"]):focus-visible {
 	border-color: var(--wp--preset--color--primary);
-	outline: none;
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
 }
 
 .single .aviendha-comments .comment-form ::placeholder {
