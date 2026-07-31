@@ -120,12 +120,13 @@ Aviendha is exercised on the `/aviendha/` subsite of the local Trellis/Bedrock m
 [Aludra](https://github.com/imagewize/aludra) block library the content is composed from.
 
 Both are pinned Composer dependencies there, **not** symlinks to these working copies. Do not cut
-a release to test a local change — sync instead, with `rsync-package-to-site.sh` from
-[wp-ops](https://github.com/imagewize/wp-ops) (`scripts/rsync-package-to-site.sh`):
+a release to test a local change — sync instead, with `rsync-package-to-site` from
+[wp-ops](https://github.com/imagewize/wp-ops), via the `wp-ops` CLI (run `~/code/wp-ops/install.sh`
+once if `wp-ops` isn't on your PATH yet):
 
 ```bash
 SITE_ROOT=~/code/imagewize.com/demo/web/app \
-  ~/code/wp-ops/scripts/rsync-package-to-site.sh theme aviendha ~/code/aviendha
+  wp-ops rsync-package-to-site theme aviendha ~/code/aviendha
 ```
 
 **Always pass the theme working copy (`~/code/aviendha`) as the explicit source argument, and do
