@@ -1,30 +1,33 @@
 === Aviendha WordPress Theme ===
 Contributors: Rhand
-Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks
+Tags: full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks, starter-theme
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.15.0
-License: GNU General Public License v3.0 (or later)
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Stable tag: 1.16.1
+License: MIT License
+License URI: https://opensource.org/licenses/MIT
 
 == Description ==
 
-Aviendha is a lean full-site-editing theme for WooCommerce stores. Unlike Imagewize's Elayne theme,
-it ships no bundled patterns — `theme.json`, WooCommerce block templates, and style variations
-provide the design system, and page content is composed directly from blocks. It works with any
-blocks, but is built to pair with the [Aludra](https://github.com/imagewize/aludra) block library
-(mega menu, carousel, FAQ tabs, and more).
+Aviendha is a lean full-site-editing (FSE) starter theme for WordPress, designed to be forked
+and customized. It provides a solid design system via `theme.json` (colors, typography, spacing,
+layout), WooCommerce block templates, and style variations, but ships no bundled patterns —
+page content is composed directly from blocks. Unlike Imagewize's Elayne theme, Aviendha is
+minimal by design.
 
-Aviendha recommends, but does not require, the Aludra plugin. It requires WooCommerce for the
-store templates.
+Aviendha pairs with the [Aludra](https://github.com/imagewize/aludra) block library (mega menu,
+carousel, FAQ tabs, and more), but doesn't require it — the theme is a plain block theme that
+works with core blocks and any block plugin. WooCommerce is optional and only required if you
+want to use the store templates.
 
 = Key Features =
 
-* Solid Full Site Editing (FSE) design system via `theme.json`
-* WooCommerce block templates for single product and product archive
+* Full Site Editing (FSE) starter theme — designed to be forked and customized
+* Solid design system via `theme.json` (colors, typography, spacing, layout)
+* WooCommerce block templates for single product and product archive (optional)
 * Style variations (see `styles/`)
-* No theme-level patterns — block-first composition
+* No bundled patterns — block-first composition
 * Pairs with the Aludra block library (mega menu, carousel, FAQ tabs, and more)
 * Translation-ready
 
@@ -36,6 +39,11 @@ store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.16.1 =
+* Changed: Positioned Aviendha as a Full Site Editing (FSE) starter theme for WordPress, designed to be forked and customized — similar to Sage in classic theming. Updated documentation and metadata to reflect the new positioning.
+* Changed: License from GPL v3 to MIT License. Updated LICENSE.md, README.md, readme.txt, package.json, and style.css accordingly.
+* Changed: Updated references to Ixian theme as an example of a theme forked from Aviendha.
 
 = 1.15.0 =
 * Added: a `control-border` design token at 3:1 against the page, so form controls have a boundary that can actually be seen — the shop filter checkboxes, sort dropdown, price slider inputs, and comment form fields all used a hairline that was 1.25:1 against the background (WCAG 2.1 AA, 1.4.11)
@@ -187,4 +195,4 @@ The SIL Open Font License is GPL-compatible.
 == Copyright ==
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
-Aviendha is distributed under the terms of the GNU GPL v3 (or later).
+Aviendha is distributed under the terms of the MIT License.

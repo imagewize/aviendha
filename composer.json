@@ -1,8 +1,8 @@
 {
 	"name": "imagewize/aviendha",
-	"description": "A lean WooCommerce block theme by Jasper Frumau",
+	"description": "A lean full-site-editing starter theme for WordPress by Jasper Frumau",
 	"type": "wordpress-theme",
-	"license": "GPL-3.0-or-later",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Jasper Frumau",

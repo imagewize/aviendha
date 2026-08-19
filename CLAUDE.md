@@ -4,17 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Aviendha is a lean full-site-editing (FSE) WordPress theme for WooCommerce stores — a general-purpose
-e-commerce base for small and medium businesses. It is a companion to Imagewize's **Elayne** and
-**Nynaeve** themes, but deliberately simpler: **no theme-level patterns**. `theme.json`, WooCommerce
-block templates, and style variations form the design system; page content is composed directly from
-blocks (core blocks or the [Aludra](https://github.com/imagewize/aludra) block library) rather than
-inserted as pre-built patterns.
+Aviendha is a lean full-site-editing (FSE) **starter theme** for WordPress, designed to be forked
+and customized — similar to Sage in the classic theming world. It is a companion to Imagewize's
+**Elayne** and **Nynaeve** themes, and serves as the base for themes like **Ixian**. Unlike Elayne,
+Aviendha is deliberately minimal: **no bundled patterns**. `theme.json`, WooCommerce block templates,
+and style variations form the design system; page content is composed directly from blocks (core
+blocks or the [Aludra](https://github.com/imagewize/aludra) block library) rather than inserted as
+pre-built patterns.
 
 **Requirements:**
 - WordPress 6.6+
 - PHP 8.0+
-- WooCommerce (for store templates)
+- WooCommerce (optional, for store templates)
 - Aludra plugin — recommended, not required
 
 ## Why no patterns
@@ -184,6 +185,8 @@ When updating the theme version, update **four files** in sync:
 `style.css` is the version WordPress actually reads, and the only one that affects an installed
 site; the other three keep the repo, the WP.org listing and the release tooling honest. Check all
 four before tagging.
+
+**License:** Aviendha uses the MIT License (see `LICENSE.md`).
 
 ## Git Commit Guidelines
 

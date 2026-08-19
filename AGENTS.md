@@ -1,9 +1,10 @@
 # Repository Guidelines
 
-Aviendha is a lean FSE/block WordPress theme for WooCommerce stores (WP 6.6+, PHP 8.0+, no build
-tools — direct HTML block markup and PHP). `theme.json` is the single source of truth for colors,
-typography, spacing, and layout. Unlike Imagewize's Elayne theme, Aviendha ships **no patterns** —
-content is composed directly from blocks (core blocks or the Aludra block library).
+Aviendha is a lean **Full Site Editing (FSE) starter theme** for WordPress (WP 6.6+, PHP 8.0+, no build
+tools — direct HTML block markup and PHP), designed to be forked and customized — similar to Sage in
+classic theming. `theme.json` is the single source of truth for colors, typography, spacing, and layout.
+Unlike Imagewize's Elayne theme, Aviendha ships **no bundled patterns** — content is composed directly
+from blocks (core blocks or the Aludra block library). It serves as the base for themes like Ixian.
 
 ## Project Structure & Module Organization
 
@@ -95,6 +96,8 @@ keep the two in step):
 `style.css` is the version WordPress actually reads and the only one that affects an installed
 site; the other three keep the repo, the WP.org listing and the release tooling honest. Check all
 four before tagging.
+
+**License:** Aviendha uses the MIT License (see `LICENSE.md`).
 
 ## Commit & Pull Request Guidelines
 
