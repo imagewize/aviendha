@@ -1,10 +1,10 @@
 === Aviendha WordPress Theme ===
 Contributors: Rhand
-Tags: full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks, starter-theme
+Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.16.1
+Stable tag: 1.16.0
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 
@@ -40,7 +40,7 @@ want to use the store templates.
 
 == Changelog ==
 
-= 1.16.1 =
+= 1.16.0 =
 * Changed: Positioned Aviendha as a Full Site Editing (FSE) starter theme for WordPress, designed to be forked and customized — similar to Sage in classic theming. Updated documentation and metadata to reflect the new positioning.
 * Changed: License from GPL v3 to MIT License. Updated LICENSE.md, README.md, readme.txt, package.json, and style.css accordingly.
 * Changed: Updated references to Ixian theme as an example of a theme forked from Aviendha.

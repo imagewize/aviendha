@@ -2,7 +2,7 @@
 
 All notable changes to Aviendha are documented in this file.
 
-## [1.16.1] - 2026-08-19
+## [1.16.0] - 2026-08-19
 
 ### Changed
 - Positioned Aviendha as a Full Site Editing (FSE) starter theme for WordPress, designed to be forked and customized — similar to Sage in classic theming. Updated README.md, readme.txt, and package.json to reflect the new positioning.
