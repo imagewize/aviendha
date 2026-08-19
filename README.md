@@ -3,6 +3,16 @@
 </p>
 <div align="center">
 <h1>Aviendha</h1>
+</div>
+<div align="center">
+
+[![Total Downloads](https://img.shields.io/packagist/dt/imagewize/aviendha.svg)](https://packagist.org/packages/imagewize/aviendha)
+[![Latest Stable Version](https://img.shields.io/packagist/v/imagewize/aviendha.svg)](https://packagist.org/packages/imagewize/aviendha)
+[![License](https://img.shields.io/packagist/l/imagewize/aviendha.svg)](https://packagist.org/packages/imagewize/aviendha)
+[![Theme Check](https://github.com/imagewize/aviendha/actions/workflows/theme-check.yml/badge.svg)](https://github.com/imagewize/aviendha/actions/workflows/theme-check.yml)
+
+</div>
+<div align="center">
 
 A lean full-site-editing starter theme for WordPress.
 </div>
