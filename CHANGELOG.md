@@ -2,6 +2,13 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.16.0] - 2026-08-19
+
+### Changed
+- Positioned Aviendha as a Full Site Editing (FSE) starter theme for WordPress, designed to be forked and customized — similar to Sage in classic theming. Updated README.md, readme.txt, and package.json to reflect the new positioning.
+- Changed license from GPL v3 to MIT License. Updated LICENSE.md, README.md, readme.txt, package.json, and style.css accordingly.
+- Updated references to Ixian theme as an example of a theme forked from Aviendha.
+
 ## [1.15.0] - 2026-07-27
 
 Three WCAG 2.1 AA failures found by auditing the theme against the European Accessibility Act, which
