@@ -25,11 +25,17 @@ Elayne and Nynaeve both ship large pattern libraries. Aviendha intentionally doe
 1. Blocks (not patterns) are where the reusable logic should live — see Aludra's `aludra/*` blocks
    (mega menu, carousel, FAQ tabs, etc.). Patterns become one-liners around those blocks rather than
    theme-maintained markup walls.
-2. It keeps this theme's surface area small: no pattern-validation harness, no per-vertical pattern
-   sets to maintain.
+2. It keeps this theme's surface area small: no per-vertical pattern sets to maintain.
 
 If Aviendha ever needs vertical-specific starting content (e.g. a "cycling" flavor), prefer a
 **style variation** (`styles/*.json`) over a pattern library — same design system, different palette.
+
+**The pattern-validation harness ships anyway.** Aviendha is a starter theme — forks like **Ixian**
+add their own `patterns/` directory the moment they diverge from "no patterns," and re-wiring
+`wp-pattern-sentinel` from scratch in every fork is the kind of drift this repo exists to prevent.
+`package.json` carries the `@imwz/wp-pattern-sentinel` dependency and `validate*` scripts (see
+[Pattern validation](#pattern-validation) under Development) so a fork gets a working `npm run
+validate` the moment it adds a `patterns/` directory, without having to remember to set it up.
 
 ## Architecture
 
@@ -91,6 +97,36 @@ composer run lint       # php-parallel-lint syntax check
 composer run wpcs:scan  # PHPCS against phpcs.xml (WordPress standard)
 composer run wpcs:fix   # PHPCBF auto-fix
 ```
+
+`package.json` exists only for the pattern-validation harness below — it is not a build step, and
+ships no runtime JS.
+
+### Pattern validation
+
+Aviendha ships no patterns itself (see "Why no patterns" above), but carries the
+`@imwz/wp-pattern-sentinel` harness in `package.json` for forks that add a `patterns/` directory.
+`wp pattern validate`'s PHP `parse_blocks()` pass does **not** run Gutenberg's JavaScript `save()`
+function — issues only the JS serializer produces (class-ordering, attribute defaults like a
+block's own `align`, auto-injected styles) pass that check but still fail block validation in the
+real editor. Sentinel catches these by launching a real browser, logging into WP admin, inserting
+the pattern into a draft page, saving it, and reading back the actual validation/content-mismatch
+result — so run it after each pattern iteration, not just once at the end. Run it against the real
+Trellis VM install (see "Testing on the demo site" below), never a standalone `--url`, since that's
+the WordPress instance patterns are actually exercised against:
+
+```bash
+npm install
+npm run setup            # npx playwright install chromium, once
+
+# from the theme directory (~/code/aviendha, or the fork's working copy)
+sentinel --trellis --trellis-dir=$HOME/code/imagewize.com/trellis \
+  --site=demo.imagewize.com --subsite=aviendha patterns/my-pattern.php   # single file
+
+sentinel --trellis --trellis-dir=$HOME/code/imagewize.com/trellis \
+  --site=demo.imagewize.com --subsite=aviendha patterns/                # everything
+```
+
+Swap `--subsite=aviendha` for the fork's own subsite slug (e.g. `--subsite=ixian`).
 
 ### Where docs and design mockups live
 
