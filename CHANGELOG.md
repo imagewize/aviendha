@@ -2,6 +2,11 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.16.1] - 2026-08-21
+
+### Added
+- `@imwz/wp-pattern-sentinel` as a `package.json` dependency, with `setup`/`validate`/`validate:file`/`validate:new`/`validate:clear-cache` scripts. Aviendha ships no patterns itself, but forks (e.g. Ixian) that add a `patterns/` directory now inherit a working browser-based pattern validator instead of wiring it up from scratch. Documented under a new "Pattern validation" section in `CLAUDE.md`.
+
 ## [1.16.0] - 2026-08-19
 
 ### Changed

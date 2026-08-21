@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.16.0
+Stable tag: 1.16.1
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.16.1 =
+* Added: `@imwz/wp-pattern-sentinel` as a `package.json` dependency, with validation npm scripts, so forks that add a `patterns/` directory (e.g. Ixian) inherit a working browser-based pattern validator.
 
 = 1.16.0 =
 * Changed: Positioned Aviendha as a Full Site Editing (FSE) starter theme for WordPress, designed to be forked and customized — similar to Sage in classic theming. Updated documentation and metadata to reflect the new positioning.

@@ -1,14 +1,24 @@
 {
 	"name": "aviendha",
-	"version": "1.16.0",
+	"version": "1.16.1",
 	"description": "A lean full-site-editing starter theme for WordPress, designed to be forked and customized.",
 	"keywords": [
-		"wordpress",
+		"WordPress",
 		"theme",
 		"block-theme",
 		"fse",
 		"starter-theme"
 	],
 	"author": "Jasper Frumau",
-	"license": "MIT"
+	"license": "MIT",
+	"scripts": {
+		"setup": "npx playwright install chromium",
+		"validate": "sentinel --log patterns/",
+		"validate:file": "sentinel",
+		"validate:new": "sentinel --cache --log patterns/",
+		"validate:clear-cache": "sentinel --clear-cache"
+	},
+	"dependencies": {
+		"@imwz/wp-pattern-sentinel": "^1.1.0"
+	}
 }
