@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '22'
 
       # The action copies the repo root straight into its test theme, so
       # anything tracked here gets reviewed — Theme Check's File_Check rejects a
