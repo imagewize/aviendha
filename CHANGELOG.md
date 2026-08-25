@@ -2,6 +2,18 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.17.0] - 2026-08-25
+
+WordPress.org theme directory preparation. See `docs/WPORG-DISTRIBUTION-PLAN.md` in the
+imagewize.com repo for the wider plan this belongs to.
+
+### Changed
+- **`remove_theme_support( 'core-block-patterns' )` dropped.** The line made sense while the theme was distributed to sites that always ran Aludra: content came from `aludra/*` blocks, and core's patterns were noise. It does not survive the directory. Aviendha ships no patterns of its own, so a user who installs it from wordpress.org *without* Aludra opened a completely empty pattern inserter — the one place the theme actively took something away and gave nothing back. Core's patterns now stay registered. A fork that wants the old behaviour gets it back with the same single line in its own `functions.php`.
+- `Tested up to` 7.0 → 7.1 in `style.css` and `readme.txt`. `Requires at least` stays 6.6; nothing in this release needs newer.
+
+### Note
+WooCommerce's `woocommerce-blocks/*` patterns are still unregistered when WooCommerce is active. That is unchanged and deliberate — the theme neither designed nor styles them — but its comment previously justified it by pointing at the core removal above, which no longer exists. The reasoning is now stated on its own terms.
+
 ## [1.16.1] - 2026-08-21
 
 ### Added

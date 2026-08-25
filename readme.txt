@@ -2,9 +2,9 @@
 Contributors: Rhand
 Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks
 Requires at least: 6.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.16.1
+Stable tag: 1.17.0
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 
@@ -39,6 +39,10 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.17.0 =
+* Changed: Core block patterns are no longer removed. The theme ships no patterns of its own, so removing core's left a fresh install with an entirely empty pattern inserter. A fork that wants the old behaviour restores it with one line of `remove_theme_support()`.
+* Changed: Tested up to 7.1.
 
 = 1.16.1 =
 * Added: `@imwz/wp-pattern-sentinel` as a `package.json` dependency, with validation npm scripts, so forks that add a `patterns/` directory (e.g. Ixian) inherit a working browser-based pattern validator.
