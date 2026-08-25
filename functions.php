@@ -18,9 +18,6 @@ function aviendha_setup() {
 	// Enqueue editor styles.
 	add_editor_style( 'style.css' );
 
-	// Remove core block patterns; content is composed from aludra/* blocks directly.
-	remove_theme_support( 'core-block-patterns' );
-
 	// WooCommerce.
 	add_theme_support( 'woocommerce' );
 	add_theme_support( 'wc-product-gallery-zoom' );
@@ -225,10 +222,10 @@ function aviendha_add_to_cart_template_part_area( $areas ) {
 /**
  * Unregister WooCommerce's bundled block patterns.
  *
- * Aviendha ships no patterns and removes core's; WooCommerce registers a set of
- * its own on top, which this theme neither designed nor styles. The
- * `woocommerce/*` patterns are left alone — the coming soon templates render
- * them.
+ * Aviendha ships no patterns of its own; WooCommerce registers a large set
+ * which this theme neither designed nor styles, and which crowds out core's.
+ * The `woocommerce/*` patterns are left alone — the coming soon templates
+ * render them.
  */
 function aviendha_unregister_woocommerce_patterns() {
 	$registry = \WP_Block_Patterns_Registry::get_instance();

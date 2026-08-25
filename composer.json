@@ -2,7 +2,7 @@
 	"name": "imagewize/aviendha",
 	"description": "A lean full-site-editing starter theme for WordPress by Jasper Frumau",
 	"type": "wordpress-theme",
-	"license": "MIT",
+	"license": "GPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "Jasper Frumau",

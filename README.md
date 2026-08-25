@@ -37,10 +37,10 @@ Unlike Imagewize's [Elayne](https://github.com/imagewize/elayne) theme, Aviendha
 - **Starter theme foundation** — designed to be forked and customized, with a clean separation of concerns and no opinionated patterns that would need removal
 - **Design system** — `theme.json` defines the color palette, typography, spacing, and border radii; color/spacing slugs match what Aludra's own block styles expect (`base`, `contrast`, `secondary`, `main`, `primary`, `accent`, `tertiary`, `border-light`)
 - **WooCommerce templates** — `templates/single-product.html`, `templates/archive-product.html`, `templates/product-search-results.html`, and `templates/coming-soon.html` are theme-provided; cart, checkout, and category-archive templates fall back to WooCommerce's own block-theme defaults. The product archive and search results ship a results count, catalog sorting, a filters sidebar (price, category, availability, rating) and an empty state; the single product template uses the block-based add to cart, with theme layouts for simple and variable products in `parts/`. The coming-soon template wraps WooCommerce's coming-soon block with the theme's header and footer.
-- **Degrades gracefully without WooCommerce** — with the plugin inactive, the store templates and the header's mini cart are filtered out rather than left to render as unsupported blocks. WooCommerce's own bundled patterns are unregistered when it *is* active, keeping the inserter consistent with the theme's no-patterns design.
+- **Degrades gracefully without WooCommerce** — with the plugin inactive, the store templates and the header's mini cart are filtered out rather than left to render as unsupported blocks. WooCommerce's own bundled `woocommerce-blocks/*` patterns are unregistered when it *is* active — the theme neither designed nor styles them, and they crowd out core's.
 - **Two page templates** — `page.html` (default) omits `post-title` since most pages get their title from a block's own heading; `page-with-title.html` (selectable per-page under Page → Template) adds the conventional title treatment.
 - **Style variations** — see `styles/` (e.g. `twilight.json`) for alternate color palettes on top of the same design system.
-- **No bundled patterns** — block-first composition. Insert `aludra/*` blocks (or core blocks) directly into pages and templates, then add your own patterns as needed.
+- **No bundled patterns** — block-first composition. Core's own patterns stay registered, so the inserter is never empty; insert `aludra/*` blocks (or core blocks) directly into pages and templates, then add your own patterns as needed.
 
 ## Structure
 
@@ -76,4 +76,4 @@ No JS build step is required — the theme ships no bundled JavaScript.
 
 ## License
 
-MIT License. See `LICENSE.md`.
+GNU GPL v3 (or later). See `LICENSE.md`.

@@ -2,11 +2,11 @@
 Contributors: Rhand
 Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks
 Requires at least: 6.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.16.1
-License: MIT License
-License URI: https://opensource.org/licenses/MIT
+Stable tag: 1.17.0
+License: GNU General Public License v3.0 (or later)
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
 
@@ -39,6 +39,11 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.17.0 =
+* Changed: Core block patterns are no longer removed. The theme ships no patterns of its own, so removing core's left a fresh install with an entirely empty pattern inserter. A fork that wants the old behaviour restores it with one line of `remove_theme_support()`.
+* Changed: License back to the GNU GPL v3 (or later), matching Aludra, Elayne and Ixian — the MIT license adopted in 1.16.0 left this theme the odd one out of its own family. Bundled third-party assets are unaffected — the Ionicons rose stays MIT, both fonts stay OFL 1.1.
+* Changed: Tested up to 7.1.
 
 = 1.16.1 =
 * Added: `@imwz/wp-pattern-sentinel` as a `package.json` dependency, with validation npm scripts, so forks that add a `patterns/` directory (e.g. Ixian) inherit a working browser-based pattern validator.
@@ -198,4 +203,4 @@ The SIL Open Font License is GPL-compatible.
 == Copyright ==
 
 Aviendha WordPress Theme, (C) 2026 Jasper Frumau
-Aviendha is distributed under the terms of the MIT License.
+Aviendha is distributed under the terms of the GNU GPL v3 (or later).
