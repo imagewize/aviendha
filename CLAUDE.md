@@ -222,7 +222,7 @@ When updating the theme version, update **four files** in sync:
 site; the other three keep the repo, the WP.org listing and the release tooling honest. Check all
 four before tagging.
 
-**License:** Aviendha uses the MIT License (see `LICENSE.md`).
+**License:** Aviendha uses the GNU GPL v3 (or later) (see `LICENSE.md`), matching Aludra, Elayne and Ixian.
 
 ## Git Commit Guidelines
 

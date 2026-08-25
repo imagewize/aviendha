@@ -76,4 +76,4 @@ No JS build step is required — the theme ships no bundled JavaScript.
 
 ## License
 
-MIT License. See `LICENSE.md`.
+GNU GPL v3 (or later). See `LICENSE.md`.

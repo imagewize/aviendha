@@ -10,7 +10,7 @@
 		"starter-theme"
 	],
 	"author": "Jasper Frumau",
-	"license": "MIT",
+	"license": "GPL-3.0-or-later",
 	"scripts": {
 		"setup": "npx playwright install chromium",
 		"validate": "sentinel --log patterns/",
