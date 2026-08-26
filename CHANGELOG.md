@@ -2,6 +2,29 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.17.1] - 2026-08-26
+
+Ports the mobile nav overlay fixes made in Ixian back to their source.
+
+### Fixed
+- **Hamburger moved to the rightmost position.** `parts/header.html` and `parts/header-dark.html`
+  had the navigation block sitting between the wordmark and the WooCommerce/CTA action group, so
+  the collapsed hamburger opened in the middle of the header rather than at its edge. The
+  navigation block now comes last in `.aviendha-header__actions` (a new wrapper around the
+  icon/CTA group), so the hamburger renders rightmost below 1024px; an `order: -1` rule on that
+  same wrapper's `.wp-block-navigation` restores the link row to its normal desktop position once
+  the navigation goes inline at 1024px+.
+- **Mobile nav overlay close button opens where the hamburger was.** Core insets the overlay from
+  the screen edge via `--wp--style--root--padding-*` custom properties that
+  `settings.useRootPaddingAwareAlignments` is meant to supply; they resolved to nothing usable
+  here, so the overlay's own padding collapsed to 0 and the close button landed flush against the
+  literal top-right corner of the screen. The overlay now gets the header's own padding directly.
+- **Mobile nav overlay link list no longer overflows past the modal edge.** The list was
+  shrink-wrapped to its own content width and right-aligned against that box's edge; a longer
+  label or larger accessibility text size could push it past the modal boundary with no margin to
+  absorb it. The list now stretches to the full padded content width, with each link's text
+  right-aligned inside that box.
+
 ## [1.17.0] - 2026-08-25
 
 WordPress.org theme directory preparation. See `docs/WPORG-DISTRIBUTION-PLAN.md` in the

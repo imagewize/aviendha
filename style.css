@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing starter theme for WordPress. I
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Version: 1.17.0
+Version: 1.17.1
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -242,7 +242,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 /*
  * Drop the CTA below 600px, where the wordmark, the hamburger and the two icons
  * leave less than the button's ~150px and it runs off the right edge. Above that
- * it always has room — §2.6 keeps the navigation collapsed until 1024px, and by
+ * it always has room — §2.7 keeps the navigation collapsed until 1024px, and by
  * the time the menu goes inline the row is wide enough for both.
  *
  * The `.wp-block-buttons >` part is load-bearing, not decoration: core emits
@@ -312,7 +312,26 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
-/* 2.6 Overlay navigation
+/* 2.6 Actions cluster order
+ * ------------------------------------------------------------------------- */
+
+/*
+ * `.aviendha-header__actions` (parts/header.html, parts/header-dark.html)
+ * holds the icon/CTA group and the navigation block in that source order, so
+ * the hamburger renders last — rightmost, with the CTA immediately before
+ * it — which is what a collapsed header (below 1024px, see §2.7) wants.
+ *
+ * Once the navigation goes inline at 1024px+, that same order would put the
+ * link row after the icons and CTA, which reads backwards for a desktop
+ * masthead — so only there, pull it back in front with `order`.
+ */
+@media (min-width: 1024px) {
+	.aviendha-header__actions .wp-block-navigation {
+		order: -1;
+	}
+}
+
+/* 2.7 Overlay navigation
  * ------------------------------------------------------------------------- */
 
 /*
@@ -345,6 +364,50 @@ body .aviendha-header--dark .wp-block-site-logo {
 }
 
 /*
+ * Core shrink-wraps the overlay's link list to its own content width, then
+ * right-aligns that shrink-wrapped box against the modal's already-padded
+ * edge (`align-items: flex-end` on the container-content, matching the
+ * collapsed hamburger's own justification) — the same edge inset the close
+ * button sits inside. Right-anchoring a shrink-wrapped box that way is
+ * fragile: anything that widens the list past its measured content width
+ * (a longer translated label, a larger accessibility text-size setting)
+ * pushes its edge past the modal boundary with no margin to absorb it, and
+ * the link reads as clipped against the screen edge.
+ *
+ * Stretch the list to the full padded content width instead, then
+ * right-align each link's own text inside that guaranteed box. The list can
+ * no longer be wider than the box it's aligned within, so its edge — and
+ * the close button's — stay pinned to the same padded inset regardless of
+ * label length.
+ */
+.aviendha-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-content {
+	align-items: stretch;
+}
+
+.aviendha-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container {
+	text-align: right;
+}
+
+/*
+ * Core insets the overlay (and, with it, the close button pinned to its
+ * top-right corner) from the screen edge via the `--wp--style--root--padding-*`
+ * custom properties that `settings.useRootPaddingAwareAlignments` is meant to
+ * supply. Here they resolve to nothing usable, so the overlay's own padding
+ * collapses to 0 and the close button lands flush against the literal
+ * top-right corner of the screen — well above and outside of where the
+ * hamburger it replaces actually sits.
+ *
+ * Give the overlay the header's own padding directly instead of relying on
+ * that chain, so the close button opens right where the hamburger was. This
+ * also becomes the right-hand inset the link list (§ above) stretches
+ * against, keeping both edges aligned.
+ */
+.aviendha-header .wp-block-navigation__responsive-container.is-menu-open {
+	padding-top: var(--wp--preset--spacing--small);
+	padding-right: var(--wp--preset--spacing--small);
+}
+
+/*
  * The dark header's navigation has no background of its own, so core's
  * `.wp-block-navigation:not(.has-background) …is-menu-open` rule paints the
  * mobile overlay white — while the block's `textColor: "base"` keeps the
@@ -363,7 +426,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 	color: var(--wp--preset--color--main) !important;
 }
 
-/* 2.7 Account icon
+/* 2.8 Account icon
  * ------------------------------------------------------------------------- */
 
 /*
