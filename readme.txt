@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.17.0
+Stable tag: 1.17.1
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,11 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.17.1 =
+* Fixed: Mobile nav hamburger moved to the rightmost position in the actions cluster, so it sits where the WooCommerce/CTA row previously ended instead of between the wordmark and the icons. An `order: -1` rule restores the link row to its normal position once the navigation goes inline at 1024px+.
+* Fixed: Mobile nav overlay close button now opens where the hamburger was, instead of flush against the screen's top-right corner — the overlay's own padding was collapsing to 0 because the root-padding-aware custom properties it relies on don't resolve here.
+* Fixed: Mobile nav overlay link list stretched to the full padded content width instead of shrink-wrapping to its own content, so a longer label or larger accessibility text size no longer overflows past the modal edge.
 
 = 1.17.0 =
 * Changed: Core block patterns are no longer removed. The theme ships no patterns of its own, so removing core's left a fresh install with an entirely empty pattern inserter. A fork that wants the old behaviour restores it with one line of `remove_theme_support()`.
