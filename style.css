@@ -242,7 +242,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 /*
  * Drop the CTA below 600px, where the wordmark, the hamburger and the two icons
  * leave less than the button's ~150px and it runs off the right edge. Above that
- * it always has room — §2.6 keeps the navigation collapsed until 1024px, and by
+ * it always has room — §2.7 keeps the navigation collapsed until 1024px, and by
  * the time the menu goes inline the row is wide enough for both.
  *
  * The `.wp-block-buttons >` part is load-bearing, not decoration: core emits
@@ -312,7 +312,26 @@ body .aviendha-header--dark .wp-block-site-logo {
 	border-color: var(--wp--preset--color--base);
 }
 
-/* 2.6 Overlay navigation
+/* 2.6 Actions cluster order
+ * ------------------------------------------------------------------------- */
+
+/*
+ * `.aviendha-header__actions` (parts/header.html, parts/header-dark.html)
+ * holds the icon/CTA group and the navigation block in that source order, so
+ * the hamburger renders last — rightmost, with the CTA immediately before
+ * it — which is what a collapsed header (below 1024px, see §2.7) wants.
+ *
+ * Once the navigation goes inline at 1024px+, that same order would put the
+ * link row after the icons and CTA, which reads backwards for a desktop
+ * masthead — so only there, pull it back in front with `order`.
+ */
+@media (min-width: 1024px) {
+	.aviendha-header__actions .wp-block-navigation {
+		order: -1;
+	}
+}
+
+/* 2.7 Overlay navigation
  * ------------------------------------------------------------------------- */
 
 /*
@@ -363,7 +382,7 @@ body .aviendha-header--dark .wp-block-site-logo {
 	color: var(--wp--preset--color--main) !important;
 }
 
-/* 2.7 Account icon
+/* 2.8 Account icon
  * ------------------------------------------------------------------------- */
 
 /*
