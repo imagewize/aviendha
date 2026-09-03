@@ -2,6 +2,17 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.17.2] - 2026-09-03
+
+### Security
+- **`@imwz/wp-pattern-sentinel` bumped `^1.1.0` → `^1.1.1`.** Pulls in sentinel's own fix for
+  [GHSA-5p4m-2wfm-xmqj](https://github.com/imagewize/wp-pattern-sentinel/security/dependabot/3), a
+  high-severity quadratic CPU consumption (DoS) bug in `js-yaml` 4.0.0–4.3.0's `!!omap` resolution.
+  Sentinel uses `js-yaml` to parse Trellis's `wordpress_sites.yml` during `--trellis`
+  auto-discovery, so a crafted YAML file could stall the validation process for seconds on a small
+  input. Dev-only dependency — Aviendha ships no patterns of its own and this does not touch
+  anything a fork's production site runs.
+
 ## [1.17.1] - 2026-08-26
 
 Ports the mobile nav overlay fixes made in Ixian back to their source.
