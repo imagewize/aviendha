@@ -46,7 +46,7 @@ Unlike Imagewize's [Elayne](https://github.com/imagewize/elayne) theme, Aviendha
 
 Aviendha is a GitHub [template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template). Press **Use this template → Create a new repository**, then in the new repo run **Actions → Rename theme from template → Run workflow**. GitHub fires no workflow event when a repository is created from a template, so this one step is manual; everything after it is not.
 
-The workflow opens a pull request replacing every mechanical `aviendha`/`Aviendha` identifier with your repository's name — CSS class prefixes (`aviendha-header`, `aviendha-eyebrow`, …), the PHP namespace and `aviendha_*` function prefix, the text domain, the PHPCS prefix rule, the Composer and npm package names, and the logo SVG filenames. Review the PR and merge it.
+The workflow opens a pull request replacing every mechanical `aviendha`/`Aviendha` identifier with your repository's name — CSS class prefixes (`aviendha-header`, `aviendha-eyebrow`, …), the PHP namespace and `aviendha_*` function prefix, the text domain, the PHPCS prefix rule, the Composer and npm package names, and the logo SVG filenames. Review the PR and merge it. It carries no CI checks: pull requests opened with the default `GITHUB_TOKEN` don't trigger workflow runs, so Theme Check and WPCS first run on the push to `main` once you merge.
 
 If the run fails to open a pull request, enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** in the new repository and run it again.
 
@@ -55,6 +55,7 @@ A single-word repository name (`ixian`) maps cleanly. A hyphenated one (`blue-de
 The rename deliberately skips this README, `CHANGELOG.md`, `readme.txt` and the agent guides, which should still name Aviendha as the theme's lineage. Finish the fork by hand:
 
 - Rewrite `README.md`, `readme.txt` and `CHANGELOG.md` for the new theme, and reset the version to `1.0.0` in `style.css`, `readme.txt`, `package.json` and `CHANGELOG.md`
+- **Repoint the logo paths in those skipped files.** The workflow renames `assets/logos/aviendha-rose-*.svg` but not the references to them, so the README's header image (`<img src="assets/logos/aviendha-rose-primary.svg">`) renders broken, and the credits section of `readme.txt` — which *does* ship in the theme zip — cites paths that no longer exist.
 - Update the `style.css` header — Theme Name, Theme URI, Description, Tags
 - Replace `screenshot.png` and the rose mark in `assets/logos/` (the workflow renames those files but cannot redraw them)
 - Give the theme its own palette in `theme.json`, or add a `styles/*.json` variation
