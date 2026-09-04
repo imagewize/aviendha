@@ -37,6 +37,41 @@ add their own `patterns/` directory the moment they diverge from "no patterns," 
 [Pattern validation](#pattern-validation) under Development) so a fork gets a working `npm run
 validate` the moment it adds a `patterns/` directory, without having to remember to set it up.
 
+## Forking Aviendha
+
+This repo is a GitHub **template repository**, and `.github/workflows/template-rename.yml` does the
+mechanical half of a fork: it runs `kota65535/github-template-rename-action`, which replaces every
+`aviendha`/`Aviendha` identifier with the new repository's name and renames the files carrying it.
+Ixian predates the workflow — its "Initial commit" is that rename done by hand.
+
+**It is `workflow_dispatch`, and that is not an oversight.** GitHub fires no workflow event when a
+repository is created from a template, so nothing can run automatically at creation time; a fork
+runs it once from its own Actions tab. `repository_created` is not a real Actions event — a
+workflow declaring it is simply never triggered.
+
+Two constraints shape `paths-ignore`, and neither should be relaxed casually:
+
+- **`.github/**` is excluded** so the default `GITHUB_TOKEN` suffices. Pushing changes to workflow
+  files requires a PAT with the `workflow` scope, which every fork would then have to provision —
+  a steep price for the single `aviendha` string in `theme-check.yml`.
+- **`README.md`, `CHANGELOG.md`, `readme.txt`, `AGENTS.md` and this file are excluded** because a
+  fork should still name Aviendha as its lineage, the way Ixian's do. Renaming them would rewrite
+  Aviendha's changelog history as though it were the fork's.
+
+`.distignore` and `.gitattributes` are deliberately *not* excluded — their `docs/aviendha/`
+comments should become `docs/<fork>/`.
+
+**Known gap: the rename moves `assets/logos/aviendha-rose-*.svg` but not the references to them,**
+which live in the excluded files. A fresh fork therefore has a broken README header image and a
+`readme.txt` credits section citing paths that no longer exist — and `readme.txt` ships in the zip.
+The README's fork checklist calls this out; keep the two in step if the workflow changes.
+
+Verified end to end on 2026-09-04 against a throwaway `imagewize/moiraine` created from this
+template: 27 files renamed, and the resulting tree passes PHP lint and PHPCS. That last part is the
+check worth repeating after any change here, because `phpcs.xml`'s prefix rule and the `aviendha_*`
+function names have to move together or the fork fails its own CI. Note that the rename PR itself
+carries no checks — pull requests opened with `GITHUB_TOKEN` do not trigger workflow runs.
+
 ## Architecture
 
 ### Design system (`theme.json`)
@@ -248,3 +283,4 @@ one large commit bundling unrelated changes. Makes history easier to review and 
 - `styles/*.json` — style variations
 - `assets/logos/` — rose logo mark (SVG, adapted from Lucide, ISC License)
 - `composer.json` / `phpcs.xml` — PHP lint/coding-standards tooling
+- `.github/workflows/template-rename.yml` — the fork rename (see [Forking Aviendha](#forking-aviendha))
