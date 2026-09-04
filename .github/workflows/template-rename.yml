@@ -1,0 +1,50 @@
+name: Rename theme from template
+
+# Aviendha is a template repository. "Use this template" copies this workflow into
+# the new repo but cannot run it — GitHub fires no workflow event on repository
+# creation — so run it by hand once from the fork's Actions tab:
+#
+#   Actions → Rename theme from template → Run workflow
+#
+# It opens a PR replacing every mechanical `aviendha`/`Aviendha` identifier with
+# the new repository's name: CSS class prefixes, the PHP namespace and function
+# prefix, the text domain, package names, and the logo SVG filenames.
+#
+# Prose that should keep naming Aviendha (README, CHANGELOG, readme.txt, the agent
+# guides) is left alone — see paths-ignore. Those files need a human rewrite anyway,
+# alongside the version reset, screenshot, logo artwork and theme.json palette.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rename:
+    # Guard against running this in Aviendha itself.
+    if: github.repository != 'imagewize/aviendha'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: kota65535/github-template-rename-action@v1.2.0
+        with:
+          # to-name defaults to this repository's name.
+          from-name: aviendha
+          pr-title: "Rename template to ${{ github.event.repository.name }}"
+          commit-message: "Rename theme slug and identifiers"
+          # .github/** is excluded so the default GITHUB_TOKEN suffices — pushing
+          # workflow file changes would require a PAT with the `workflow` scope.
+          paths-ignore: |
+            .github/**
+            README.md
+            CHANGELOG.md
+            readme.txt
+            CLAUDE.md
+            AGENTS.md
+            LICENSE.md
+            composer.lock
+            vendor/**
+            **/*.png
