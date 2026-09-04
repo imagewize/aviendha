@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.17.2
+Stable tag: 1.18.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,10 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.0 =
+* Added: `.github/workflows/template-rename.yml`. Aviendha is a GitHub template repository; run this workflow once from a new fork's Actions tab and it opens a PR renaming the CSS class prefixes, PHP namespace and function prefix, text domain, PHPCS prefix rule, package names and logo SVG filenames to the new repository's name. The README, changelog, readme.txt and agent guides are left alone so a fork still names Aviendha as its lineage.
+* Added: A "Forking this theme" section in README.md covering the one manual step and the checklist the rename cannot automate — version reset, screenshot, logo artwork and palette.
 
 = 1.17.2 =
 * Security: Bumped the `@imwz/wp-pattern-sentinel` dev dependency to 1.1.1, which pulls in a `js-yaml` fix for GHSA-5p4m-2wfm-xmqj, a quadratic CPU consumption (DoS) bug in `!!omap` YAML resolution. `js-yaml` is only used by sentinel's `--trellis` auto-discovery of `wordpress_sites.yml`; nothing in this theme's own runtime is affected.

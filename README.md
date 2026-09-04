@@ -42,6 +42,24 @@ Unlike Imagewize's [Elayne](https://github.com/imagewize/elayne) theme, Aviendha
 - **Style variations** — see `styles/` (e.g. `twilight.json`) for alternate color palettes on top of the same design system.
 - **No bundled patterns** — block-first composition. Core's own patterns stay registered, so the inserter is never empty; insert `aludra/*` blocks (or core blocks) directly into pages and templates, then add your own patterns as needed.
 
+## Forking this theme
+
+Aviendha is a GitHub [template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template). Press **Use this template → Create a new repository**, then in the new repo run **Actions → Rename theme from template → Run workflow**. GitHub fires no workflow event when a repository is created from a template, so this one step is manual; everything after it is not.
+
+The workflow opens a pull request replacing every mechanical `aviendha`/`Aviendha` identifier with your repository's name — CSS class prefixes (`aviendha-header`, `aviendha-eyebrow`, …), the PHP namespace and `aviendha_*` function prefix, the text domain, the PHPCS prefix rule, the Composer and npm package names, and the logo SVG filenames. Review the PR and merge it.
+
+If the run fails to open a pull request, enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** in the new repository and run it again.
+
+A single-word repository name (`ixian`) maps cleanly. A hyphenated one (`blue-desert`) yields `bluedesert_setup()` and `Theme Name: BlueDesert` — valid, but fix the human-readable name in `style.css` by hand.
+
+The rename deliberately skips this README, `CHANGELOG.md`, `readme.txt` and the agent guides, which should still name Aviendha as the theme's lineage. Finish the fork by hand:
+
+- Rewrite `README.md`, `readme.txt` and `CHANGELOG.md` for the new theme, and reset the version to `1.0.0` in `style.css`, `readme.txt`, `package.json` and `CHANGELOG.md`
+- Update the `style.css` header — Theme Name, Theme URI, Description, Tags
+- Replace `screenshot.png` and the rose mark in `assets/logos/` (the workflow renames those files but cannot redraw them)
+- Give the theme its own palette in `theme.json`, or add a `styles/*.json` variation
+- Add a `patterns/` directory if the fork needs one — the `@imwz/wp-pattern-sentinel` harness and the `npm run validate` scripts are already wired up for it
+
 ## Structure
 
 ```

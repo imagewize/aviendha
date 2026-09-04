@@ -2,6 +2,24 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.0] - 2026-09-04
+
+### Added
+- **Template-rename workflow for forks.** Aviendha is a GitHub template repository, but GitHub
+  fires no workflow event when a repository is created from a template, so a fork previously had
+  to rename ~335 `aviendha`/`Aviendha` identifiers by hand — the work that went into Ixian's first
+  commit. `.github/workflows/template-rename.yml` does it instead: run it once from the new repo's
+  Actions tab and `kota65535/github-template-rename-action` opens a PR replacing the CSS class
+  prefixes, the PHP namespace and `aviendha_*` function prefix, the text domain, the PHPCS prefix
+  rule, the Composer and npm package names, and the logo SVG filenames with the repository's own
+  name. `.github/**` is excluded from the rename so the default `GITHUB_TOKEN` suffices (pushing
+  workflow file changes would need a PAT with the `workflow` scope); the README, changelog,
+  `readme.txt` and agent guides are excluded because a fork should still name Aviendha as its
+  lineage, the way Ixian's do.
+- **"Forking this theme" section in the README** — the one manual step, what the workflow does and
+  does not rename, and the checklist that remains (version reset, screenshot, logo artwork,
+  palette).
+
 ## [1.17.2] - 2026-09-03
 
 ### Security
