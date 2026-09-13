@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.0
+Stable tag: 1.18.1
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,10 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.1 =
+* Fixed: The product review form's name and email fields overflowed their column on phones, giving single product pages a horizontal scrollbar at 360-414px.
+* Changed: The comment form fields on single posts declare `box-sizing: border-box` themselves instead of relying on core's block styles for it.
 
 = 1.18.0 =
 * Added: `.github/workflows/template-rename.yml`. Aviendha is a GitHub template repository; run this workflow once from a new fork's Actions tab and it opens a PR renaming the CSS class prefixes, PHP namespace and function prefix, text domain, PHPCS prefix rule, package names and logo SVG filenames to the new repository's name. The README, changelog, readme.txt and agent guides are left alone so a fork still names Aviendha as its lineage.
