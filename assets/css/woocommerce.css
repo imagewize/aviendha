@@ -236,6 +236,9 @@
 	background: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--preset--color--border-light);
 	border-radius: var(--wp--preset--border-radius--sm);
+	/* Keep padding and border inside the 100% width; with the default
+	   content-box the fields overflow the column on phones (~7px at 360px). */
+	box-sizing: border-box;
 	color: inherit;
 	font-family: inherit;
 	font-size: var(--wp--preset--font-size--small);
