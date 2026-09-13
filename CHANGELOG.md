@@ -9,6 +9,10 @@ All notable changes to Aviendha are documented in this file.
   (`assets/css/woocommerce.css`) set `width: 100%` plus padding and a border under the default
   `content-box` sizing, so the name and email fields ran 6-7px past their column and gave every
   single product page a horizontal scrollbar at 360-414px. They now use `box-sizing: border-box`.
+- **Post comment form fields set their own `box-sizing`.** The single post comment form's text,
+  email, URL and textarea fields (`style.css` §6.7) use the same `width: 100%` plus padding. They
+  did not overflow, because core's comments-form block styles already apply `border-box`, but the
+  theme rule now declares it itself rather than depending on that stylesheet.
 
 ## [1.18.0] - 2026-09-04
 

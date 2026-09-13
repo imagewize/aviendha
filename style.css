@@ -982,6 +982,10 @@ body .aviendha-header--dark .wp-block-site-logo {
 	background: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--custom--color--control-border);
 	border-radius: var(--wp--preset--border-radius--md);
+	/* Keep padding and border inside the 100% width. Core's comments-form
+	   block styles already set this, but without it the fields would overflow
+	   the column on phones, as the product review form's did. */
+	box-sizing: border-box;
 	color: var(--wp--preset--color--contrast);
 	font-family: var(--wp--preset--font-family--primary);
 	font-size: var(--wp--preset--font-size--base);
