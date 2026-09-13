@@ -2,6 +2,14 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.1] - 2026-09-13
+
+### Fixed
+- **Product review form overflowed on phones.** The review form's inputs, select and textarea
+  (`assets/css/woocommerce.css`) set `width: 100%` plus padding and a border under the default
+  `content-box` sizing, so the name and email fields ran 6-7px past their column and gave every
+  single product page a horizontal scrollbar at 360-414px. They now use `box-sizing: border-box`.
+
 ## [1.18.0] - 2026-09-04
 
 ### Added
