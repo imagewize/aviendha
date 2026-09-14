@@ -27,8 +27,12 @@ jobs:
     if: github.repository != 'imagewize/aviendha'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
+      # Pinned to its only release (2023, node16 runtime) — upstream has shipped
+      # nothing since and there's no newer tag to move to. GitHub runs node16/20
+      # actions on a newer Node transparently, so the deprecation warning this
+      # step prints is cosmetic; nothing to fix here until upstream releases one.
       - uses: kota65535/github-template-rename-action@v1.2.0
         with:
           # to-name defaults to this repository's name.
