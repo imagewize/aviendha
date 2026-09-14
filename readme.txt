@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.1
+Stable tag: 1.18.2
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.2 =
+* Added: `.agents/code-review.md` project rules and the portable `.agents/skills/code-review/SKILL.md` code-review skill (also usable by the Vibe CLI), plus a `.vibe/config.toml` read-only bash allowlist. Both directories are excluded from the release zip.
 
 = 1.18.1 =
 * Fixed: The product review form's name and email fields overflowed their column on phones, giving single product pages a horizontal scrollbar at 360-414px.

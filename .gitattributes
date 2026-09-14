@@ -1,6 +1,8 @@
 /node_modules export-ignore
 /vendor export-ignore
 /bin export-ignore
+/.agents export-ignore
+/.vibe export-ignore
 
 # Guards, not descriptions: docs/ and designs/ no longer exist here. Planning
 # documents and design mockups live in the private imagewize.com repo, under

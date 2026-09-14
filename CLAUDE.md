@@ -136,6 +136,9 @@ composer run wpcs:fix   # PHPCBF auto-fix
 `package.json` exists only for the pattern-validation harness below — it is not a build step, and
 ships no runtime JS.
 
+Project-specific code review rules (for the `/code-review` skill or Vibe) live in
+`.agents/code-review.md` — read that before reviewing a change here.
+
 ### Pattern validation
 
 Aviendha ships no patterns itself (see "Why no patterns" above), but carries the

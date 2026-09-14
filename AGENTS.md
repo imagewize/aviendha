@@ -35,6 +35,8 @@ from blocks (core blocks or the Aludra block library). It serves as the base for
 - No JS build pipeline. Activate by placing the folder in `wp-content/themes/aviendha/` and
   enabling it in WP Admin, or `wp theme activate aviendha`.
 - `composer install` then `composer run lint` / `composer run wpcs:scan` / `composer run wpcs:fix`.
+- Project-specific code review rules live in `.agents/code-review.md` — read that before reviewing
+  a change here.
 - Regenerate translations when strings change: `wp i18n make-pot . languages/aviendha.pot`.
 - **Testing unreleased changes: sync, don't release.** The theme is a pinned Composer dependency
   on the local demo site (`~/code/imagewize.com/demo`, subsite
