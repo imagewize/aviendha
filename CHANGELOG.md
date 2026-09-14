@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.2] - 2026-09-14
+
+### Added
+- **`.agents/` and `.vibe/` code review tooling.** Carries the portable
+  `.agents/skills/code-review/SKILL.md` skill (usable by the `/code-review` skill and by the Vibe
+  CLI) and a project-specific `.agents/code-review.md` rules file — the same pattern Aludra
+  already uses — plus a `.vibe/config.toml` read-only bash allowlist for Vibe. Both directories are
+  excluded from the release zip and source archives (`.distignore`, `.gitattributes`).
+
 ## [1.18.1] - 2026-09-13
 
 ### Fixed
