@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.2
+Stable tag: 1.18.3
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,10 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.3 =
+* Changed: The theme's wide width is now 1260px rather than 1360px, matching Elayne, so wide sections keep a comfortable margin on 1440px laptop screens instead of nearly touching the edges.
+* Changed: The minimum side padding is now 24px rather than 16px, so content sits further from the screen edge on phones.
 
 = 1.18.2 =
 * Added: `.agents/code-review.md` project rules and the portable `.agents/skills/code-review/SKILL.md` code-review skill (also usable by the Vibe CLI), plus a `.vibe/config.toml` read-only bash allowlist. Both directories are excluded from the release zip.
