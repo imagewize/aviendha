@@ -2,6 +2,20 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.3] - 2026-09-19
+
+### Changed
+- **`layout.wideSize` 1360px → 1260px, matching Elayne.** With the side padding capped
+  at 32px, a 1360px wide width left wide sections only about 40px from each edge on a 1440px
+  laptop and hit the bare 32px padding anywhere below about 1424px, so they read as touching the
+  screen edge. At 1260px they keep about 90px each side at 1440px and 126px at 1512px, and fall
+  back to bare padding only below about 1324px. This partly reverses 1.13.0, which widened the
+  layout for the shop archive's product cards; those cards come out about 20px narrower than
+  they did at 1360px, still wider than at 1200px.
+- **`content-padding` minimum 1rem → 1.5rem** (`clamp(1.5rem, 4vw, 2rem)`), the same value as the
+  `medium` spacing preset and as Elayne's root padding. Phones get 24px side
+  margins instead of 16px; the 32px maximum is unchanged.
+
 ## [1.18.2] - 2026-09-14
 
 ### Added

@@ -57,12 +57,12 @@
 				"control-border": "#8C8378"
 			},
 			"spacing": {
-				"content-padding": "clamp(1rem, 4vw, 2rem)"
+				"content-padding": "clamp(1.5rem, 4vw, 2rem)"
 			}
 		},
 		"layout": {
 			"contentSize": "720px",
-			"wideSize": "1360px"
+			"wideSize": "1260px"
 		},
 		"spacing": {
 			"blockGap": true,
