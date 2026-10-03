@@ -436,10 +436,35 @@
  * The track formula subtracts the gap WooCommerce assumed, so changing the gap
  * without changing this makes each track wider than a third of the row and
  * `auto-fill` drops to two columns. Three columns share two gaps, hence 2/3.
- * `columns-3` is the only variant the theme's templates use.
+ * `columns-3` is the only variant the theme's own templates use; the rest follow below.
  */
 .wc-block-product-template__responsive.columns-3 {
 	grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(33.3333% - var(--wp--preset--spacing--medium) * 2 / 3)), 1fr));
+}
+
+/*
+ * The other column counts WooCommerce offers, for the same reason: the block
+ * writes its own track formula for every `columns-N`, each one assuming the
+ * 1.25em gap, so any count the theme's own templates don't use fell back to it
+ * and `auto-fill` dropped a column — four products set to four columns showed
+ * three, then one. Aludra's store sections ask for four. N columns share N - 1
+ * gaps, so each track gives up (N - 1) / N of one gap. The 150px floor is the
+ * block's own, and is what folds these to two columns on a phone.
+ */
+.wc-block-product-template__responsive.columns-2 {
+	grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(50% - var(--wp--preset--spacing--medium) / 2)), 1fr));
+}
+
+.wc-block-product-template__responsive.columns-4 {
+	grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(25% - var(--wp--preset--spacing--medium) * 3 / 4)), 1fr));
+}
+
+.wc-block-product-template__responsive.columns-5 {
+	grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(20% - var(--wp--preset--spacing--medium) * 4 / 5)), 1fr));
+}
+
+.wc-block-product-template__responsive.columns-6 {
+	grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(16.6667% - var(--wp--preset--spacing--medium) * 5 / 6)), 1fr));
 }
 
 /*

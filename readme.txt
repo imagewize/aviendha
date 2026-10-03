@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.3
+Stable tag: 1.18.4
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.4 =
+* Fixed: Product grids set to two, four, five or six columns showed one column fewer than asked for.
 
 = 1.18.3 =
 * Changed: The theme's wide width is now 1260px rather than 1360px, matching Elayne, so wide sections keep a comfortable margin on 1440px laptop screens instead of nearly touching the edges.

@@ -2,6 +2,17 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.4] - 2026-10-03
+
+### Fixed
+- **Product grids with two, four, five or six columns dropped a column.** The theme replaced the grid
+  gap on `woocommerce/product-template` and rewrote the track formula to match, but only for
+  `columns-3`. Every other `columns-N` kept WooCommerce's formula, which assumes its own 20px gap,
+  so each track came out wider than 1/N of the row and `auto-fill` fitted one column fewer:
+  four products set to four columns showed three, then one. Added the matching rule for 2, 4, 5
+  and 6 columns. The theme's own templates are all three-column and are unaffected; the fix is for
+  patterns that ask for another count, such as Aludra's store product band.
+
 ## [1.18.3] - 2026-09-19
 
 ### Changed
