@@ -2,6 +2,20 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.19.0] - 2026-10-03
+
+### Added
+- **Store style variation (`styles/store.json`).** A light, editorial store look — warm cream page,
+  charcoal text and dark bands, rust-orange brand colour, Cormorant Garamond headings and Jost body
+  copy — mapped onto all 12 palette-contract slugs plus the optional `terracotta` and `sand-deep`,
+  so every Aludra block and the Aludra store patterns render in it without off-palette fallbacks.
+  Checked against WCAG AA (4.5:1, 3:1 for large text) on the Aludra store homepage, the shop archive and
+  a single product, on desktop and mobile. The orange is deliberately a deep one: the night hero lifts
+  its button fill toward white, and anything lighter than `#943A00` drops that button below 4.5:1.
+  Product add-to-cart buttons use the small radius instead of the pill.
+- Self-hosted Cormorant Garamond and Jost variable fonts under `assets/fonts/store/` (both OFL 1.1),
+  loaded only when the style is active.
+
 ## [1.18.4] - 2026-10-03
 
 ### Fixed

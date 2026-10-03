@@ -1,0 +1,93 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"title": "Store",
+	"version": 3,
+	"settings": {
+		"color": {
+			"palette": [
+				{ "name": "Base", "slug": "base", "color": "#FDFBF7" },
+				{ "name": "Tertiary", "slug": "tertiary", "color": "#EDE7D8" },
+				{ "name": "Border Light", "slug": "border-light", "color": "#E0D8C6" },
+				{ "name": "Contrast", "slug": "contrast", "color": "#1A1A1A" },
+				{ "name": "Main", "slug": "main", "color": "#1A1A1A" },
+				{ "name": "Primary", "slug": "primary", "color": "#943A00" },
+				{ "name": "Accent", "slug": "accent", "color": "#2D6A4F" },
+				{ "name": "Secondary", "slug": "secondary", "color": "#5E5852" },
+				{ "name": "Main Accent", "slug": "main-accent", "color": "#635D57" },
+				{ "name": "Primary Accent", "slug": "primary-accent", "color": "#FBEBDD" },
+				{ "name": "Primary Alt", "slug": "primary-alt", "color": "#6F2C00" },
+				{ "name": "White", "slug": "white", "color": "#FFFFFF" },
+				{ "name": "Terracotta", "slug": "terracotta", "color": "#A84300" },
+				{ "name": "Sand Deep", "slug": "sand-deep", "color": "#D9CBAE" }
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"name": "Primary",
+					"slug": "primary",
+					"fontFamily": "\"Jost\", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Jost",
+							"fontWeight": "100 900",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/store/jost-v20-latin-variable.woff2" ]
+						},
+						{
+							"fontFamily": "Jost",
+							"fontWeight": "100 900",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/store/jost-v20-latin-italic-variable.woff2" ]
+						}
+					]
+				},
+				{
+					"name": "Display",
+					"slug": "display",
+					"fontFamily": "\"Cormorant Garamond\", Georgia, serif",
+					"fontFace": [
+						{
+							"fontFamily": "Cormorant Garamond",
+							"fontWeight": "300 700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/store/CormorantGaramond-VariableFont_wght.woff2" ]
+						},
+						{
+							"fontFamily": "Cormorant Garamond",
+							"fontWeight": "300 700",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/store/CormorantGaramond-Italic-VariableFont_wght.woff2" ]
+						}
+					]
+				}
+			]
+		}
+	},
+	"styles": {
+		"blocks": {
+			"woocommerce/product-button": {
+				"border": {
+					"radius": "var(--wp--preset--border-radius--sm, 4px)"
+				}
+			}
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontWeight": "600",
+					"lineHeight": "1.15"
+				}
+			},
+			"button": {
+				"border": {
+					"radius": "var(--wp--preset--border-radius--sm, 4px)"
+				}
+			}
+		}
+	}
+}

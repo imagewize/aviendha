@@ -121,6 +121,15 @@ in the database, not in this theme — Aviendha ships no menu template part file
 Alternate color palettes layered on the same `theme.json` design system. `styles/twilight.json` is
 the example — a dark, rose-accented variant. Follow this pattern for future variations: override
 `settings.color.palette` (keep the same slugs) and any `styles` overrides needed, nothing else.
+`styles/store.json` additionally overrides the `primary` and `display` font families (self-hosted under
+`assets/fonts/store/`), which is the one permitted extension — a variation may change the type voice, but
+must keep the `primary` and `display` slugs the blocks reference.
+
+Two checks every variation must pass, learned the hard way: define **all 12** contract slugs (see
+`docs/aludra/PALETTE-CONTRACT.md` in imagewize.com), and check contrast against the Aludra store
+homepage — the night hero lifts its button fill toward white, so a `primary` lighter than about
+`#943A00`-equivalent drops that button below AA. Text on `main`/`primary`/`primary-alt`/`secondary`
+fills must be `base`, never `white` (`base` flips with the palette).
 
 ## Development
 

@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.4
+Stable tag: 1.19.0
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.19.0 =
+* Added: a Store style variation — cream, charcoal and rust-orange with Cormorant Garamond headings and Jost body copy — mapped onto the full palette contract so Aludra blocks and store patterns render in it. Fonts are self-hosted and load only with the style.
 
 = 1.18.4 =
 * Fixed: Product grids set to two, four, five or six columns showed one column fewer than asked for.
@@ -223,6 +226,20 @@ The MIT License is GPL-compatible.
 * License URI: https://scripts.sil.org/OFL
 * Used in: `assets/fonts/jetbrains-mono-variable.woff2`
 * Purpose: Mono font family (eyebrows/labels/metrics), self-hosted as a single variable-font file.
+
+= Cormorant Garamond =
+* License: SIL Open Font License, Version 1.1
+* Source: https://fonts.google.com/specimen/Cormorant+Garamond
+* License URI: https://scripts.sil.org/OFL
+* Used in: `assets/fonts/store/CormorantGaramond-VariableFont_wght.woff2` and `CormorantGaramond-Italic-VariableFont_wght.woff2`
+* Purpose: Display font family in the Store style variation, self-hosted as variable-font files.
+
+= Jost =
+* License: SIL Open Font License, Version 1.1
+* Source: https://fonts.google.com/specimen/Jost
+* License URI: https://scripts.sil.org/OFL
+* Used in: `assets/fonts/store/jost-v20-latin-variable.woff2` and `jost-v20-latin-italic-variable.woff2`
+* Purpose: Body font family in the Store style variation, self-hosted as variable-font files.
 
 The SIL Open Font License is GPL-compatible.
 
