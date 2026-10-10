@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.5] - 2026-10-10
+
+### Fixed
+- **The template rename workflow failed in every new fork.** `actions/checkout@v7` stores its token
+  as an http header and the rename action adds its own, so the push was rejected with
+  `Duplicate header: "Authorization"` and no rename PR was opened. The checkout step now sets
+  `persist-credentials: false`. Found creating Koffie; Ecotuin was renamed before the move to
+  checkout v7. Workflow only; nothing in the theme zip changes.
+
 ## [1.18.4] - 2026-10-03
 
 ### Fixed
