@@ -2,7 +2,7 @@
 
 All notable changes to Aviendha are documented in this file.
 
-## [Unreleased]
+## [1.18.5] - 2026-10-10
 
 ### Fixed
 - **The template rename workflow failed in every new fork.** `actions/checkout@v7` stores its token

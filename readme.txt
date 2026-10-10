@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.4
+Stable tag: 1.18.5
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.5 =
+* Fixed: The template rename workflow failed in new themes created from Aviendha; it now opens its rename pull request again. Nothing in the installed theme changes.
 
 = 1.18.4 =
 * Fixed: Product grids set to two, four, five or six columns showed one column fewer than asked for.
