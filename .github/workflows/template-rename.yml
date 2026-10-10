@@ -28,6 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # checkout@v7 persists its token as an http header; the rename action adds
+          # its own, and the push then fails with "Duplicate header: Authorization".
+          persist-credentials: false
 
       # Pinned to its only release (2023, node16 runtime) — upstream has shipped
       # nothing since and there's no newer tag to move to. GitHub runs node16/20
