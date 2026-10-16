@@ -46,7 +46,7 @@ from blocks (core blocks or the Aludra block library). It serves as the base for
   as the explicit third (source) argument — do **not** `cd` into the demo site first:
   ```bash
   SITE_ROOT=/Users/j/code/imagewize.com/demo/web/app \
-    bash ~/code/wp-ops/scripts/rsync-package-to-site.sh theme aviendha /Users/j/code/aviendha
+    bash ~/code/wp-ops/scripts/sync/rsync-package-to-site.sh theme aviendha /Users/j/code/aviendha
   ```
 
   **Critical — omitting that source argument wipes the theme.** The script defaults the source to
