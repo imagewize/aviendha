@@ -2,6 +2,11 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [Unreleased]
+
+### Changed
+- **`@imwz/wp-pattern-sentinel` bumped to `^1.2.2`.** Sentinel now resolves `echo esc_attr( __() )` and `wp_json_encode` translations inside block comment attributes instead of dropping them, which caused false validation failures.
+
 ## [1.18.5] - 2026-10-10
 
 ### Fixed
