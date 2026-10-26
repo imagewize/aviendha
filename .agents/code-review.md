@@ -4,7 +4,7 @@ Aviendha is a lean full-site-editing **starter theme**: no bundled patterns, no
 JS build step, no runtime Composer or npm dependencies. `theme.json`, the
 templates in `templates/`, and the style variations in `styles/` are the
 product. These rules are read by the `code-review` skill
-(`.agents/skills/code-review/SKILL.md`) and checked before its generic
+(`~/code/mistral-agents/skills/code-review`, via Vibe `skill_paths`) and checked before its generic
 checklists. They stand on their own; `CLAUDE.md` has more background but is
 not required.
 
