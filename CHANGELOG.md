@@ -2,6 +2,13 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.7] - 2026-10-26
+
+### Changed
+- **Version and release steps documented in `CLAUDE.md` and `AGENTS.md`.** Bump `package.json`
+  with `npm version X.Y.Z --no-git-tag-version`, which updates `package-lock.json` in the same step,
+  then tag and run `gh release create vX.Y.Z --verify-tag`. Never move a published tag.
+
 ## [1.18.6] - 2026-10-26
 
 ### Changed

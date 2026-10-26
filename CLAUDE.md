@@ -254,11 +254,30 @@ When updating the theme version, update **four files** in sync:
 1. **CHANGELOG.md** — add a new version section
 2. **readme.txt** — update `Stable tag` header and add a changelog entry
 3. **style.css** — update the `Version` header
-4. **package.json** — update `version`
+4. **package.json** — run `npm version X.Y.Z --no-git-tag-version`. It updates `package.json` and
+   the two matching `version` fields at the top of `package-lock.json` together, so the lockfile
+   cannot drift. Don't edit `package.json` by hand.
 
 `style.css` is the version WordPress actually reads, and the only one that affects an installed
 site; the other three keep the repo, the WP.org listing and the release tooling honest. Check all
-four before tagging.
+four before tagging. `composer.lock` holds no theme version, so a bump never touches it.
+
+### Releasing
+
+Once the version bump is on `main`:
+
+```bash
+git switch main && git pull --ff-only
+git tag vX.Y.Z && git push origin vX.Y.Z
+gh release create vX.Y.Z --verify-tag --title vX.Y.Z --notes "..."
+```
+
+- **Tag first, then release from the tag.** `gh release create --target` needs a branch name or a
+  full SHA; a short SHA is rejected with `tag_name is not a valid tag`.
+- Publishing the release runs `.github/workflows/create-release.yml`, which builds and attaches
+  `aviendha.zip` (see *Release packaging*).
+- **Never move or delete a published tag.** Packagist, Composer caches and anyone who already
+  installed it keep the old commit. Ship a new patch version instead.
 
 **License:** Aviendha uses the GNU GPL v3 (or later) (see `LICENSE.md`), matching Aludra, Elayne and Ixian.
 
