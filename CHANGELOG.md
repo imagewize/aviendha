@@ -2,9 +2,13 @@
 
 All notable changes to Aviendha are documented in this file.
 
-## [Unreleased]
+## [1.18.6] - 2026-10-26
 
 ### Changed
+- **The `code-review` skill is no longer copied into the theme.** `.agents/skills/code-review/` was an
+  identical copy of `imagewize/mistral-agents` `skills/code-review`; Vibe now loads it from there via
+  `skill_paths`. The project rules in `.agents/code-review.md` stay. Dev tooling only; nothing in the theme
+  zip changes.
 - **`@imwz/wp-pattern-sentinel` bumped to `^1.2.2`.** Sentinel now resolves `echo esc_attr( __() )` and `wp_json_encode` translations inside block comment attributes instead of dropping them, which caused false validation failures.
 
 ## [1.18.5] - 2026-10-10
