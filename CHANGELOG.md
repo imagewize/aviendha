@@ -2,6 +2,25 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.8] - 2026-11-08
+
+Ported from Winespring 1.9.2, which addressed WordPress.org theme review notes.
+
+### Fixed
+- **Header menu stays on one line.** The inline menu's top-level list and labels no longer wrap.
+  With no menu assigned, core's page-list fallback lists every page, so it now collapses to the
+  hamburger at every width instead of wrapping onto several rows.
+- **Pagination spacing.** Query pagination now sits `large` below the content and `x-large` above
+  the footer, instead of flush against it.
+
+### Changed
+- **Pagination styled as a theme control.** Pill-shaped page numbers and previous/next links with
+  arrows; the current page is filled in `contrast` on `base`. Below 600px previous/next become
+  arrow-only, keeping their accessible names.
+- **Footer layout.** Two rows: the site title and tagline beside a right-aligned, wrapping menu,
+  then a hairline and credits. Uses the site title block instead of a hardcoded "Aviendha", drops
+  the hardcoded year, lists top-level menu items only, and stacks below 782px.
+
 ## [1.18.7] - 2026-10-26
 
 ### Changed

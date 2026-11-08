@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.7
+Stable tag: 1.18.8
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,12 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.8 =
+* Fixed: the header menu stays on one line; with no menu assigned, the page-list fallback uses the hamburger at every width.
+* Fixed: pagination has space above and below it instead of sitting against the footer.
+* Changed: pagination is styled as pill-shaped page links with arrows, and turns arrow-only on phones.
+* Changed: the footer is laid out in two rows (site title, tagline and menu, then credits) and uses the site title instead of a hardcoded name.
 
 = 1.18.7 =
 * Changed: development documentation only (version and release steps). Nothing in the installed theme changes.
