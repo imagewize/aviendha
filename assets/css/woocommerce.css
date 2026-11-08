@@ -230,7 +230,7 @@
 	margin-bottom: var(--wp--preset--spacing--x-small);
 }
 
-.wp-block-woocommerce-product-review-form .comment-form input:not([type="submit"]),
+.wp-block-woocommerce-product-review-form .comment-form input:not([type="submit"], [type="checkbox"]),
 .wp-block-woocommerce-product-review-form .comment-form select,
 .wp-block-woocommerce-product-review-form .comment-form textarea {
 	background: var(--wp--preset--color--base);
@@ -255,6 +255,25 @@
 	display: inline-block;
 	font-size: var(--wp--preset--font-size--small);
 	margin-bottom: 0.35em;
+}
+
+/* "Save my name, email…" consent row: the checkbox sits inline with its label
+ * at its natural size, and the label wraps only when it no longer fits. */
+.wp-block-woocommerce-product-review-form .comment-form .comment-form-cookies-consent {
+	align-items: flex-start;
+	display: flex;
+	gap: 0.6em;
+}
+
+.wp-block-woocommerce-product-review-form .comment-form .comment-form-cookies-consent input[type="checkbox"] {
+	flex: none;
+	height: 1.1em;
+	margin: 0.2em 0 0;
+	width: 1.1em;
+}
+
+.wp-block-woocommerce-product-review-form .comment-form .comment-form-cookies-consent label {
+	margin-bottom: 0;
 }
 
 .wp-block-woocommerce-product-review-form .comment-form .required {

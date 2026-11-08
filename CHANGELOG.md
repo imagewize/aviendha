@@ -2,6 +2,15 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [Unreleased]
+
+### Fixed
+- **Review form consent checkbox.** The "Save my name, email, and website in this browser…"
+  checkbox on the product review form was stretched by the form's `width: 100%` input rule and
+  pushed the label to the far right. Checkboxes are now excluded from that rule, and the consent
+  row lays out inline at the checkbox's natural size, with the label on one line when it fits.
+  Ported from Winespring.
+
 ## [1.18.8] - 2026-11-08
 
 Ported from Winespring 1.9.2, which addressed WordPress.org theme review notes.
