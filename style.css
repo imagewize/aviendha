@@ -7,7 +7,7 @@ Description: Aviendha is a lean full-site-editing starter theme for WordPress. I
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Version: 1.18.7
+Version: 1.18.8
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: aviendha
@@ -44,6 +44,7 @@ Aviendha is distributed under the terms of the GNU GPL v3 (or later).
  *    6.6 Related posts
  *    6.7 Comments
  *    6.8 Reading-progress bar
+ * 7. Pagination
  */
 
 /* -------------------------------------------------------------------------
@@ -323,10 +324,11 @@ body .aviendha-header--dark .wp-block-site-logo {
  *
  * Once the navigation goes inline at 1024px+, that same order would put the
  * link row after the icons and CTA, which reads backwards for a desktop
- * masthead — so only there, pull it back in front with `order`.
+ * masthead — so only there, pull it back in front with `order`. The page-list
+ * fallback stays a hamburger at every width (§2.7), so it keeps its place.
  */
 @media (min-width: 1024px) {
-	.aviendha-header__actions .wp-block-navigation {
+	.aviendha-header__actions .wp-block-navigation:not(:has(.wp-block-page-list)) {
 		order: -1;
 	}
 }
@@ -359,6 +361,52 @@ body .aviendha-header--dark .wp-block-site-logo {
 	}
 
 	.aviendha-header .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: flex;
+	}
+}
+
+/*
+ * Keep the inline menu on one line.
+ *
+ * Core lets the top-level list wrap, so a menu wider than the space beside the
+ * wordmark broke into two or three rows and the masthead grew with it. The
+ * header is built for a short, curated menu, so hold the list and each label
+ * on a single line instead.
+ */
+@media (min-width: 1024px) {
+	.aviendha-header .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container {
+		flex-wrap: nowrap;
+	}
+
+	.aviendha-header .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-item__content {
+		white-space: nowrap;
+	}
+
+	.aviendha-header .wp-block-site-title {
+		white-space: nowrap;
+	}
+}
+
+/*
+ * No menu assigned: collapse to the hamburger at every width.
+ *
+ * Until a menu is chosen, core fills the navigation block with a page list —
+ * every published page, nested or not. That list has no upper bound (a site
+ * with the Theme Unit Test data has two dozen top-level pages), so no
+ * breakpoint can keep it on one line beside the wordmark. The page list is the
+ * one case we can detect in CSS (`.wp-block-page-list` only renders for it), so
+ * route it to the overlay, which handles any length. Once a menu is assigned,
+ * the inline menu above takes over again.
+ *
+ * Same two declarations as the tablet band above, applied from 600px up.
+ * Where `:has()` is unsupported the fallback simply stays inline.
+ */
+@media (min-width: 600px) {
+	.aviendha-header .wp-block-navigation:has(.wp-block-page-list) .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+		display: none;
+	}
+
+	.aviendha-header .wp-block-navigation:has(.wp-block-page-list) .wp-block-navigation__responsive-container-open:not(.always-shown) {
 		display: flex;
 	}
 }
@@ -459,30 +507,65 @@ body .aviendha-header--dark .wp-block-site-logo {
  * 3. Footer
  * ------------------------------------------------------------------------- */
 
-/* Match redesign mockup */
+/*
+ * Two rows: the brand (site title and tagline) with the footer menu beside it,
+ * then a hairline and the credits. Both rows are core flex groups that wrap, so
+ * the layout holds at any width; the rules below only set proportions and
+ * colour, and stack the rows on narrow screens (§3.1).
+ *
+ * The site title and tagline are blocks rather than literal text, so the footer
+ * names whatever site it is installed on.
+ */
 .foot {
-	background-color: var(--wp--preset--color--tertiary);
-}
-
-.foot .shell {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5rem;
-	justify-content: space-between;
-	align-items: center;
-	font-size: 0.85rem;
 	color: var(--wp--preset--color--secondary);
 }
 
+.foot__top {
+	gap: var(--wp--preset--spacing--medium);
+}
+
+.foot__brand {
+	flex: 0 1 18rem;
+	gap: 0.35rem;
+}
+
+.foot__brand .wp-block-site-title {
+	color: var(--wp--preset--color--contrast);
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--medium);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.foot__brand .wp-block-site-tagline {
+	margin: 0;
+}
+
+.foot__brand .wp-block-site-tagline:empty {
+	display: none;
+}
+
+/*
+ * The menu takes the space the brand leaves and wraps inside it, so a long
+ * menu — or the page-list fallback on a site with no menu assigned — becomes a
+ * tidy right-aligned block rather than running the full width of the footer.
+ */
 .foot .wp-block-navigation {
+	flex: 1 1 24rem;
 	margin: 0;
 	padding: 0;
 }
 
-.foot .wp-block-navigation__container {
+.foot .wp-block-navigation__container,
+.foot .wp-block-navigation .wp-block-page-list {
+	column-gap: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 0.6rem;
+	justify-content: flex-end;
+	list-style: none;
 	margin: 0;
 	padding: 0;
-	list-style: none;
 }
 
 .foot .wp-block-navigation-item {
@@ -490,46 +573,69 @@ body .aviendha-header--dark .wp-block-site-logo {
 	padding: 0;
 }
 
+/*
+ * The footer lists top-level items only. Child pages stay reachable through
+ * the header menu; in a footer a dropdown opening above the fold of the page
+ * end reads as a glitch rather than a menu.
+ */
+.foot .wp-block-navigation__submenu-container,
+.foot .wp-block-navigation__submenu-icon,
+.foot .wp-block-page-list__submenu-icon {
+	display: none;
+}
+
 .foot a {
+	color: inherit;
 	text-decoration: none;
 }
 
-.foot a:hover {
+.foot a:hover,
+.foot a:focus-visible {
 	color: var(--wp--preset--color--primary);
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
 }
 
-/* 3.1 Mobile footer layout
+.foot__brand .wp-block-site-title a {
+	color: inherit;
+}
+
+.foot__bottom {
+	border-top: 1px solid var(--wp--preset--color--border-light);
+	gap: 0.5rem 1.5rem;
+	margin-top: var(--wp--preset--spacing--medium);
+	padding-top: var(--wp--preset--spacing--small);
+}
+
+.foot__bottom p {
+	margin: 0;
+}
+
+/* 3.1 Narrow footer layout
  * ------------------------------------------------------------------------- */
 
 /*
  * The footer navigation never collapses into a hamburger — the block itself
  * sets `overlayMenu: "never"` (see parts/footer.html), so core renders a plain
- * list at every width and emits no overlay markup. All that's left to do here
- * is stack the footer on narrow screens.
+ * list at every width and emits no overlay markup. Below tablet width the brand
+ * and menu stack, and the menu turns left-aligned under the brand.
+ *
+ * With no assigned menu the nav falls back to a page list, which core nests as
+ * `__container > .wp-block-page-list > li` — so both levels need the alignment.
  */
-@media (max-width: 600px) {
-	.foot .shell {
+@media (max-width: 781px) {
+	.foot__top {
 		flex-direction: column;
-		align-items: flex-start;
-		gap: 1rem;
 	}
 
-	/*
-	 * With no assigned menu the nav falls back to a page list, which core nests
-	 * as `__container > .wp-block-page-list > li` — so both levels need to
-	 * stack, not just the outer container.
-	 *
-	 * align-items is required too: core defaults `--navigation-layout-align` to
-	 * `center` for a row, and once the direction flips to column that variable
-	 * governs the horizontal axis, centering each link inside the nav's
-	 * shrink-to-fit width instead of aligning them left.
-	 */
+	.foot__brand,
+	.foot .wp-block-navigation {
+		flex-basis: auto;
+	}
+
 	.foot .wp-block-navigation__container,
 	.foot .wp-block-navigation .wp-block-page-list {
-		align-items: flex-start;
-		flex-direction: column;
-		gap: 0.5rem;
-		width: 100%;
+		justify-content: flex-start;
 	}
 }
 
@@ -1046,5 +1152,116 @@ body .aviendha-header--dark .wp-block-site-logo {
 @keyframes aviendha-read-progress {
 	to {
 		transform: scaleX(1);
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Pagination
+ *
+ * Core leaves query pagination as bare inline links: a "1 2 3" run of
+ * underlined numbers with the next link floating beside it. Give every page
+ * link — numbers and previous/next alike — the same pill shape the theme's
+ * buttons use, so the row reads as a control. The current page inverts the
+ * body text pair — `contrast` fill, `base` text — which every style variation
+ * already has to keep legible, light palette or dark (Twilight).
+ *
+ * The row also gets real space above and below. Without it the last post sat
+ * a few pixels over the numbers and the numbers flush on the footer, since
+ * `main` carries no bottom padding of its own. Set here rather than as block
+ * margin attributes, which query-pagination does not render on the front end.
+ * ------------------------------------------------------------------------- */
+
+.wp-block-query-pagination {
+	align-items: center;
+	font-size: var(--wp--preset--font-size--small);
+	gap: 0.5rem;
+	margin-block-start: var(--wp--preset--spacing--large);
+	/*
+	 * Padding, not margin: pagination is the query's last child, and core's
+	 * `:root :where(.is-layout-flow) > :last-child` zeroes its end margin with
+	 * more specificity than this selector has.
+	 */
+	padding-block-end: var(--wp--preset--spacing--x-large);
+}
+
+.wp-block-query-pagination-numbers {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	justify-content: center;
+}
+
+.wp-block-query-pagination .page-numbers,
+.wp-block-query-pagination .wp-block-query-pagination-previous,
+.wp-block-query-pagination .wp-block-query-pagination-next {
+	align-items: center;
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--pill);
+	box-sizing: border-box;
+	color: var(--wp--preset--color--contrast);
+	display: inline-flex;
+	gap: 0.4rem;
+	justify-content: center;
+	line-height: 1;
+	min-height: 2.5rem;
+	min-width: 2.5rem;
+	padding: 0 0.85rem;
+	text-decoration: none;
+	transition: border-color 0.15s, background-color 0.15s;
+}
+
+/* Core sets its own margin on the arrows, which would double the gap. */
+.wp-block-query-pagination .wp-block-query-pagination-previous-arrow,
+.wp-block-query-pagination .wp-block-query-pagination-next-arrow {
+	margin: 0;
+}
+
+.wp-block-query-pagination a.page-numbers:hover,
+.wp-block-query-pagination .wp-block-query-pagination-previous:hover,
+.wp-block-query-pagination .wp-block-query-pagination-next:hover {
+	background-color: var(--wp--preset--color--tertiary);
+	border-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-query-pagination .page-numbers.current {
+	background-color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	font-weight: 600;
+}
+
+.wp-block-query-pagination .page-numbers.dots {
+	border-color: transparent;
+	min-width: auto;
+	padding: 0 0.25rem;
+}
+
+/*
+ * On a phone the two text labels plus a run of numbers no longer fit on one
+ * row, and the control broke onto three. Below 600px the previous/next links
+ * become arrow-only circles the size of a page number. `font-size: 0` hides
+ * the label visually but leaves it in the accessibility tree, so the link keeps
+ * its accessible name ("Previous Page"); the arrow is `aria-hidden` in core's
+ * markup and gets its size back explicitly.
+ */
+@media (max-width: 599px) {
+	.wp-block-query-pagination .wp-block-query-pagination-previous,
+	.wp-block-query-pagination .wp-block-query-pagination-next {
+		font-size: 0;
+		padding: 0;
+	}
+
+	.wp-block-query-pagination .wp-block-query-pagination-previous-arrow,
+	.wp-block-query-pagination .wp-block-query-pagination-next-arrow {
+		font-size: var(--wp--preset--font-size--base);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-query-pagination .page-numbers,
+	.wp-block-query-pagination .wp-block-query-pagination-previous,
+	.wp-block-query-pagination .wp-block-query-pagination-next {
+		transition: none;
 	}
 }
