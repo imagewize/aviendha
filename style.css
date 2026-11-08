@@ -506,30 +506,65 @@ body .aviendha-header--dark .wp-block-site-logo {
  * 3. Footer
  * ------------------------------------------------------------------------- */
 
-/* Match redesign mockup */
+/*
+ * Two rows: the brand (site title and tagline) with the footer menu beside it,
+ * then a hairline and the credits. Both rows are core flex groups that wrap, so
+ * the layout holds at any width; the rules below only set proportions and
+ * colour, and stack the rows on narrow screens (§3.1).
+ *
+ * The site title and tagline are blocks rather than literal text, so the footer
+ * names whatever site it is installed on.
+ */
 .foot {
-	background-color: var(--wp--preset--color--tertiary);
-}
-
-.foot .shell {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5rem;
-	justify-content: space-between;
-	align-items: center;
-	font-size: 0.85rem;
 	color: var(--wp--preset--color--secondary);
 }
 
+.foot__top {
+	gap: var(--wp--preset--spacing--medium);
+}
+
+.foot__brand {
+	flex: 0 1 18rem;
+	gap: 0.35rem;
+}
+
+.foot__brand .wp-block-site-title {
+	color: var(--wp--preset--color--contrast);
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--medium);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.foot__brand .wp-block-site-tagline {
+	margin: 0;
+}
+
+.foot__brand .wp-block-site-tagline:empty {
+	display: none;
+}
+
+/*
+ * The menu takes the space the brand leaves and wraps inside it, so a long
+ * menu — or the page-list fallback on a site with no menu assigned — becomes a
+ * tidy right-aligned block rather than running the full width of the footer.
+ */
 .foot .wp-block-navigation {
+	flex: 1 1 24rem;
 	margin: 0;
 	padding: 0;
 }
 
-.foot .wp-block-navigation__container {
+.foot .wp-block-navigation__container,
+.foot .wp-block-navigation .wp-block-page-list {
+	column-gap: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 0.6rem;
+	justify-content: flex-end;
+	list-style: none;
 	margin: 0;
 	padding: 0;
-	list-style: none;
 }
 
 .foot .wp-block-navigation-item {
@@ -537,46 +572,69 @@ body .aviendha-header--dark .wp-block-site-logo {
 	padding: 0;
 }
 
+/*
+ * The footer lists top-level items only. Child pages stay reachable through
+ * the header menu; in a footer a dropdown opening above the fold of the page
+ * end reads as a glitch rather than a menu.
+ */
+.foot .wp-block-navigation__submenu-container,
+.foot .wp-block-navigation__submenu-icon,
+.foot .wp-block-page-list__submenu-icon {
+	display: none;
+}
+
 .foot a {
+	color: inherit;
 	text-decoration: none;
 }
 
-.foot a:hover {
+.foot a:hover,
+.foot a:focus-visible {
 	color: var(--wp--preset--color--primary);
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
 }
 
-/* 3.1 Mobile footer layout
+.foot__brand .wp-block-site-title a {
+	color: inherit;
+}
+
+.foot__bottom {
+	border-top: 1px solid var(--wp--preset--color--border-light);
+	gap: 0.5rem 1.5rem;
+	margin-top: var(--wp--preset--spacing--medium);
+	padding-top: var(--wp--preset--spacing--small);
+}
+
+.foot__bottom p {
+	margin: 0;
+}
+
+/* 3.1 Narrow footer layout
  * ------------------------------------------------------------------------- */
 
 /*
  * The footer navigation never collapses into a hamburger — the block itself
  * sets `overlayMenu: "never"` (see parts/footer.html), so core renders a plain
- * list at every width and emits no overlay markup. All that's left to do here
- * is stack the footer on narrow screens.
+ * list at every width and emits no overlay markup. Below tablet width the brand
+ * and menu stack, and the menu turns left-aligned under the brand.
+ *
+ * With no assigned menu the nav falls back to a page list, which core nests as
+ * `__container > .wp-block-page-list > li` — so both levels need the alignment.
  */
-@media (max-width: 600px) {
-	.foot .shell {
+@media (max-width: 781px) {
+	.foot__top {
 		flex-direction: column;
-		align-items: flex-start;
-		gap: 1rem;
 	}
 
-	/*
-	 * With no assigned menu the nav falls back to a page list, which core nests
-	 * as `__container > .wp-block-page-list > li` — so both levels need to
-	 * stack, not just the outer container.
-	 *
-	 * align-items is required too: core defaults `--navigation-layout-align` to
-	 * `center` for a row, and once the direction flips to column that variable
-	 * governs the horizontal axis, centering each link inside the nav's
-	 * shrink-to-fit width instead of aligning them left.
-	 */
+	.foot__brand,
+	.foot .wp-block-navigation {
+		flex-basis: auto;
+	}
+
 	.foot .wp-block-navigation__container,
 	.foot .wp-block-navigation .wp-block-page-list {
-		align-items: flex-start;
-		flex-direction: column;
-		gap: 0.5rem;
-		width: 100%;
+		justify-content: flex-start;
 	}
 }
 
