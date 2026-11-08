@@ -2,7 +2,7 @@
 
 All notable changes to Aviendha are documented in this file.
 
-## [Unreleased]
+## [1.18.9] - 2026-11-08
 
 ### Fixed
 - **Review form consent checkbox.** The "Save my name, email, and website in this browser…"
