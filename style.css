@@ -44,6 +44,7 @@ Aviendha is distributed under the terms of the GNU GPL v3 (or later).
  *    6.6 Related posts
  *    6.7 Comments
  *    6.8 Reading-progress bar
+ * 7. Pagination
  */
 
 /* -------------------------------------------------------------------------
@@ -1151,5 +1152,116 @@ body .aviendha-header--dark .wp-block-site-logo {
 @keyframes aviendha-read-progress {
 	to {
 		transform: scaleX(1);
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Pagination
+ *
+ * Core leaves query pagination as bare inline links: a "1 2 3" run of
+ * underlined numbers with the next link floating beside it. Give every page
+ * link — numbers and previous/next alike — the same pill shape the theme's
+ * buttons use, so the row reads as a control. The current page inverts the
+ * body text pair — `contrast` fill, `base` text — which every style variation
+ * already has to keep legible, light palette or dark (Twilight).
+ *
+ * The row also gets real space above and below. Without it the last post sat
+ * a few pixels over the numbers and the numbers flush on the footer, since
+ * `main` carries no bottom padding of its own. Set here rather than as block
+ * margin attributes, which query-pagination does not render on the front end.
+ * ------------------------------------------------------------------------- */
+
+.wp-block-query-pagination {
+	align-items: center;
+	font-size: var(--wp--preset--font-size--small);
+	gap: 0.5rem;
+	margin-block-start: var(--wp--preset--spacing--large);
+	/*
+	 * Padding, not margin: pagination is the query's last child, and core's
+	 * `:root :where(.is-layout-flow) > :last-child` zeroes its end margin with
+	 * more specificity than this selector has.
+	 */
+	padding-block-end: var(--wp--preset--spacing--x-large);
+}
+
+.wp-block-query-pagination-numbers {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	justify-content: center;
+}
+
+.wp-block-query-pagination .page-numbers,
+.wp-block-query-pagination .wp-block-query-pagination-previous,
+.wp-block-query-pagination .wp-block-query-pagination-next {
+	align-items: center;
+	border: 1px solid var(--wp--preset--color--border-light);
+	border-radius: var(--wp--preset--border-radius--pill);
+	box-sizing: border-box;
+	color: var(--wp--preset--color--contrast);
+	display: inline-flex;
+	gap: 0.4rem;
+	justify-content: center;
+	line-height: 1;
+	min-height: 2.5rem;
+	min-width: 2.5rem;
+	padding: 0 0.85rem;
+	text-decoration: none;
+	transition: border-color 0.15s, background-color 0.15s;
+}
+
+/* Core sets its own margin on the arrows, which would double the gap. */
+.wp-block-query-pagination .wp-block-query-pagination-previous-arrow,
+.wp-block-query-pagination .wp-block-query-pagination-next-arrow {
+	margin: 0;
+}
+
+.wp-block-query-pagination a.page-numbers:hover,
+.wp-block-query-pagination .wp-block-query-pagination-previous:hover,
+.wp-block-query-pagination .wp-block-query-pagination-next:hover {
+	background-color: var(--wp--preset--color--tertiary);
+	border-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-query-pagination .page-numbers.current {
+	background-color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	font-weight: 600;
+}
+
+.wp-block-query-pagination .page-numbers.dots {
+	border-color: transparent;
+	min-width: auto;
+	padding: 0 0.25rem;
+}
+
+/*
+ * On a phone the two text labels plus a run of numbers no longer fit on one
+ * row, and the control broke onto three. Below 600px the previous/next links
+ * become arrow-only circles the size of a page number. `font-size: 0` hides
+ * the label visually but leaves it in the accessibility tree, so the link keeps
+ * its accessible name ("Previous Page"); the arrow is `aria-hidden` in core's
+ * markup and gets its size back explicitly.
+ */
+@media (max-width: 599px) {
+	.wp-block-query-pagination .wp-block-query-pagination-previous,
+	.wp-block-query-pagination .wp-block-query-pagination-next {
+		font-size: 0;
+		padding: 0;
+	}
+
+	.wp-block-query-pagination .wp-block-query-pagination-previous-arrow,
+	.wp-block-query-pagination .wp-block-query-pagination-next-arrow {
+		font-size: var(--wp--preset--font-size--base);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-query-pagination .page-numbers,
+	.wp-block-query-pagination .wp-block-query-pagination-previous,
+	.wp-block-query-pagination .wp-block-query-pagination-next {
+		transition: none;
 	}
 }
