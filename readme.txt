@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.10
+Stable tag: 1.18.11
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.11 =
+* Fixed: the GitHub release zip now wraps the theme in its own `aviendha/` folder, so uploading it on WordPress 7.1.4 or later no longer installs the theme in a randomly named folder.
 
 = 1.18.10 =
 * Twilight style variation: the single-post sidebar CTA button keeps readable text on hover.
