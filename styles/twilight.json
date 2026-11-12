@@ -56,6 +56,7 @@
 					"background": "var(--wp--preset--color--primary)"
 				}
 			}
-		}
+		},
+		"css": "body.single .aviendha-aside-cta .wp-block-button__link:hover{background-color:var(--wp--preset--color--contrast)!important;color:var(--wp--preset--color--base)!important}"
 	}
 }
