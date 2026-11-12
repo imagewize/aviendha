@@ -4,7 +4,7 @@ Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, ed
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.18.9
+Stable tag: 1.18.10
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.10 =
+* Twilight style variation: the single-post sidebar CTA button keeps readable text on hover.
 
 = 1.18.9 =
 * Fixed: the "Save my name, email, and website" checkbox on the product review form is no longer stretched, and sits inline with its label.

@@ -2,6 +2,18 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.10] - 2026-11-12
+
+### Fixed
+- **Twilight: unreadable sidebar CTA hover on single posts (1.9:1).** The hover rule in `style.css`
+  (§6.5) turns the button white with `main` text. That works in the default palette (`main` is
+  near-black, 16.5:1), but Twilight's `main` is the light pink `#FDA4AF`, so the hover showed pink
+  on white. Twilight now sets that hover to `contrast` on `base` text (cream `#FAF7F2` with
+  `#211C1A`, 15.8:1) in a `css` rule (with `!important`, like the base rule, and one element more
+  specific so it wins). The default palette is untouched. Checked every other text/background pair
+  in the parts and templates, the dark header and its CTA hover, and the footer (14.3:1) in
+  Twilight; they all pass.
+
 ## [1.18.9] - 2026-11-08
 
 ### Fixed
