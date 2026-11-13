@@ -47,13 +47,16 @@ add_filter( 'default_wp_template_part_areas', __NAMESPACE__ . '\aviendha_templat
 
 /**
  * Enqueue theme styles.
+ *
+ * Versioned by file time, like woocommerce.css below: with the theme version the
+ * URL stays the same while style.css is edited, so browsers keep the old file.
  */
 function aviendha_enqueue_styles() {
 	wp_enqueue_style(
 		'aviendha-style',
 		get_template_directory_uri() . '/style.css',
 		array(),
-		wp_get_theme()->get( 'Version' )
+		(string) filemtime( get_template_directory() . '/style.css' )
 	);
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\aviendha_enqueue_styles' );

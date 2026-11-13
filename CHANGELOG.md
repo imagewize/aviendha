@@ -2,6 +2,16 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.12] - 2026-11-13
+
+### Fixed
+- **`style.css` versioned by file time.** `aviendha_enqueue_styles()` passed the theme version, so the
+  stylesheet URL (`style.css?ver=1.18.11`) stayed the same while the file was edited and browsers kept
+  the cached copy: a correct CSS fix looked broken until a hard reload. Every fork inherits this. The
+  enqueue now passes `(string) filemtime( get_template_directory() . '/style.css' )`, the same pattern
+  the `woocommerce.css` enqueue already uses. From the Lindeboom fork (bakery demo), where a fixed
+  mobile-menu colour still showed the old one in the browser.
+
 ## [1.18.11] - 2026-11-12
 
 ### Fixed
