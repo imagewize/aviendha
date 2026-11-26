@@ -291,10 +291,16 @@ gh release create vX.Y.Z --verify-tag --title vX.Y.Z --notes "..."
 
 - **Tag first, then release from the tag.** `gh release create --target` needs a branch name or a
   full SHA; a short SHA is rejected with `tag_name is not a valid tag`.
+- **Release title = tag name.** Use `--title vX.Y.Z`, no suffix; a differing title makes the
+  Releases page look like two releases of one tag.
 - Publishing the release runs `.github/workflows/create-release.yml`, which builds and attaches
   `aviendha.zip` (see *Release packaging*).
-- **Never move or delete a published tag.** Packagist, Composer caches and anyone who already
-  installed it keep the old commit. Ship a new patch version instead.
+- **Never move or delete a published tag — and tag only after the bump is merged to `main`.**
+  Packagist, Composer caches and anyone who already installed it keep the old commit, and a
+  `composer update` run while the tag still points at the pre-merge commit bakes that SHA into
+  `composer.lock`'s source reference (Nov 26, 2026: `v1.18.13` briefly pointed at the pre-merge
+  commit, so the demo lock referenced it and production installed 1.18.12 files under a 1.18.13
+  lock). Re-tagging does not fix the lock. Ship a new patch version instead.
 
 **License:** Aviendha uses the GNU GPL v3 (or later) (see `LICENSE.md`), matching Aludra, Elayne and Ixian.
 
