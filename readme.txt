@@ -2,9 +2,9 @@
 Contributors: Rhand
 Tags: e-commerce, full-site-editing, custom-colors, custom-logo, custom-menu, editor-style, featured-images, grid-layout, template-editing, translation-ready, wide-blocks
 Requires at least: 6.6
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 8.0
-Stable tag: 1.18.12
+Stable tag: 1.18.13
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,9 @@ want to use the store templates.
 4. Install and activate WooCommerce for store functionality.
 
 == Changelog ==
+
+= 1.18.13 =
+* Changed: Tested up to 7.2. Verified on the demo `/aviendha/` subsite on 7.2-RC3 with Aludra active: all published pages render 200 with no PHP notices, the Site Editor canvas and post editor show 0 invalid blocks, the Twilight style variation lists in the style book, and the theme editor stylesheet applies in the canvas (inlined since 7.2). New `npm run test:browser` (tests/browser-check.js) repeats that pass.
 
 = 1.18.12 =
 * Fixed: style.css is versioned by its file time instead of the theme version, so browsers load an edited stylesheet straight away instead of a cached copy.
