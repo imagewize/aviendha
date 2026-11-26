@@ -35,6 +35,10 @@ from blocks (core blocks or the Aludra block library). It serves as the base for
 - No JS build pipeline. Activate by placing the folder in `wp-content/themes/aviendha/` and
   enabling it in WP Admin, or `wp theme activate aviendha`.
 - `composer install` then `composer run lint` / `composer run wpcs:scan` / `composer run wpcs:fix`.
+- `npm run test:browser` — Playwright pass over the demo `/aviendha/` subsite (front end, Site
+  Editor canvas + style book, post editor), see `tests/browser-check.js`. Needs the local-only
+  admin pass from seo-strategy's `tools/scripts/sentinel-local-admin.sh demo.imagewize.com`
+  (`~/.config/wp-sentinel/demo.imagewize.com-local.pass`). `tests/` is dist-excluded.
 - Project-specific code review rules live in `.agents/code-review.md` — read that before reviewing
   a change here.
 - Regenerate translations when strings change: `wp i18n make-pot . languages/aviendha.pot`.

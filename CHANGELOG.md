@@ -2,6 +2,27 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.13] - 2026-11-26
+
+### Changed
+- **`Tested up to` raised to WordPress 7.2.** Verified on the demo `/aviendha/` subsite
+  (`http://demo.imagewize.test/aviendha/`) running 7.2-RC3 with Aludra 2.44.0 active, working copy
+  synced (not released): all published pages (home, about, services, contact, shop, cart,
+  checkout, my-account, sample page, a post) return 200 with zero PHP notices/warnings in the
+  HTML; theme assets (style.css, conditional woocommerce.css, fonts) all 200; 17 block templates
+  and 10 template parts register; the Site Editor canvas renders the home template with 163
+  blocks and 0 invalid, the post editor 131 blocks and 0 invalid; the Twilight style variation
+  is registered and listed in the style book; the `add_editor_style( 'style.css' )` stylesheet
+  applies in the editor canvas (7.2 inlines it into the canvas iframe instead of linking it);
+  Warder's consent UI renders on the front end; `debug.log` shows nothing from the theme.
+  No theme code changes were needed for 7.2.
+
+### Added
+- **`npm run test:browser`** — `tests/browser-check.js`, a reusable Playwright pass over the demo
+  subsite (front end, Site Editor, style book, post editor; JSON report, exit 1 on page errors
+  or invalid blocks). Playwright comes with the `@imwz/wp-pattern-sentinel` dependency. `tests/`
+  is excluded from the release zip via `.distignore` / `.gitattributes`.
+
 ## [1.18.12] - 2026-11-13
 
 ### Fixed

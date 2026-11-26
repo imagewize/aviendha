@@ -166,6 +166,20 @@ sentinel --trellis --trellis-dir=$HOME/code/imagewize.com/trellis \
 
 Swap `--subsite=aviendha` for the fork's own subsite slug (e.g. `--subsite=ixian`).
 
+### Browser check
+
+`npm run test:browser` runs `tests/browser-check.js` (Playwright comes with the sentinel
+dependency — no separate install): the front end of the published demo pages (status, Aludra
+block markup, consent UI, console/page errors, failed requests), the Site Editor canvas
+(block count, invalid blocks, theme editor stylesheet in the canvas frames — WP 7.2 inlines
+it instead of linking it), the style book (style variations listed), and the post editor for
+the home page. Login uses the local-only admin from seo-strategy's
+`tools/scripts/sentinel-local-admin.sh demo.imagewize.com`
+(`~/.config/wp-sentinel/demo.imagewize.com-local.pass`, or set `WP_PASS`); override the
+target with `DEMO_BASE` / `DEMO_SUBSITE` / `DEMO_HOME_ID`. Prints a JSON report and exits 1
+on page errors or invalid blocks. `tests/` is excluded from the release zip via
+`.distignore` and `.gitattributes`.
+
 ### Where docs and design mockups live
 
 **Not in this repo.** Planning documents, roadmaps and HTML design mockups belong in the

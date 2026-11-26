@@ -1,6 +1,7 @@
 /node_modules export-ignore
 /vendor export-ignore
 /bin export-ignore
+/tests export-ignore
 /.agents export-ignore
 /.vibe export-ignore
 

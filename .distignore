@@ -23,6 +23,7 @@ package-lock.json
 
 # Tooling and scripts
 bin/*
+tests/*
 *.sh
 create-pr.sh
 phpcs.xml
