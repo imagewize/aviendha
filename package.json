@@ -1,6 +1,6 @@
 {
 	"name": "aviendha",
-	"version": "1.18.12",
+	"version": "1.18.13",
 	"description": "A lean full-site-editing starter theme for WordPress, designed to be forked and customized.",
 	"keywords": [
 		"WordPress",
@@ -16,7 +16,8 @@
 		"validate": "sentinel --log patterns/",
 		"validate:file": "sentinel",
 		"validate:new": "sentinel --cache --log patterns/",
-		"validate:clear-cache": "sentinel --clear-cache"
+		"validate:clear-cache": "sentinel --clear-cache",
+		"test:browser": "node tests/browser-check.js"
 	},
 	"dependencies": {
 		"@imwz/wp-pattern-sentinel": "^1.2.2"
