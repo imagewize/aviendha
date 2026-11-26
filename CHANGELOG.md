@@ -2,6 +2,17 @@
 
 All notable changes to Aviendha are documented in this file.
 
+## [1.18.14] - 2026-11-26
+
+### Changed
+- **Re-release of 1.18.13.** The `v1.18.13` tag was briefly pointed at the pre-merge commit
+  (`0fcf9c0`) and then moved to the merge commit. Packagist treats published stable versions as
+  immutable and blocked the move, so `v1.18.13` is permanently bound to `0fcf9c0` there —
+  and any `composer.lock` resolved in that window carries `0fcf9c0` as the source reference,
+  installing 1.18.12-era files under a 1.18.13 lock. `v1.18.14` carries the actual 7.2-tested
+  code (identical to the 1.18.13 branch content). The tag is never moved again; see AGENTS.md →
+  Releasing.
+
 ## [1.18.13] - 2026-11-26
 
 ### Changed
